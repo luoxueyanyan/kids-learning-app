@@ -125,6 +125,42 @@ body.learn-active .page-title .back-btn { padding: 4px 8px; font-size: 15px; }
 }
 .progress-text { font-size: 14px; margin-top: 8px; opacity: 0.9; }
 
+.daily-practice-card {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(245,87,108,0.3);
+  transition: transform 0.2s;
+}
+.daily-practice-card:active { transform: scale(0.97); }
+.dp-left { display: flex; align-items: center; gap: 10px; }
+.dp-icon { font-size: 36px; }
+.dp-info h3 { font-size: 17px; margin-bottom: 2px; }
+.dp-info p { font-size: 12px; opacity: 0.9; }
+.dp-right {
+  background: rgba(255,255,255,0.25);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.subject-tag {
+  display: inline-block;
+  background: var(--primary-light);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 /* 科目卡片 */
 .subject-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
 .subject-card {
@@ -789,6 +825,17 @@ body.subject-active .module-card .emoji { font-size: 28px; }
       <div class="progress-text" id="dailyText">已完成 0 / 6 个模块</div>
     </div>
 
+    <div class="daily-practice-card" onclick="startDailyPractice()">
+      <div class="dp-left">
+        <div class="dp-icon">🎯</div>
+        <div class="dp-info">
+          <h3>一日一练</h3>
+          <p id="dpStatus">每天6题，语数英各2题，挑战满分！</p>
+        </div>
+      </div>
+      <div class="dp-right" id="dpBtn">开始练习 ›</div>
+    </div>
+
     <div class="subject-cards">
       <div class="subject-card math" onclick="showPage('mathPage')">
         <div class="icon">🧮</div>
@@ -1099,6 +1146,15 @@ body.subject-active .module-card .emoji { font-size: 28px; }
         <div class="status" id="eng_colours_status"></div>
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_colours')">📖</button>
       </div>
+      <div class="module-card" onclick="learnFirst('eng_look2')">
+        <div class="emoji">📘</div>
+        <div class="text">
+          <h4>Look 2 精练</h4>
+          <p>📚先学：Look 2 词汇+语法 → ✏️再练</p>
+        </div>
+        <div class="status" id="eng_look2_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_look2')">📖</button>
+      </div>
     </div>
   </div>
 
@@ -1204,7 +1260,7 @@ const DATA = {
       const a = rand(100, 500);
       const b = rand(100, 499);
       const ans = a + b;
-      return { q: `${a} + ${b} = ____`, answer: String(ans), inputMode: true, hint: '记得进位哦～' };
+return { q: `${a} + ${b} = ____`, answer: String(ans), inputMode: true, hint: '仔细算哦～' };
     }
   },
   math_sub: {
@@ -1213,7 +1269,7 @@ const DATA = {
       const b = rand(100, 400);
       const a = b + rand(50, 300);
       const ans = a - b;
-      return { q: `${a} - ${b} = ____`, answer: String(ans), inputMode: true, hint: '不够减要借位哦～' };
+return { q: `${a} - ${b} = ____`, answer: String(ans), inputMode: true, hint: '仔细算哦～' };
     }
   },
   math_mul: {
@@ -1222,39 +1278,39 @@ const DATA = {
       const a = rand(2, 5);
       const b = rand(2, 9);
       const ans = a * b;
-      return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: `${a}的乘法口诀～` };
+return { q: `${a} × ${b} \right] < /dev/null | = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
     }
   },
   math_word: {
     title: '🧩 趣味应用题',
     questions: [
-      { q: '🏫 学校图书馆有故事书 235 本，科普书比故事书多 168 本。故事书和科普书一共有多少本？', answer: '638', inputMode: true, hint: '先算科普书有多少，再加故事书' },
-      { q: '🍎 水果店运来 5 箱苹果，每箱 24 个。卖出了 78 个，还剩多少个？', answer: '42', inputMode: true, hint: '先算总共有多少个，再减卖出的' },
-      { q: '🍫 一盒巧克力有 8 块，妈妈买了 6 盒。分给小朋友 19 块后，还剩几块？', answer: '29', inputMode: true, hint: '先算一共几块，再减分出去的' },
-      { q: '🌳 公园里种了 3 排树，每排 8 棵。柳树有 12 棵，其余都是杨树，杨树有多少棵？', answer: '12', inputMode: true, hint: '先算一共多少棵，再减柳树' },
-      { q: '👧 三年级一班有 45 人，二班比一班少 7 人。两个班一共有多少人？', answer: '83', inputMode: true, hint: '先算二班有多少人，再加一班' },
-      { q: '✏️ 文具店上午卖出钢笔 156 支，下午卖出 89 支。店里原来有 400 支，还剩多少支？', answer: '155', inputMode: true, hint: '先算一共卖了多少支' },
-      { q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '这道题问的是多多少条' },
-      { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: '3', inputMode: true, hint: '4×6=24，24÷7=3…3' },
-      { q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '先算6辆共多少座位，再和260比较' },
-      { q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: '54', inputMode: true, hint: '先算小灰兔采了36÷2=18个' },
-      { q: '🎒 买一个书包 68 元，一个文具盒 25 元。小红付了 100 元，应找回多少元？', answer: '7', inputMode: true, hint: '先算一共花了多少元' },
-      { q: '🏃 学校运动会，三年级参加跑步的有 35 人，参加跳远的比跑步的多 18 人。同时参加两项的有 12 人，三年级至少有多少人参加了运动项目？', answer: '76', inputMode: true, hint: '先分别算跑步和跳远各多少人，再减重复的12人' },
+{ q: '🏫 学校图书馆有故事书 235 本，科普书比故事书多 168 本。故事书和科普书一共有多少本？', answer: '638', inputMode: true, hint: '动动脑筋～' },
+{ q: '🍎 水果店运来 5 箱苹果，每箱 24 个。卖出了 78 个，还剩多少个？', answer: '42', inputMode: true, hint: '动动脑筋～' },
+{ q: '🍫 一盒巧克力有 8 块，妈妈买了 6 盒。分给小朋友 19 块后，还剩几块？', answer: '29', inputMode: true, hint: '动动脑筋～' },
+{ q: '🌳 公园里种了 3 排树，每排 8 棵。柳树有 12 棵，其余都是杨树，杨树有多少棵？', answer: '12', inputMode: true, hint: '动动脑筋～' },
+{ q: '👧 三年级一班有 45 人，二班比一班少 7 人。两个班一共有多少人？', answer: '83', inputMode: true, hint: '动动脑筋～' },
+{ q: '✏️ 文具店上午卖出钢笔 156 支，下午卖出 89 支。店里原来有 400 支，还剩多少支？', answer: '155', inputMode: true, hint: '动动脑筋～' },
+{ q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '看清问题哦～' },
+{ q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: '3', inputMode: true, hint: '动动脑筋～' },
+{ q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '动动脑筋～' },
+{ q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: '54', inputMode: true, hint: '动动脑筋～' },
+{ q: '🎒 买一个书包 68 元，一个文具盒 25 元。小红付了 100 元，应找回多少元？', answer: '7', inputMode: true, hint: '动动脑筋～' },
+{ q: '🏃 学校运动会，三年级参加跑步的有 35 人，参加跳远的比跑步的多 18 人。同时参加两项的有 12 人，三年级至少有多少人参加了运动项目？', answer: '76', inputMode: true, hint: '动动脑筋～' },
     ]
   },
   math_pattern: {
     title: '🔮 找规律大师',
     questions: [
-      { q: '2, 4, 6, 8, ?, 12 — 问号处填什么？', answer: '10', inputMode: true, hint: '每次加2' },
-      { q: '1, 3, 5, 7, ?, 11 — 问号处填什么？', answer: '9', inputMode: true, hint: '每次加2' },
-      { q: '5, 10, 15, 20, ? — 问号处填什么？', answer: '25', inputMode: true, hint: '每次加5' },
-      { q: '3, 6, 9, 12, ? — 问号处填什么？', answer: '15', inputMode: true, hint: '每次加3' },
-      { q: '100, 90, 80, 70, ? — 问号处填什么？', answer: '60', inputMode: true, hint: '每次减10' },
-      { q: '10, 20, 30, 40, ? — 问号处填什么？', answer: '50', inputMode: true, hint: '每次加10' },
-      { q: '1, 4, 7, 10, ? — 问号处填什么？', answer: '13', inputMode: true, hint: '每次加3' },
-      { q: '25, 20, 15, 10, ? — 问号处填什么？', answer: '5', inputMode: true, hint: '每次减5' },
-      { q: '2, 5, 8, 11, ? — 问号处填什么？', answer: '14', inputMode: true, hint: '每次加3' },
-      { q: '50, 45, 40, 35, ? — 问号处填什么？', answer: '30', inputMode: true, hint: '每次减5' },
+{ q: '2, 4, 6, 8, ?, 12 — 问号处填什么？', answer: '10', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '1, 3, 5, 7, ?, 11 — 问号处填什么？', answer: '9', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '5, 10, 15, 20, ? — 问号处填什么？', answer: '25', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '3, 6, 9, 12, ? — 问号处填什么？', answer: '15', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '100, 90, 80, 70, ? — 问号处填什么？', answer: '60', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '10, 20, 30, 40, ? — 问号处填什么？', answer: '50', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '1, 4, 7, 10, ? — 问号处填什么？', answer: '13', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '25, 20, 15, 10, ? — 问号处填什么？', answer: '5', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '2, 5, 8, 11, ? — 问号处填什么？', answer: '14', inputMode: true, hint: '看看相邻两个数的差～' },
+{ q: '50, 45, 40, 35, ? — 问号处填什么？', answer: '30', inputMode: true, hint: '看看相邻两个数的差～' },
     ]
   },
   math_mixed: {
@@ -1267,7 +1323,7 @@ const DATA = {
           const b = rand(2, 5), c = rand(2, 9), a = rand(10, 50);
           ans = a + b * c;
           q = `${a} + ${b} × ${c} = ?`;
-          hint = '先算乘法哦～';
+hint: '注意运算顺序哦～';
           break;
         }
         case 1: { // a × b + c
@@ -1290,28 +1346,28 @@ const DATA = {
           const a = product + rand(5, 30);
           ans = a - product;
           q = `${a} - ${b} × ${c} = ?`;
-          hint = '先算乘法，再减～';
+hint: '注意运算顺序哦～';
           break;
         }
         case 4: { // (a + b) × c  有括号
           const a = rand(2, 8), b = rand(2, 8), c = rand(2, 5);
           ans = (a + b) * c;
           q = `(${a} + ${b}) × ${c} = ?`;
-          hint = '先算括号里面的哦～';
+hint: '注意运算顺序哦～';
           break;
         }
         case 5: { // a × b + c × d
           const a = rand(2, 4), b = rand(2, 5), c = rand(2, 4), d = rand(2, 5);
           ans = a * b + c * d;
           q = `${a} × ${b} + ${c} × ${d} = ?`;
-          hint = '两边的乘法都要先算哦～';
+hint: '注意运算顺序哦～';
           break;
         }
         case 6: { // a + b ÷ c  含除法
           const c = rand(2, 5), b = c * rand(2, 9), a = rand(10, 50);
           ans = a + b / c;
           q = `${a} + ${b} ÷ ${c} = ?`;
-          hint = '先算除法哦～';
+hint: '注意运算顺序哦～';
           break;
         }
         case 7: { // (a - b) × c  括号减法
@@ -1328,43 +1384,43 @@ const DATA = {
   math_logic: {
     title: '🧠 数学推理挑战',
     questions: [
-      { q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '被减数=减数+差，三个数的和=2×被减数', inputMode: true, fullAnswer: true },
-      { q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '大数=(和+差)÷2', inputMode: true },
-      { q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '小数=(和-差)÷2', inputMode: true },
-      { q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '小数=和÷(倍数+1)', inputMode: true },
-      { q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '大数=小数×倍数', inputMode: true },
-      { q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '先算5×3=15，再倒推', inputMode: true },
-      { q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '□×4=40-8=32', inputMode: true },
-      { q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '三个数的和=2×被减数', inputMode: true },
-      { q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '被除数=5×除数+3，被除数+除数=33', inputMode: true },
-      { q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '假设全是兔=32条腿，多了10条，鸡=10÷2', inputMode: true },
-      { q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '8只减去鸡的只数', inputMode: true },
-      { q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '对折2次=4层，中间剪一刀=4刀口+1', inputMode: true },
-      { q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '小数=(和-差)÷2', inputMode: true },
-      { q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '小数=和÷(倍数+1)', inputMode: true },
-      { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
+{ q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '画图试试～', inputMode: true, fullAnswer: true },
+{ q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '画图试试～', inputMode: true },
+{ q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '画图试试～', inputMode: true },
+{ q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '画图试试～', inputMode: true },
+{ q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '画图试试～', inputMode: true },
+{ q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '倒过来想一想～', inputMode: true },
+{ q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '倒过来想一想～', inputMode: true },
+{ q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '画图试试～', inputMode: true },
+{ q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '画图试试～', inputMode: true },
+{ q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '大胆假设试试～', inputMode: true },
+{ q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '大胆假设试试～', inputMode: true },
+{ q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '拿张纸试一试～', inputMode: true },
+{ q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '画图试试～', inputMode: true },
+{ q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '画图试试～', inputMode: true },
+{ q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '倒过来想一想～', inputMode: true }
     ]
   },
   math_time: {
     title: '⏰ 时分秒闯关',
     questions: [
-      { q: '1时=___分？', answer: '60', hint: '1时=60分', inputMode: true },
-      { q: '1分=___秒？', answer: '60', hint: '1分=60秒', inputMode: true },
-      { q: '2时=___分？', answer: '120', hint: '2×60=120', inputMode: true },
-      { q: '3分=___秒？', answer: '180', hint: '3×60=180', inputMode: true },
-      { q: '从8:00到8:45经过了___分？', answer: '45', hint: '45-0=45', inputMode: true },
-      { q: '从9:30到10:15经过了___分？', answer: '45', hint: '10:15-9:30=45分', inputMode: true },
-      { q: '一节课40分钟，8:20开始，___结束？', answer: '9:00', hint: '8:20+40分=9:00', inputMode: true },
-{ q: '小明7:50到校，迟到了10分钟，学校规定___到校？', answer: '8:00', hint: '7:50+10分=8:00，规定时间比迟到时间早10分', inputMode: true },
-      { q: '360秒=___分？', answer: '6', hint: '360÷60=6', inputMode: true },
-      { q: '2时30分=___分？', answer: '150', hint: '2×60+30=150', inputMode: true }
+{ q: '1时=___分？', answer: '60', hint: '想想时间单位～', inputMode: true },
+{ q: '1分=___秒？', answer: '60', hint: '想想时间单位～', inputMode: true },
+{ q: '2时=___分？', answer: '120', hint: '想想时间单位～', inputMode: true },
+{ q: '3分=___秒？', answer: '180', hint: '想想时间单位～', inputMode: true },
+{ q: '从8:00到8:45经过了___分？', answer: '45', hint: '算算时间差～', inputMode: true },
+{ q: '从9:30到10:15经过了___分？', answer: '45', hint: '算算时间差～', inputMode: true },
+{ q: '一节课40分钟，8:20开始，___结束？', answer: '9:00', hint: '算算时间差～', inputMode: true },
+{ q: '小明7:50到校，迟到了10分钟，学校规定___到校？', answer: '8:00', hint: '算算时间差～', inputMode: true },
+{ q: '360秒=___分？', answer: '6', hint: '想想时间单位～', inputMode: true },
+{ q: '2时30分=___分？', answer: '150', hint: '想想时间单位～', inputMode: true }
     ]
   },
   math_measure: {
     title: '📏 测量小达人',
     questions: [
-      { q: '1厘米=___毫米？', answer: '10', hint: '1厘米=10毫米', inputMode: true },
-      { q: '1分米=___厘米？', answer: '10', hint: '1分米=10厘米', inputMode: true },
+{ q: '1厘米=___毫米？', answer: '10', hint: '想想长度单位～', inputMode: true },
+{ q: '1分米=___厘米？', answer: '10', hint: '想想长度单位～', inputMode: true },
       { q: '1米=___分米？', answer: '10', hint: '1米=10分米', inputMode: true },
       { q: '1千米=___米？', answer: '1000', hint: '1千米=1000米', inputMode: true },
       { q: '1吨=___千克？', answer: '1000', hint: '1吨=1000千克', inputMode: true },
@@ -1726,6 +1782,62 @@ const DATA = {
       { q: '"How many?"是什么意思？', answer: '有多少个', hint: 'how many=多少个', inputMode: true },
     ]
   },
+  eng_look2: {
+    title: '📘 Look 2 精练',
+    questions: [
+      // Unit 1: What's your name? - be动词与代词
+      { q: '"She ___ a student." 填入正确的be动词', answer: 'is', hint: '她用is', inputMode: true },
+      { q: '"I ___ from China." 填入正确的be动词', answer: 'am', hint: 'I用am', inputMode: true },
+      { q: '"They ___ my friends." 填入正确的be动词', answer: 'are', hint: 'they用are', inputMode: true },
+      { q: '"___ you hungry?" 填入正确的be动词', answer: 'Are', hint: 'you用are', inputMode: true },
+      { q: '"He ___ not tall." 填入正确的be动词', answer: 'is', hint: 'he用is', inputMode: true },
+      // Unit 1: 指示代词
+      { q: '"___ is my book."（这个）填入英语', answer: 'This', hint: '近处用this', inputMode: true },
+      { q: '"___ are your shoes."（那些）填入英语', answer: 'Those', hint: '远处复数用those', inputMode: true },
+      // Unit 2: School things - have/has
+      { q: '"I ___ a pencil." 填入正确动词', answer: 'have', hint: 'I用have', inputMode: true },
+      { q: '"She ___ two brothers." 填入正确动词', answer: 'has', hint: 'She用has', inputMode: true },
+      { q: '"We ___ a big classroom." 填入正确动词', answer: 'have', hint: 'we用have', inputMode: true },
+      { q: '铅笔盒用英语怎么说？', answer: 'pencil case', hint: 'p开头', inputMode: true },
+      { q: '橡皮用英语怎么说？', answer: 'eraser', hint: 'e开头', inputMode: true },
+      { q: '尺子用英语怎么说？', answer: 'ruler', hint: 'r开头', inputMode: true },
+      // Unit 3: Family - Who疑问句
+      { q: '"___ is she?" "She is my sister." 填疑问词', answer: 'Who', hint: '问人用who', inputMode: true },
+      { q: '"___ old are you?" "I am nine." 填疑问词', answer: 'How', hint: '问年龄用how old', inputMode: true },
+      { q: '妈妈用英语怎么说？', answer: 'mother', hint: 'm开头，也可说mom', inputMode: true },
+      { q: '爸爸用英语怎么说？', answer: 'father', hint: 'f开头，也可说dad', inputMode: true },
+      { q: '姐姐/妹妹用英语怎么说？', answer: 'sister', hint: 's开头', inputMode: true },
+      { q: '哥哥/弟弟用英语怎么说？', answer: 'brother', hint: 'b开头', inputMode: true },
+      // Unit 4: Food - like/don't like & countable/uncountable
+      { q: '"I ___ apples."（喜欢）填入英语', answer: 'like', hint: '喜欢', inputMode: true },
+      { q: '"She ___ like fish."（不喜欢）填入两个词', answer: "doesn't", hint: "第三人称否定用doesn't", inputMode: true },
+      { q: '"Do you like ___?"（米饭，不可数）填入英语', answer: 'rice', hint: 'r开头，不可数名词', inputMode: true },
+      { q: '面包用英语怎么说？', answer: 'bread', hint: 'b开头，不可数', inputMode: true },
+      { q: '牛奶用英语怎么说？', answer: 'milk', hint: 'm开头，不可数', inputMode: true },
+      { q: '鸡蛋用英语怎么说？', answer: 'egg', hint: 'e开头，可数', inputMode: true },
+      { q: '鸡肉用英语怎么说？', answer: 'chicken', hint: 'c开头', inputMode: true },
+      // Unit 5: Animals - can/can't
+      { q: '"A bird ___ fly."（能）填入英语', answer: 'can', hint: '能、会', inputMode: true },
+      { q: '"A fish ___ walk."（不能）填入英语', answer: "can't", hint: '不能，cannot的缩写', inputMode: true },
+      { q: '"___ you swim?"（你能…吗）填入英语', answer: 'Can', hint: '问能力用can', inputMode: true },
+      { q: '大象用英语怎么说？', answer: 'elephant', hint: 'e开头', inputMode: true },
+      { q: '老虎用英语怎么说？', answer: 'tiger', hint: 't开头', inputMode: true },
+      { q: '长颈鹿用英语怎么说？', answer: 'giraffe', hint: 'g开头', inputMode: true },
+      // Unit 6: Places - there is/are &方位介词
+      { q: '"There ___ a park near my school." 填入正确词', answer: 'is', hint: '单数用is', inputMode: true },
+      { q: '"There ___ three books on the desk." 填入正确词', answer: 'are', hint: '复数用are', inputMode: true },
+      { q: '"The cat is ___ the box."（在…里面）填入介词', answer: 'in', hint: '在里面', inputMode: true },
+      { q: '"The ball is ___ the table."（在…下面）填入介词', answer: 'under', hint: '在下面', inputMode: true },
+      { q: '"The picture is ___ the wall."（在…上面）填入介词', answer: 'on', hint: '在表面上', inputMode: true },
+      { q: '医院用英语怎么说？', answer: 'hospital', hint: 'h开头', inputMode: true },
+      { q: '超市用英语怎么说？', answer: 'supermarket', hint: 's开头', inputMode: true },
+      // 语法综合
+      { q: '"He ___ (go/goes) to school every day." 填入正确形式', answer: 'goes', hint: '第三人称单数加es', inputMode: true },
+      { q: '"She ___ (have/has) a cat." 填入正确形式', answer: 'has', hint: '第三人称用has', inputMode: true },
+      { q: '"___ (Do/Does) he like ice cream?" 填入正确词', answer: 'Does', hint: 'he用does', inputMode: true },
+      { q: '"We ___ (don\'t/doesn\'t) have class on Sunday." 填入正确词', answer: "don't", hint: "we用don't", inputMode: true },
+    ]
+  },
   eng_listen: {
     title: '👂 听力闯关',
     questions: [
@@ -1908,6 +2020,7 @@ const ACHIEVEMENTS = [
   { id: 'idiom_done', badge: '🎭', label: '成语小王', desc: '完成成语学习' },
   { id: 'eng_vocab_done', badge: '📝', label: '词汇新手', desc: '完成新概念词汇' },
   { id: 'eng_listen_done', badge: '👂', label: '听力达人', desc: '完成听力闯关' },
+  { id: 'eng_look2_done', badge: '📘', label: 'Look 2 达人', desc: '完成Look 2精练' },
   { id: 'all_done', badge: '🏆', label: '全科通关', desc: '完成所有模块' },
 ];
 
@@ -2055,7 +2168,7 @@ const STAGE_SIZE = 5; // 每节5道题
 const MODULE_STAGES = {
 math_add: 6, math_sub: 6, math_mul: 5, math_word: 5, math_pattern: 4, math_mixed: 5, math_logic: 4, math_time: 2, math_measure: 2, math_times: 2, math_fraction: 2, math_perimeter: 2,
   chinese_idiom: 5, chinese_match: 4, chinese_reading: 4, chinese_poem: 5, chinese_wizard: 4, chinese_guoxue: 5, chinese_textbook: 4, chinese_ancient: 5,
-  eng_vocab: 5, eng_listen: 5, eng_oral: 4, eng_phonics: 4, eng_body: 3, eng_animals: 3, eng_colours: 3
+  eng_vocab: 5, eng_listen: 5, eng_oral: 4, eng_phonics: 4, eng_body: 3, eng_animals: 3, eng_colours: 3, eng_look2: 4
 };
 
 function getStageProgress(moduleId) {
@@ -2120,6 +2233,100 @@ function checkAchievement(id) {
   }
 }
 
+// ===== 一日一练 =====
+function getTodayKey() {
+  const d = new Date();
+  return 'dailyPractice_' + d.getFullYear() + '_' + (d.getMonth()+1) + '_' + d.getDate();
+}
+
+function getDailyPracticeStatus() {
+  const key = ukey(getTodayKey());
+  try { return JSON.parse(localStorage.getItem(key)) || null; }
+  catch(e) { return null; }
+}
+
+function startDailyPractice() {
+  const done = getDailyPracticeStatus();
+  if (done) {
+    showToast('🎯 今日一练已完成！得分：' + done.score + '/' + done.total);
+    return;
+  }
+  // 从三科各随机抽2题
+  const mathIds = ['math_add','math_sub','math_mul','math_mixed','math_word'];
+  const chineseIds = ['chinese_idiom','chinese_match','chinese_poem','chinese_ancient','chinese_textbook'];
+  const engIds = ['eng_vocab','eng_listen','eng_body','eng_animals','eng_colours','eng_look2'];
+  
+  let dailyQuestions = [];
+  // 数学2题
+  for (let i = 0; i < 2; i++) {
+    const modId = mathIds[rand(0, mathIds.length-1)];
+    const mod = DATA[modId];
+    let q;
+    if (mod.generate) {
+      q = mod.generate();
+    } else if (mod.questions && mod.questions.length > 0) {
+      q = mod.questions[rand(0, mod.questions.length-1)];
+    }
+    if (q) { q._subject = '🧮数学'; dailyQuestions.push(q); }
+  }
+  // 语文2题
+  for (let i = 0; i < 2; i++) {
+    const modId = chineseIds[rand(0, chineseIds.length-1)];
+    const mod = DATA[modId];
+    if (mod.questions && mod.questions.length > 0) {
+      const q = Object.assign({}, mod.questions[rand(0, mod.questions.length-1)]);
+      q._subject = '📖语文';
+      dailyQuestions.push(q);
+    }
+  }
+  // 英语2题
+  for (let i = 0; i < 2; i++) {
+    const modId = engIds[rand(0, engIds.length-1)];
+    const mod = DATA[modId];
+    if (mod.questions && mod.questions.length > 0) {
+      const q = Object.assign({}, mod.questions[rand(0, mod.questions.length-1)]);
+      q._subject = '🌍英语';
+      dailyQuestions.push(q);
+    }
+  }
+  
+  // 设置为一日一练模式
+  currentQuiz = '_daily';
+  quizState = {
+    questions: dailyQuestions,
+    current: 0,
+    score: 0,
+    total: dailyQuestions.length,
+    answered: [],
+    isDaily: true
+  };
+  document.getElementById('quizTitle').textContent = '🎯 一日一练';
+  quizState._startTime = Date.now();
+  renderQuestion();
+  showPage('quizPage');
+}
+
+function finishDailyPractice(score, total) {
+  const key = ukey(getTodayKey());
+  const result = { score, total, time: Date.now() };
+  localStorage.setItem(key, JSON.stringify(result));
+  // 更新首页状态
+  const dpStatus = document.getElementById('dpStatus');
+  const dpBtn = document.getElementById('dpBtn');
+  if (dpStatus) dpStatus.textContent = '今日得分：' + score + '/' + total + ' ⭐';
+  if (dpBtn) dpBtn.textContent = '已完成 ✓';
+}
+
+function checkDailyPracticeOnLoad() {
+  const done = getDailyPracticeStatus();
+  if (done) {
+    const dpStatus = document.getElementById('dpStatus');
+    const dpBtn = document.getElementById('dpBtn');
+    if (dpStatus) dpStatus.textContent = '今日得分：' + done.score + '/' + done.total + ' ⭐';
+    if (dpBtn) dpBtn.textContent = '已完成 ✓';
+  }
+}
+
 // ===== 页面切换 =====
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2145,12 +2352,13 @@ function showPage(pageId) {
   updateDailyProgress();
   updateModuleStatus();
   renderAchievements();
+  checkDailyPracticeOnLoad();
   if (pageId === 'homePage') refreshUserUI();
 }
 
 // ===== 首页 =====
 function updateDailyProgress() {
-const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
+const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours','eng_look2'];
   const done = modules.filter(m => state.completed[m]).length;
   const pct = Math.round(done / modules.length * 100);
   document.getElementById('dailyFill').style.width = pct + '%';
@@ -2158,7 +2366,7 @@ const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function updateModuleStatus() {
-const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
+const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours','eng_look2'];
   // 普通模块：显示节进度
   ids.forEach(id => {
     const el = document.getElementById(id + '_status');
@@ -2514,21 +2722,21 @@ const LEARN_CONTENT = {
   math_logic: {
     title: '🧠 数学推理挑战',
     questions: [
-      { q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '被减数=减数+差，三个数的和=2×被减数', inputMode: true, fullAnswer: true },
-      { q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '大数=(和+差)÷2', inputMode: true },
-      { q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '小数=(和-差)÷2', inputMode: true },
-      { q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '小数=和÷(倍数+1)', inputMode: true },
-      { q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '大数=小数×倍数', inputMode: true },
-      { q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '先算5×3=15，再倒推', inputMode: true },
-      { q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '□×4=40-8=32', inputMode: true },
-      { q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '三个数的和=2×被减数', inputMode: true },
-      { q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '被除数=5×除数+3，被除数+除数=33', inputMode: true },
-      { q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '假设全是兔=32条腿，多了10条，鸡=10÷2', inputMode: true },
-      { q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '8只减去鸡的只数', inputMode: true },
-      { q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '对折2次=4层，中间剪一刀=4刀口+1', inputMode: true },
-      { q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '小数=(和-差)÷2', inputMode: true },
-      { q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '小数=和÷(倍数+1)', inputMode: true },
-      { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
+{ q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '画图试试～', inputMode: true, fullAnswer: true },
+{ q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '画图试试～', inputMode: true },
+{ q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '画图试试～', inputMode: true },
+{ q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '画图试试～', inputMode: true },
+{ q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '画图试试～', inputMode: true },
+{ q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '倒过来想一想～', inputMode: true },
+{ q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '倒过来想一想～', inputMode: true },
+{ q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '画图试试～', inputMode: true },
+{ q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '画图试试～', inputMode: true },
+{ q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '大胆假设试试～', inputMode: true },
+{ q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '大胆假设试试～', inputMode: true },
+{ q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '拿张纸试一试～', inputMode: true },
+{ q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '画图试试～', inputMode: true },
+{ q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '画图试试～', inputMode: true },
+{ q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '倒过来想一想～', inputMode: true }
     ]
   },
   math_time: {
@@ -3497,6 +3705,61 @@ const LEARN_CONTENT = {
       <div class="learn-tip">🎯 诀窍：orange既是颜色也是水果！看到东西就想想它的英文颜色和数量！</div>
     `
   },
+  eng_look2: {
+    title: '📚 学一学：Look 2 精练',
+    html: `
+      <div class="learn-section">
+        <h3>📘 National Geographic Learning LOOK 2</h3>
+        <p>Look 2 对标 CEFR A1 水平，适合三年级同学学习。每个单元围绕一个主题，学习词汇和语法。</p>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 Unit 1-2：be动词 & have/has</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>I am / You are / He is / She is / It is / We are / They are</strong></div>
+          <div class="step-item">缩写：I'm / You're / He's / She's / It's / We're / They're</div>
+          <div class="step-item"><strong>have/has</strong>：I/You/We/They <strong>have</strong> → He/She/It <strong>has</strong></div>
+          <div class="step-item">例：I <strong>have</strong> a pen. She <strong>has</strong> two pens.</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 Unit 3-4：疑问句 & like用法</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>Who is she?</strong> She is my sister.（问人）</div>
+          <div class="step-item"><strong>How old are you?</strong> I am nine.（问年龄）</div>
+          <div class="step-item"><strong>I like apples.</strong> 我喜欢苹果。（like + 名词复数/不可数）</div>
+          <div class="step-item"><strong>She doesn't like fish.</strong> 她不喜欢鱼。（第三人称否定）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 Unit 5-6：can/can't & There be</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>A bird can fly.</strong> 鸟会飞。（can + 动词原形）</div>
+          <div class="step-item"><strong>A fish can't walk.</strong> 鱼不会走。（can't = cannot）</div>
+          <div class="step-item"><strong>There is a park.</strong> 有一个公园。（单数用is）</div>
+          <div class="step-item"><strong>There are three books.</strong> 有三本书。（复数用are）</div>
+          <div class="step-item">方位介词：<strong>in</strong>(里) <strong>on</strong>(上) <strong>under</strong>(下) <strong>behind</strong>(后)</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 第三人称单数小窍门</h3>
+        <div class="example-box">
+          <p>he/she/it 后面的动词要变身：</p>
+          <p>like → <strong>likes</strong> &nbsp; have → <strong>has</strong> &nbsp; go → <strong>goes</strong></p>
+          <p>否定用 <strong>doesn't + 动词原形</strong>：He <strong>doesn't like</strong> fish. ✅</p>
+          <p>He <strong>don't likes</strong> fish. ❌</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 可数与不可数名词</h3>
+        <div class="example-box">
+          <p><strong>可数</strong>：apple→apples, egg→eggs, banana→bananas</p>
+          <p><strong>不可数</strong>：rice, bread, milk, water, fish(鱼肉)</p>
+          <p>说"一些"：some <strong>apples</strong> / some <strong>rice</strong></p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：Look 2 的重点是 be动词、have/has、like、can 和 There be，学会这些就打好了基础！</div>
+    `
+  },
   eng_listen: {
     title: '📚 学一学：听力技巧',
     html: `
@@ -3687,10 +3950,11 @@ function renderQuestion() {
 
   // 填空输入模式
   if (q.inputMode) {
+    const subjectTag = (quizState.isDaily && q._subject) ? '<span class="subject-tag">' + q._subject + '</span> ' : '';
     container.innerHTML = `
       ${questionHTML}
       <div class="quiz-question">
-        <div class="q-text">${q.q}</div>
+        <div class="q-text">${subjectTag}${q.q}</div>
         ${q.hint ? `<div class="q-hint">💡 ${q.hint}</div>` : ''}
       </div>
       <div class="quiz-input-wrap">
@@ -3750,7 +4014,7 @@ function renderQuestion() {
   container.innerHTML = `
     ${questionHTML}
     <div class="quiz-question">
-      <div class="q-text">${q.q}</div>
+      <div class="q-text">${(quizState.isDaily && q._subject) ? '<span class="subject-tag">' + q._subject + '</span> ' : ''}${q.q}</div>
       ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
     </div>
     <div class="quiz-options">
@@ -4109,9 +4373,10 @@ function showResult() {
   if (currentQuiz === 'chinese_idiom' && pct >= 60) checkAchievement('idiom_done');
   if (currentQuiz === 'eng_vocab' && pct >= 60) checkAchievement('eng_vocab_done');
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
+  if (currentQuiz === 'eng_look2' && pct >= 60) checkAchievement('eng_look2_done');
 
   // 全科成就
-const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
+const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours','eng_look2'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
 
   const container = document.getElementById('resultContent');
@@ -4121,6 +4386,18 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
     <div class="result-score">${quizState.score} / ${quizState.total}</div>
     <div class="stars-earned">${'⭐'.repeat(starsEarned)}${'☆'.repeat(3 - starsEarned)}</div>
     <p style="color:#888; font-size:14px;">获得 ${starsEarned} 颗星星</p>
+    ${quizState.isDaily ? (() => {
+      const subs = {};
+      quizState.questions.forEach((q, i) => {
+        const s = q._subject || '其他';
+        if (!subs[s]) subs[s] = {correct: 0, total: 0};
+        subs[s].total++;
+        if (quizState.answered[i] && quizState.answered[i].correct) subs[s].correct++;
+      });
+      return '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0;">' +
+        Object.entries(subs).map(([k,v]) => '<span style="background:#f0f0ff;padding:4px 12px;border-radius:12px;font-size:14px;">' + k + ' ' + v.correct + '/' + v.total + '</span>').join('') +
+        '</div>';
+    })() : ''}
     ${stageInfo}
     ${pct < 60 ? '<div class="tip-bubble" style="margin:12px 0;">💡 正确率不够高，再练练这一节吧～</div>' : ''}
     ${pct > 85 && !allCleared ? '<div class="tip-bubble" style="margin:12px 0;">🎉 正确率很高！继续挑战下一节吧～</div>' : ''}
@@ -4133,11 +4410,13 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
       </div>
     </div>
     <div class="result-btns">
-      <button class="result-btn secondary" onclick="startQuiz('${currentQuiz}')">再来一次</button>
-      <button class="result-btn primary" onclick="backFromQuiz()">返回列表</button>
+      <button class="result-btn secondary" onclick="${quizState.isDaily ? 'startDailyPractice()' : 'startQuiz(\\''+currentQuiz+'\\')' }">${quizState.isDaily ? '查看今日成绩' : '再来一次'}</button>
+      <button class="result-btn primary" onclick="backFromQuiz()">${quizState.isDaily ? '返回首页' : '返回列表'}</button>
     </div>
   `;
   showPage('resultPage');
+
+  if (quizState.isDaily) finishDailyPractice(quizState.score, quizState.total);
 
   // 记录本次练习时长
   const elapsed = Math.round((Date.now() - (quizState._startTime || Date.now())) / 1000);
@@ -4145,7 +4424,8 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function backFromQuiz() {
-  if (currentQuiz && currentQuiz.startsWith('math')) showPage('mathPage');
+  if (currentQuiz === '_daily') showPage('homePage');
+  else if (currentQuiz && currentQuiz.startsWith('math')) showPage('mathPage');
   else if (currentQuiz && currentQuiz.startsWith('chinese')) showPage('chinesePage');
   else if (currentQuiz && currentQuiz.startsWith('eng')) showPage('englishPage');
   else showPage('homePage');
@@ -4543,7 +4823,7 @@ const MODULE_NAMES = {
 math_add: '进位加法', math_sub: '退位减法', math_mul: '乘法口诀',
   math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算', math_logic: '数学推理',
   math_time: '时分秒闯关', math_measure: '测量小达人', math_times: '多位数乘一位数', math_fraction: '分数初体验', math_perimeter: '周长计算师',
-  chinese_textbook: '课本大闯关', chinese_ancient: '课本古诗', eng_body: '身体部位', eng_animals: '动物世界', eng_colours: '颜色与数字',
+  chinese_textbook: '课本大闯关', chinese_ancient: '课本古诗', eng_body: '身体部位', eng_animals: '动物世界', eng_colours: '颜色与数字', eng_look2: 'Look2精练',
   chinese_idiom: '成语达人', chinese_match: '近反义词', chinese_reading: '阅读理解',
 chinese_poem: '古诗', chinese_wizard: '绿野仙踪', chinese_guoxue: '国学诵读', chinese_textbook: '课本大闯关', chinese_ancient: '课本古诗', eng_vocab: '英语词汇', eng_listen: '听力闯关',
   eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习', char: '生字学习'
@@ -4679,7 +4959,7 @@ function wrapGenerator(moduleId) {
       if (diff >= 1) { // 进阶：6~9的乘法
         const a = rand(6, 9), b = rand(2, 9);
         const ans = a * b;
-        return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: `${a}的乘法口诀～` };
+return { q: `${a} × ${b} \right] < /dev/null | = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
       }
       if (diff >= 2) { // 挑战：两位数×一位数
         const a = rand(11, 25), b = rand(2, 9);
@@ -4898,6 +5178,7 @@ function init() {
   updateDailyProgress();
   updateModuleStatus();
   renderAchievements();
+  checkDailyPracticeOnLoad();
 
   // 防止重复注册 interval 和事件监听
   if (_initDone) return;
