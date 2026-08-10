@@ -59,13 +59,13 @@ body {
 /* 顶部栏 */
 .top-bar {
   background: var(--bg-gradient);
-  padding: 16px 20px;
+  padding: 10px 16px;
   display: flex; align-items: center; justify-content: space-between;
   color: #fff;
   position: sticky; top: 0; z-index: 100;
   box-shadow: 0 4px 15px rgba(102,126,234,0.4);
 }
-.top-bar .title { font-size: 22px; letter-spacing: 2px; }
+.top-bar .title { font-size: 18px; letter-spacing: 1px; }
 .top-bar .star-count {
   background: rgba(255,255,255,0.2); padding: 6px 14px;
   border-radius: 20px; font-size: 16px; display: flex; align-items: center; gap: 6px;
@@ -73,7 +73,8 @@ body {
 .star-count .star-icon { font-size: 20px; }
 
 /* 页面容器 */
-.page { display: none; padding: 20px; animation: fadeIn 0.3s ease; }
+.page { display: none; padding: 16px; animation: fadeIn 0.3s ease; }
+#quizPage { padding: 8px 14px 16px; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -189,7 +190,7 @@ body {
 .review-learn-btn:active { background: #e8e0ff; }
 
 .page-title {
-  font-size: 22px; color: #333; margin-bottom: 16px;
+  font-size: 20px; color: #333; margin-bottom: 8px;
   display: flex; align-items: center; gap: 8px;
 }
 
@@ -197,9 +198,26 @@ body {
 .quiz-container {
   text-align: center;
 }
+.quiz-page-title {
+  font-size: 16px; gap: 6px; margin-bottom: 6px;
+}
+.quiz-page-title .back-btn { padding: 6px 10px; font-size: 16px; }
+.quiz-page-title #quizTitle { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40vw; }
+.quiz-page-title .quiz-progress { font-size: 13px; }
+.quiz-page-title .quiz-score { font-size: 12px; padding: 3px 10px; }
+.quiz-nav-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--primary); background: #fff;
+  color: var(--primary); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; padding: 0; line-height: 1;
+  flex-shrink: 0;
+}
+.quiz-nav-btn:hover { background: var(--primary); color: #fff; }
+.quiz-nav-btn:disabled { opacity: 0.3; cursor: default; background: #fff; color: var(--primary); }
 .quiz-header {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .quiz-progress {
   font-size: 14px; color: var(--primary); font-weight: bold;
@@ -211,8 +229,8 @@ body {
 
 .quiz-question {
   background: linear-gradient(135deg, #667eea, #764ba2);
-  color: #fff; border-radius: 20px; padding: 30px 20px;
-  margin-bottom: 20px; position: relative;
+  color: #fff; border-radius: 20px; padding: 22px 16px;
+  margin-bottom: 14px; position: relative;
 }
 .quiz-question .q-text { font-size: 28px; margin-bottom: 8px; }
 .quiz-question .q-hint { font-size: 14px; opacity: 0.7; }
@@ -258,7 +276,7 @@ body {
 /* 填空输入模式 */
 .quiz-input-wrap {
   display: flex; align-items: center; justify-content: center;
-  gap: 10px; margin: 16px 0 20px;
+  gap: 10px; margin: 10px 0 12px;
 }
 .quiz-input {
   width: 160px; padding: 14px 16px; font-size: 24px;
@@ -1091,10 +1109,13 @@ body {
 
   <!-- ====== 练习页 ====== -->
   <div class="page" id="quizPage">
-    <div class="page-title">
+    <div class="page-title quiz-page-title">
       <button class="back-btn" onclick="backFromQuiz()">←</button>
-      <span id="quizTitle">练习</span>
-      <button class="review-learn-btn" id="reviewLearnBtn" onclick="reviewLearn()" style="display:none;">📖 回看学习</button>
+      <button class="quiz-nav-btn" id="prevBtn" onclick="prevQuestion()">◀</button>
+      <span class="quiz-progress" id="quizProgress"></span>
+      <button class="quiz-nav-btn" id="nextBtnTop" onclick="nextQuestion()">▶</button>
+      <span class="quiz-score" id="quizScore"></span>
+      <button class="review-learn-btn" id="reviewLearnBtn" onclick="reviewLearn()" style="display:none;">📖</button>
     </div>
     <div class="quiz-container" id="quizContainer"></div>
   </div>
@@ -3609,13 +3630,27 @@ function renderQuestion() {
     </div><div style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">点🔊听正常速度，点🐢听慢速发音<br><span style="font-size:11px;color:#aaa;">如果听不到：①检查手机静音开关 ②微信内请点右上角"…"用浏览器打开</span></div>`;
   }
 
+  // 更新page-title中的进度和分数
+  document.getElementById('quizProgress').textContent = `${num}/${total}`;
+  document.getElementById('quizScore').textContent = `${quizState.score * 20}分`;
+
+  // 更新导航按钮状态
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtnTop = document.getElementById('nextBtnTop');
+  if (prevBtn) prevBtn.disabled = (quizState.current <= 0);
+  if (nextBtnTop) {
+    if (quizState.current >= quizState.total - 1) {
+      nextBtnTop.textContent = '📋';
+      nextBtnTop.title = '查看结果';
+    } else {
+      nextBtnTop.textContent = '▶';
+      nextBtnTop.title = '下一题';
+    }
+  }
+
   // 填空输入模式
   if (q.inputMode) {
     container.innerHTML = `
-      <div class="quiz-header">
-        <span class="quiz-progress">第 ${num} / ${total} 题</span>
-        <span class="quiz-score">得分: ${quizState.score * 20}</span>
-      </div>
       ${questionHTML}
       <div class="quiz-question">
         <div class="q-text">${q.q}</div>
@@ -3626,7 +3661,6 @@ function renderQuestion() {
         <button class="quiz-submit-btn" id="submitBtn" onclick="submitInputAnswer()">提交</button>
       </div>
       <div id="inputFeedback" style="text-align:center; font-size:18px; font-family:var(--font-fun); min-height:28px; margin-bottom:8px;"></div>
-      <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none">下一题 ➜</button>
       <button class="explain-btn" id="explainBtn" onclick="toggleExplain()" style="display:none">📖 看解析</button>
       <div class="explain-panel" id="explainPanel"></div>
     `;
@@ -3649,10 +3683,6 @@ function renderQuestion() {
   }
 
   container.innerHTML = `
-    <div class="quiz-header">
-      <span class="quiz-progress">第 ${num} / ${total} 题</span>
-      <span class="quiz-score">得分: ${quizState.score * 20}</span>
-    </div>
     ${questionHTML}
     <div class="quiz-question">
       <div class="q-text">${q.q}</div>
@@ -3665,7 +3695,6 @@ function renderQuestion() {
         </div>
       `).join('')}
     </div>
-    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一题 ➜</button>
     <button class="explain-btn" id="explainBtn" onclick="toggleExplain()">📖 看解析</button>
     <div class="explain-panel" id="explainPanel"></div>
   `;
@@ -3678,7 +3707,6 @@ function submitInputAnswer() {
   const input = document.getElementById('answerInput');
   const feedback = document.getElementById('inputFeedback');
   const submitBtn = document.getElementById('submitBtn');
-  const nextBtn = document.getElementById('nextBtn');
   const explainBtn = document.getElementById('explainBtn');
   if (!input || !feedback) return;
 
@@ -3696,13 +3724,13 @@ function submitInputAnswer() {
     feedback.innerHTML = '<span style="color:#00b894">✅ 太棒了！回答正确！</span>';
     quizState.score++;
     quizState.correct++;
+    document.getElementById('quizScore').textContent = `${quizState.score * 20}分`;
   } else {
     input.classList.add('wrong');
     feedback.innerHTML = `<span style="color:#e17055">❌ 再想想哦！正确答案是：<strong>${q.answer}</strong></span>`;
   }
 
-  nextBtn.style.display = '';
-  explainBtn.style.display = '';
+  explainBtn.classList.add('show');
   if (!isCorrect) {
     toggleExplain();
   }
@@ -3725,6 +3753,7 @@ function selectOption(el, value) {
   if (isCorrect) {
     el.classList.add('correct');
     quizState.score++;
+    document.getElementById('quizScore').textContent = `${quizState.score * 20}分`;
     showToast('🎉 太棒了！');
   } else {
     el.classList.add('wrong');
@@ -3738,11 +3767,10 @@ function selectOption(el, value) {
     if (explainBtn) explainBtn.classList.add('show');
   }
 
-  document.getElementById('nextBtn').classList.add('show');
-
-  // 最后一题变按钮文字
-  if (quizState.current === quizState.total - 1) {
-    document.getElementById('nextBtn').textContent = '查看结果 🎊';
+  // 选择题答后显示解析按钮
+  if (!isCorrect) {
+    const explainBtn = document.getElementById('explainBtn');
+    if (explainBtn) explainBtn.classList.add('show');
   }
 }
 
@@ -3901,6 +3929,12 @@ function toggleExplain() {
     btn.textContent = '📖 看解析';
     explainVisible = false;
   }
+}
+
+function prevQuestion() {
+  if (quizState.current <= 0) return;
+  quizState.current--;
+  renderQuestion();
 }
 
 function nextQuestion() {
