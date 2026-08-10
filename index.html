@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>🌟 小小探索家 - 暑假三年级预习</title>
-<!-- v20260810b -->
+<!-- v20260810c -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
@@ -59,31 +59,32 @@ body {
 /* 顶部栏 */
 .top-bar {
   background: var(--bg-gradient);
-  padding: 10px 16px;
+  padding: 6px 12px;
   display: flex; align-items: center; justify-content: space-between;
   color: #fff;
   position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+  box-shadow: 0 2px 10px rgba(102,126,234,0.3);
 }
-.top-bar .title { font-size: 18px; letter-spacing: 1px; }
+.top-bar .title { font-size: 16px; letter-spacing: 1px; }
 .top-bar .star-count {
-  background: rgba(255,255,255,0.2); padding: 6px 14px;
-  border-radius: 20px; font-size: 16px; display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.2); padding: 4px 10px;
+  border-radius: 16px; font-size: 13px; display: flex; align-items: center; gap: 4px;
 }
-.star-count .star-icon { font-size: 20px; }
+.star-count .star-icon { font-size: 16px; }
 
 /* 页面容器 */
-.page { display: none; padding: 16px; animation: fadeIn 0.3s ease; }
-#quizPage { padding: 8px 14px 16px; }
+.page { display: none; padding: 10px 14px; animation: fadeIn 0.3s ease; }
+#quizPage { padding: 4px 10px 70px; }
+#learnPage { padding: 6px 12px 10px; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ===== 首页 ===== */
 .welcome-section {
-  text-align: center; padding: 20px 0 10px;
+  text-align: center; padding: 8px 0 4px;
 }
-.welcome-section .avatar { font-size: 72px; margin-bottom: 8px; }
-.welcome-section h2 { font-size: 26px; color: var(--primary); margin-bottom: 4px; }
+.welcome-section .avatar { font-size: 56px; margin-bottom: 4px; }
+.welcome-section h2 { font-size: 22px; color: var(--primary); margin-bottom: 2px; }
 .welcome-section p { font-size: 15px; color: #888; }
 
 .daily-progress {
@@ -190,8 +191,8 @@ body {
 .review-learn-btn:active { background: #e8e0ff; }
 
 .page-title {
-  font-size: 20px; color: #333; margin-bottom: 8px;
-  display: flex; align-items: center; gap: 8px;
+  font-size: 18px; color: #333; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 6px;
 }
 
 /* ===== 练习页面 ===== */
@@ -199,7 +200,7 @@ body {
   text-align: center;
 }
 .quiz-page-title {
-  font-size: 16px; gap: 6px; margin-bottom: 6px;
+  font-size: 15px; gap: 4px; margin-bottom: 2px;
 }
 .quiz-page-title .back-btn { padding: 6px 10px; font-size: 16px; }
 .quiz-page-title #quizTitle { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40vw; }
@@ -215,6 +216,22 @@ body {
 }
 .quiz-nav-btn:hover { background: var(--primary); color: #fff; }
 .quiz-nav-btn:disabled { opacity: 0.3; cursor: default; background: #fff; color: var(--primary); }
+.quiz-bottom-nav {
+  display: flex; gap: 12px; justify-content: center; margin: 12px 0 4px;
+}
+.quiz-bottom-btn {
+  flex: 1; max-width: 160px; padding: 12px 16px;
+  border: 2px solid var(--primary); background: #fff;
+  color: var(--primary); font-size: 16px; border-radius: 24px;
+  cursor: pointer; font-family: var(--font-fun); transition: all .15s;
+}
+.quiz-bottom-btn:active { transform: scale(.95); background: #f0f0ff; }
+.quiz-bottom-btn-next {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(102,126,234,.3);
+}
+.quiz-bottom-btn-next:active { background: #5a6fd6; }
 .quiz-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 8px;
@@ -516,16 +533,16 @@ body {
 }
 
 /* ===== 学习页 ===== */
-.learn-section { background: #fff9f0; border-radius: 16px; padding: 18px; margin: 12px 0; border-left: 4px solid var(--accent-orange); }
-.learn-section h3 { font-size: 18px; color: var(--accent-orange); margin-bottom: 10px; }
-.learn-section p { font-size: 16px; line-height: 1.8; color: #444; margin: 6px 0; }
-.learn-section .example-box { background: #fff; border-radius: 12px; padding: 14px; margin: 10px 0; border: 2px dashed #fdcb6e; }
+.learn-section { background: #fff9f0; border-radius: 14px; padding: 12px; margin: 8px 0; border-left: 4px solid var(--accent-orange); }
+.learn-section h3 { font-size: 16px; color: var(--accent-orange); margin-bottom: 6px; }
+.learn-section p { font-size: 15px; line-height: 1.7; color: #444; margin: 4px 0; }
+.learn-section .example-box { background: #fff; border-radius: 12px; padding: 10px; margin: 8px 0; border: 2px dashed #fdcb6e; }
 .learn-section .example-box .label { font-size: 13px; color: #e17055; margin-bottom: 6px; }
 .learn-section .formula { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; border-radius: 12px; padding: 14px; text-align: center; font-size: 20px; margin: 10px 0; letter-spacing: 2px; }
 .learn-section .step-list { counter-reset: step; }
 .learn-section .step-item { counter-increment: step; padding: 8px 0 8px 36px; position: relative; font-size: 15px; line-height: 1.6; color: #444; }
 .learn-section .step-item::before { content: counter(step); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; background: var(--primary); color: #fff; border-radius: 50%; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-.learn-go-btn { display: block; width: 80%; max-width: 280px; margin: 24px auto 12px; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 30px; font-size: 20px; cursor: pointer; font-family: var(--font-fun); box-shadow: 0 6px 20px rgba(102,126,234,.4); transition: transform .2s; }
+.learn-go-btn { display: block; width: 80%; max-width: 280px; margin: 16px auto 8px; padding: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 30px; font-size: 18px; cursor: pointer; font-family: var(--font-fun); box-shadow: 0 6px 20px rgba(102,126,234,.4); transition: transform .2s; }
 .learn-go-btn:active { transform: scale(.95); }
 .learn-tip { background: #e6fff9; border-radius: 12px; padding: 12px 14px; margin: 10px 0; font-size: 14px; color: #00b894; border: 1px solid #b2f5ea; }
 .learn-formula { background: #f0f0ff; border-radius: 10px; padding: 10px 14px; margin: 8px 0; border: 1px solid #d5d5f7; }
@@ -642,13 +659,13 @@ body {
 
 /* 顶部栏用户信息 */
 .top-bar .user-info {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.2); padding: 5px 12px;
-  border-radius: 18px; font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.2); padding: 3px 8px;
+  border-radius: 14px; font-size: 12px; cursor: pointer;
   transition: background 0.2s;
 }
 .top-bar .user-info:active { background: rgba(255,255,255,0.35); }
-.top-bar .user-info .user-avatar-small { font-size: 18px; }
+.top-bar .user-info .user-avatar-small { font-size: 14px; }
 
 /* 用户切换浮层 */
 .user-switch-popup {
@@ -2016,7 +2033,7 @@ function closeUserSwitchAndAdd() {
 let state = { stars: 0, completed: {}, achievements: [], charIndex: 0 };
 
 let currentQuiz = null;
-let quizState = { questions: [], current: 0, score: 0, total: 5 };
+let quizState = { questions: [], current: 0, score: 0, total: 5, answered: [] };
 
 // ===== 模块内部练习节制度 =====
 const STAGE_SIZE = 5; // 每节5道题
@@ -3568,9 +3585,9 @@ function startQuiz(moduleId) {
   const totalStages = MODULE_STAGES[moduleId] || 0;
   // 如果已全通，允许继续练习最后一节
   if (totalStages > 0 && stageNum > totalStages) {
-    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: totalStages };
+    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: totalStages, answered: [] };
   } else {
-    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: stageNum };
+    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: stageNum, answered: [] };
   }
   quizState._startTime = Date.now(); // 计时
 
@@ -3661,11 +3678,30 @@ function renderQuestion() {
         <button class="quiz-submit-btn" id="submitBtn" onclick="submitInputAnswer()">提交</button>
       </div>
       <div id="inputFeedback" style="text-align:center; font-size:18px; font-family:var(--font-fun); min-height:28px; margin-bottom:8px;"></div>
+      <div class="quiz-bottom-nav" id="quizBottomNav" style="display:none;">
+        <button class="quiz-bottom-btn" id="prevBtnBottom" onclick="prevQuestion()">◀ 上一题</button>
+        <button class="quiz-bottom-btn quiz-bottom-btn-next" id="nextBtnBottom" onclick="nextQuestion()">下一题 ▶</button>
+      </div>
       <button class="explain-btn" id="explainBtn" onclick="toggleExplain()" style="display:none">📖 看解析</button>
       <div class="explain-panel" id="explainPanel"></div>
     `;
     explainVisible = false;
     setTimeout(() => { const inp = document.getElementById('answerInput'); if(inp) inp.focus(); }, 100);
+    // 如果当前题已答过，自动显示底部导航
+    if (quizState.answered[quizState.current]) {
+      setTimeout(() => {
+        const bottomNav = document.getElementById('quizBottomNav');
+        if (bottomNav) {
+          bottomNav.style.display = 'flex';
+          const prevBtnB = document.getElementById('prevBtnBottom');
+          const nextBtnB = document.getElementById('nextBtnBottom');
+          if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+          if (nextBtnB) {
+            nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+          }
+        }
+      }, 120);
+    }
     return;
   }
 
@@ -3695,10 +3731,29 @@ function renderQuestion() {
         </div>
       `).join('')}
     </div>
+    <div class="quiz-bottom-nav" id="quizBottomNav" style="display:none;">
+      <button class="quiz-bottom-btn" id="prevBtnBottom" onclick="prevQuestion()">◀ 上一题</button>
+      <button class="quiz-bottom-btn quiz-bottom-btn-next" id="nextBtnBottom" onclick="nextQuestion()">下一题 ▶</button>
+    </div>
     <button class="explain-btn" id="explainBtn" onclick="toggleExplain()">📖 看解析</button>
     <div class="explain-panel" id="explainPanel"></div>
   `;
   explainVisible = false;
+  // 如果当前题已答过，自动显示底部导航
+  if (quizState.answered[quizState.current]) {
+    setTimeout(() => {
+      const bottomNav = document.getElementById('quizBottomNav');
+      if (bottomNav) {
+        bottomNav.style.display = 'flex';
+        const prevBtnB = document.getElementById('prevBtnBottom');
+        const nextBtnB = document.getElementById('nextBtnBottom');
+        if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+        if (nextBtnB) {
+          nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+        }
+      }
+    }, 50);
+  }
 }
 
 // 填空模式答案提交
@@ -3730,9 +3785,23 @@ function submitInputAnswer() {
     feedback.innerHTML = `<span style="color:#e17055">❌ 再想想哦！正确答案是：<strong>${q.answer}</strong></span>`;
   }
 
+  // 标记当前题已答
+  quizState.answered[quizState.current] = true;
+
   explainBtn.classList.add('show');
   if (!isCorrect) {
     toggleExplain();
+  }
+  // 显示底部上/下一题按钮
+  const bottomNav = document.getElementById('quizBottomNav');
+  if (bottomNav) {
+    bottomNav.style.display = 'flex';
+    const prevBtnB = document.getElementById('prevBtnBottom');
+    const nextBtnB = document.getElementById('nextBtnBottom');
+    if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+    if (nextBtnB) {
+      nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+    }
   }
 }
 
@@ -3771,6 +3840,19 @@ function selectOption(el, value) {
   if (!isCorrect) {
     const explainBtn = document.getElementById('explainBtn');
     if (explainBtn) explainBtn.classList.add('show');
+  }
+  // 标记当前题已答
+  quizState.answered[quizState.current] = true;
+  // 显示底部上/下一题按钮
+  const bottomNav = document.getElementById('quizBottomNav');
+  if (bottomNav) {
+    bottomNav.style.display = 'flex';
+    const prevBtnB = document.getElementById('prevBtnBottom');
+    const nextBtnB = document.getElementById('nextBtnBottom');
+    if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+    if (nextBtnB) {
+      nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+    }
   }
 }
 
