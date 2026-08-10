@@ -168,11 +168,38 @@ body {
 }
 .module-card:active { transform: scale(0.97); }
 .module-card.completed { border-color: var(--accent-green); }
+.module-card.locked {
+  opacity: 0.5; filter: grayscale(0.6); pointer-events: none;
+  position: relative;
+}
+.module-card.locked::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.3); border-radius: 16px;
+}
+.module-card .level-badge {
+  position: absolute; top: -6px; left: -6px;
+  background: var(--bg-gradient); color: #fff;
+  font-size: 11px; padding: 2px 8px; border-radius: 10px;
+  font-weight: bold; line-height: 1.4;
+}
+.module-card { position: relative; }
 .module-card .emoji { font-size: 36px; }
 .module-card .text { flex: 1; }
 .module-card .text h4 { font-size: 17px; color: #333; }
 .module-card .text p { font-size: 12px; color: #999; margin-top: 2px; }
 .module-card .status { font-size: 14px; }
+.level-progress {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px; margin-bottom: 8px;
+  font-size: 13px; color: #5b4caf; font-weight: bold;
+}
+.level-progress .bar-track {
+  flex: 1; height: 8px; background: #e8e0f0; border-radius: 4px; overflow: hidden;
+}
+.level-progress .bar-fill {
+  height: 100%; background: var(--bg-gradient); border-radius: 4px;
+  transition: width 0.4s ease;
+}
 
 .back-btn {
   background: none; border: none; font-size: 24px;
@@ -775,10 +802,10 @@ body {
       🧮 趣味数学
     </div>
 
-    <div class="tip-bubble">三年级要学更大的数和乘法啦！先学方法，再闯关练习～</div>
-
-    <div class="module-list">
+    <div class="tip-bubble">三年级要学更大的数和乘法啦！按顺序一关一关闯，通关后解锁下一关～</div>
+    <div class="level-progress" id="mathLevelProgress"></div>
       <div class="module-card" onclick="learnFirst('math_add')">
+        <div class="level-badge">第1关</div>
         <div class="emoji">➕</div>
         <div class="text">
           <h4>进位加法大冒险</h4>
@@ -788,6 +815,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_add')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_sub')">
+        <div class="level-badge">第2关</div>
         <div class="emoji">➖</div>
         <div class="text">
           <h4>退位减法大作战</h4>
@@ -797,6 +825,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_sub')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mul')">
+        <div class="level-badge">第3关</div>
         <div class="emoji">✖️</div>
         <div class="text">
           <h4>乘法口诀初体验</h4>
@@ -806,6 +835,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mul')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_word')">
+        <div class="level-badge">第4关</div>
         <div class="emoji">🧩</div>
         <div class="text">
           <h4>趣味应用题</h4>
@@ -815,6 +845,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_word')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_pattern')">
+        <div class="level-badge">第5关</div>
         <div class="emoji">🔮</div>
         <div class="text">
           <h4>找规律大师</h4>
@@ -824,6 +855,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_pattern')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mixed')">
+        <div class="level-badge">第6关</div>
         <div class="emoji">🌀</div>
         <div class="text">
           <h4>混合运算大闯关</h4>
@@ -833,6 +865,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mixed')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_logic')">
+        <div class="level-badge">第7关</div>
         <div class="emoji">🧠</div>
         <div class="text">
           <h4>数学推理挑战</h4>
@@ -851,10 +884,12 @@ body {
       📖 快乐语文
     </div>
 
-    <div class="tip-bubble">三年级会学到好多新字和成语！先学方法，再闯关～</div>
+    <div class="tip-bubble">三年级会学到好多新字和成语！按顺序一关一关闯，通关后解锁下一关～</div>
+    <div class="level-progress" id="chineseLevelProgress"></div>
 
     <div class="module-list">
       <div class="module-card" onclick="startCharLearn()">
+        <div class="level-badge">第1关</div>
         <div class="emoji">✍️</div>
         <div class="text">
           <h4>三年级生字先知道</h4>
@@ -863,6 +898,7 @@ body {
         <div class="status" id="char_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_idiom')">
+        <div class="level-badge">第2关</div>
         <div class="emoji">🎭</div>
         <div class="text">
           <h4>成语小达人</h4>
@@ -872,6 +908,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_idiom')">📖</button>
       </div>
       <div class="module-card" onclick="startQuiz('chinese_match')">
+        <div class="level-badge">第3关</div>
         <div class="emoji">🔗</div>
         <div class="text">
           <h4>近反义词连连看</h4>
@@ -880,6 +917,7 @@ body {
         <div class="status" id="chinese_match_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_reading')">
+        <div class="level-badge">第4关</div>
         <div class="emoji">📚</div>
         <div class="text">
           <h4>阅读小天地</h4>
@@ -889,6 +927,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_reading')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_poem')">
+        <div class="level-badge">第5关</div>
         <div class="emoji">🌙</div>
         <div class="text">
           <h4>古诗启蒙</h4>
@@ -898,6 +937,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_poem')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_wizard')">
+        <div class="level-badge">第6关</div>
         <div class="emoji">🌪️</div>
         <div class="text">
           <h4>绿野仙踪</h4>
@@ -907,6 +947,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_wizard')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_guoxue')">
+        <div class="level-badge">第7关</div>
         <div class="emoji">📜</div>
         <div class="text">
           <h4>国学诵读</h4>
@@ -925,10 +966,12 @@ body {
       🌍 趣味英语
     </div>
 
-    <div class="tip-bubble">三年级开始正式学英语啦！先学再练，轻松入门～</div>
+    <div class="tip-bubble">三年级开始正式学英语啦！按顺序一关一关闯，通关后解锁下一关～</div>
+    <div class="level-progress" id="englishLevelProgress"></div>
 
     <div class="module-list">
       <div class="module-card" onclick="startVocabLearn()">
+        <div class="level-badge">第1关</div>
         <div class="emoji">📝</div>
         <div class="text">
           <h4>新概念英语词汇</h4>
@@ -937,6 +980,7 @@ body {
         <div class="status" id="eng_vocab_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('eng_listen')">
+        <div class="level-badge">第2关</div>
         <div class="emoji">👂</div>
         <div class="text">
           <h4>听力闯关</h4>
@@ -946,6 +990,7 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_listen')">📖</button>
       </div>
       <div class="module-card" onclick="startOralPage()">
+        <div class="level-badge">第3关</div>
         <div class="emoji">🗣️</div>
         <div class="text">
           <h4>日常口语100句</h4>
@@ -954,6 +999,7 @@ body {
         <div class="status" id="eng_oral_status"></div>
       </div>
       <div class="module-card" onclick="startPhonicsPage()">
+        <div class="level-badge">第4关</div>
         <div class="emoji">🔤</div>
         <div class="text">
           <h4>自然拼读ABC</h4>
@@ -1748,6 +1794,45 @@ let state = { stars: 0, completed: {}, achievements: [], charIndex: 0 };
 let currentQuiz = null;
 let quizState = { questions: [], current: 0, score: 0, total: 5 };
 
+// ===== 关卡进阶系统 =====
+// 每个学科的模块按顺序排列，前一关完成才解锁下一关
+const LEVEL_ORDER = {
+  math: ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic'],
+  chinese: ['char','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue'],
+  english: ['eng_vocab','eng_listen','eng_oral','eng_phonics']
+};
+
+const SPECIAL_MODULES = ['char','eng_vocab','eng_oral','eng_phonics'];
+
+function getModuleLevel(modId) {
+  for (const [subj, list] of Object.entries(LEVEL_ORDER)) {
+    const idx = list.indexOf(modId);
+    if (idx >= 0) return { subject: subj, level: idx };
+  }
+  return { subject: null, level: -1 };
+}
+
+function isModuleUnlocked(modId) {
+  const { subject, level } = getModuleLevel(modId);
+  if (level < 0) return true;
+  if (level === 0) return true;
+  const order = LEVEL_ORDER[subject];
+  const prevMod = order[level - 1];
+  return !!state.completed[prevMod];
+}
+
+function getUnlockHint(modId) {
+  const { subject, level } = getModuleLevel(modId);
+  if (level <= 0) return '';
+  const order = LEVEL_ORDER[subject];
+  const prevId = order[level - 1];
+  const prevName = MODULE_NAMES[prevId] || prevId;
+  if (!state.completed[prevId]) {
+    return `🔒 先完成「${prevName}」才能解锁哦～`;
+  }
+  return '';
+}
+
 // ===== 工具函数 =====
 function rand(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
 
@@ -1789,6 +1874,20 @@ function markComplete(id) {
   saveState();
   updateDailyProgress();
   updateModuleStatus();
+
+  // 关卡解锁提示：完成后检查是否解锁了下一关
+  const { subject, level } = getModuleLevel(id);
+  if (subject && level >= 0) {
+    const order = LEVEL_ORDER[subject];
+    if (level + 1 < order.length) {
+      const nextId = order[level + 1];
+      const nextName = MODULE_NAMES[nextId] || nextId;
+      // 延迟提示，让结果页先显示
+      setTimeout(() => {
+        showToast(`🔓 解锁新关卡：${nextName}！`);
+      }, 1500);
+    }
+  }
 }
 
 function checkAchievement(id) {
@@ -1826,7 +1925,7 @@ function showPage(pageId) {
 
 // ===== 首页 =====
 function updateDailyProgress() {
-const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics','char'];
   const done = modules.filter(m => state.completed[m]).length;
   const pct = Math.round(done / modules.length * 100);
   document.getElementById('dailyFill').style.width = pct + '%';
@@ -1834,12 +1933,48 @@ const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function updateModuleStatus() {
-const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+  // 普通模块
   ids.forEach(id => {
     const el = document.getElementById(id + '_status');
-    if (el) el.textContent = state.completed[id] ? '✅' : '';
-    const card = el?.closest('.module-card');
-    if (card) card.classList.toggle('completed', !!state.completed[id]);
+    if (!el) return;
+    const card = el.closest('.module-card');
+    const unlocked = isModuleUnlocked(id);
+    if (state.completed[id]) {
+      el.textContent = '✅';
+      if (card) { card.classList.remove('locked'); card.classList.add('completed'); }
+    } else if (!unlocked) {
+      el.textContent = '🔒';
+      if (card) { card.classList.add('locked'); card.classList.remove('completed'); }
+    } else {
+      el.textContent = '';
+      if (card) { card.classList.remove('locked'); card.classList.remove('completed'); }
+    }
+  });
+  // 特殊模块：生字(char)
+  const charEl = document.getElementById('char_status');
+  if (charEl) {
+    const charCard = charEl.closest('.module-card');
+    const charUnlocked = isModuleUnlocked('char');
+    if (state.completed['char']) {
+      charEl.textContent = '✅';
+      if (charCard) { charCard.classList.remove('locked'); charCard.classList.add('completed'); }
+    } else if (!charUnlocked) {
+      charEl.textContent = '🔒';
+      if (charCard) { charCard.classList.add('locked'); charCard.classList.remove('completed'); }
+    } else {
+      charEl.textContent = '';
+      if (charCard) { charCard.classList.remove('locked'); charCard.classList.remove('completed'); }
+    }
+  }
+  // 渲染关卡进度条
+  ['math','chinese','english'].forEach(subj => {
+    const el = document.getElementById(subj + 'LevelProgress');
+    if (!el) return;
+    const order = LEVEL_ORDER[subj];
+    const done = order.filter(id => state.completed[id]).length;
+    const pct = Math.round(done / order.length * 100);
+    el.innerHTML = `🏁 关卡进度 ${done}/${order.length} <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>`;
   });
 }
 
@@ -2458,6 +2593,11 @@ const LEARN_CONTENT = {
 let _currentLearnModule = null;
 
 function learnFirst(moduleId) {
+  // 关卡锁定检查
+  if (!isModuleUnlocked(moduleId)) {
+    showToast(getUnlockHint(moduleId));
+    return;
+  }
   _currentLearnModule = moduleId;
   const learn = LEARN_CONTENT[moduleId];
   const visitedKey = ukey('learnVisited_' + moduleId);
@@ -2527,6 +2667,11 @@ function backFromLearn() {
 
 // ===== 练习系统 =====
 function startQuiz(moduleId) {
+  // 关卡锁定检查
+  if (!isModuleUnlocked(moduleId)) {
+    showToast(getUnlockHint(moduleId));
+    return;
+  }
   currentQuiz = moduleId;
   quizState = { questions: [], current: 0, score: 0, total: 5 };
   quizState._startTime = Date.now(); // 计时
@@ -3042,6 +3187,10 @@ function matchSelect(el) {
 
 // ===== 生字学习 =====
 function startCharLearn() {
+  if (!isModuleUnlocked('char')) {
+    showToast(getUnlockHint('char'));
+    return;
+  }
   showPage('charPage');
   renderChar();
 }
@@ -3083,7 +3232,7 @@ function nextChar() {
     if (state.charIndex >= 4) checkAchievement('char_5');
   } else {
     showToast('🎉 所有生字都学完啦！');
-    markComplete('char_learn');
+    markComplete('char');
     showPage('chinesePage');
   }
 }
@@ -3168,6 +3317,10 @@ if ('speechSynthesis' in window) {
 let vocabIndex = parseInt(localStorage.getItem(ukey('vocabIndex')) || '0');
 
 function startVocabLearn() {
+  if (!isModuleUnlocked('eng_vocab')) {
+    showToast(getUnlockHint('eng_vocab'));
+    return;
+  }
   showPage('vocabPage');
   renderVocab();
 }
@@ -3238,6 +3391,10 @@ function saveVocabState() {
 
 // ===== 英语口语 =====
 function startOralPage() {
+  if (!isModuleUnlocked('eng_oral')) {
+    showToast(getUnlockHint('eng_oral'));
+    return;
+  }
   showPage('oralPage');
   renderOral();
 }
@@ -3280,6 +3437,10 @@ function toggleScene(el) {
 
 // ===== 自然拼读 =====
 function startPhonicsPage() {
+  if (!isModuleUnlocked('eng_phonics')) {
+    showToast(getUnlockHint('eng_phonics'));
+    return;
+  }
   showPage('phonicsPage');
   renderPhonics();
 }
@@ -3336,7 +3497,7 @@ const MODULE_NAMES = {
   math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算', math_logic: '数学推理',
   chinese_idiom: '成语达人', chinese_match: '近反义词', chinese_reading: '阅读理解',
 chinese_poem: '古诗', chinese_wizard: '绿野仙踪', chinese_guoxue: '国学诵读', eng_vocab: '英语词汇', eng_listen: '听力闯关',
-  eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习'
+  eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习', char: '生字学习'
 };
 
 function getTracker() {
