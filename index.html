@@ -232,6 +232,29 @@ body {
   border-color: var(--accent-red); background: #fff0ed;
   animation: shake 0.4s ease;
 }
+
+/* 填空输入模式 */
+.quiz-input-wrap {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin: 16px 0 20px;
+}
+.quiz-input {
+  width: 160px; padding: 14px 16px; font-size: 24px;
+  font-family: var(--font-fun); text-align: center;
+  border: 3px solid #e9ecef; border-radius: 16px;
+  outline: none; transition: all 0.2s; background: #f8f9fa;
+}
+.quiz-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(102,126,234,0.15); }
+.quiz-input.correct { border-color: var(--accent-green); background: #e6fff9; }
+.quiz-input.wrong { border-color: var(--accent-red); background: #fff0ed; }
+.quiz-submit-btn {
+  background: var(--primary); color: #fff; border: none;
+  padding: 14px 28px; border-radius: 30px; font-size: 18px;
+  font-family: var(--font-fun); cursor: pointer; transition: all 0.2s;
+}
+.quiz-submit-btn:hover { transform: scale(1.05); background: var(--primary-dark); }
+.quiz-submit-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
 @keyframes popIn { 0%{transform:scale(0.9)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
 
@@ -465,6 +488,8 @@ body {
 .learn-go-btn { display: block; width: 80%; max-width: 280px; margin: 24px auto 12px; padding: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; border-radius: 30px; font-size: 20px; cursor: pointer; font-family: var(--font-fun); box-shadow: 0 6px 20px rgba(102,126,234,.4); transition: transform .2s; }
 .learn-go-btn:active { transform: scale(.95); }
 .learn-tip { background: #e6fff9; border-radius: 12px; padding: 12px 14px; margin: 10px 0; font-size: 14px; color: #00b894; border: 1px solid #b2f5ea; }
+.learn-formula { background: #f0f0ff; border-radius: 10px; padding: 10px 14px; margin: 8px 0; border: 1px solid #d5d5f7; }
+.learn-formula p { margin: 4px 0; font-size: 15px; }
 
 /* ===== 家长面板 ===== */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
@@ -779,6 +804,14 @@ body {
           <p>📚先学：先乘除后加减、括号优先 → 🎮再练</p>
         </div>
         <div class="status" id="math_mixed_status"></div>
+      </div>
+      <div class="module-card" onclick="learnFirst('math_logic')">
+        <div class="emoji">🧠</div>
+        <div class="text">
+          <h4>数学推理挑战</h4>
+          <p>📚先学：逆向推理、和倍问题 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_logic_status"></div>
       </div>
     </div>
   </div>
@@ -1110,6 +1143,26 @@ const DATA = {
       const opts = makeOptions(ans, 4);
       return { q, answer: ans, options: opts, hint };
     }
+  },
+  math_logic: {
+    title: '🧠 数学推理挑战',
+    questions: [
+      { q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '被减数=减数+差，三个数的和=2×被减数', inputMode: true, fullAnswer: true },
+      { q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '大数=(和+差)÷2', inputMode: true },
+      { q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '小数=(和-差)÷2', inputMode: true },
+      { q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '小数=和÷(倍数+1)', inputMode: true },
+      { q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '大数=小数×倍数', inputMode: true },
+      { q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '先算5×3=15，再倒推', inputMode: true },
+      { q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '□×4=40-8=32', inputMode: true },
+      { q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '三个数的和=2×被减数', inputMode: true },
+      { q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '被除数=5×除数+3，被除数+除数=33', inputMode: true },
+      { q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '假设全是兔=32条腿，多了10条，鸡=10÷2', inputMode: true },
+      { q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '8只减去鸡的只数', inputMode: true },
+      { q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '对折2次=4层，中间剪一刀=4刀口+1', inputMode: true },
+      { q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '小数=(和-差)÷2', inputMode: true },
+      { q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '小数=和÷(倍数+1)', inputMode: true },
+      { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
+    ]
   },
   chinese_idiom: {
     title: '🎭 成语小达人',
@@ -2007,6 +2060,26 @@ const LEARN_CONTENT = {
       <div class="learn-tip">🎯 诀窍：看到乘除号就先圈出来，先算它们！有括号就像VIP通道，括号里的先走！</div>
     `
   },
+  math_logic: {
+    title: '🧠 数学推理挑战',
+    questions: [
+      { q: '在一个减法算式里，被减数、减数与差的和是54，减数是差的2倍。这个算式是？', answer: '27-18=9', hint: '被减数=减数+差，三个数的和=2×被减数', inputMode: true, fullAnswer: true },
+      { q: '两个数的和是45，差是15。较大的数是？', answer: '30', hint: '大数=(和+差)÷2', inputMode: true },
+      { q: '两个数的和是45，差是15。较小的数是？', answer: '15', hint: '小数=(和-差)÷2', inputMode: true },
+      { q: '故事书是科普书的3倍，共120本。科普书有多少本？', answer: '30', hint: '小数=和÷(倍数+1)', inputMode: true },
+      { q: '故事书是科普书的3倍，共120本。故事书有多少本？', answer: '90', hint: '大数=小数×倍数', inputMode: true },
+      { q: '□ + 5×3 = 32，□ = ？', answer: '17', hint: '先算5×3=15，再倒推', inputMode: true },
+      { q: '40 - □ × 4 = 8，□ = ？', answer: '8', hint: '□×4=40-8=32', inputMode: true },
+      { q: '被减数、减数与差的和是80，被减数是？', answer: '40', hint: '三个数的和=2×被减数', inputMode: true },
+      { q: '被除数除以除数商5余3，被除数与除数的和是33。除数是？', answer: '5', hint: '被除数=5×除数+3，被除数+除数=33', inputMode: true },
+      { q: '鸡兔同笼，共8只，22条腿。鸡有几只？', answer: '5', hint: '假设全是兔=32条腿，多了10条，鸡=10÷2', inputMode: true },
+      { q: '鸡兔同笼，共8只，22条腿。兔有几只？', answer: '3', hint: '8只减去鸡的只数', inputMode: true },
+      { q: '一根绳子对折2次后从中间剪一刀，剪成几段？', answer: '5', hint: '对折2次=4层，中间剪一刀=4刀口+1', inputMode: true },
+      { q: '小明比小红大3岁，两人年龄的和是27岁。小红几岁？', answer: '12', hint: '小数=(和-差)÷2', inputMode: true },
+      { q: '甲乙两数的和是96，甲是乙的3倍。乙是？', answer: '24', hint: '小数=和÷(倍数+1)', inputMode: true },
+      { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
+    ]
+  },
   chinese_idiom: {
     title: '📚 学一学：成语故事',
     html: `
@@ -2312,6 +2385,32 @@ function renderQuestion() {
     </div><div style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">点🔊听正常速度，点🐢听慢速发音<br><span style="font-size:11px;color:#aaa;">如听不到声音，请检查手机静音开关或用Chrome打开</span></div>`;
   }
 
+  // 填空输入模式
+  if (q.inputMode) {
+    container.innerHTML = `
+      <div class="quiz-header">
+        <span class="quiz-progress">第 ${num} / ${total} 题</span>
+        <span class="quiz-score">得分: ${quizState.score * 20}</span>
+      </div>
+      ${questionHTML}
+      <div class="quiz-question">
+        <div class="q-text">${q.q}</div>
+        ${q.hint ? `<div class="q-hint">💡 ${q.hint}</div>` : ''}
+      </div>
+      <div class="quiz-input-wrap">
+        <input type="text" class="quiz-input" id="answerInput" placeholder="写出你的答案" autocomplete="off" onkeydown="if(event.key==='Enter')submitInputAnswer()">
+        <button class="quiz-submit-btn" id="submitBtn" onclick="submitInputAnswer()">提交</button>
+      </div>
+      <div id="inputFeedback" style="text-align:center; font-size:18px; font-family:var(--font-fun); min-height:28px; margin-bottom:8px;"></div>
+      <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none">下一题 ➜</button>
+      <button class="explain-btn" id="explainBtn" onclick="toggleExplain()" style="display:none">📖 看解析</button>
+      <div class="explain-panel" id="explainPanel"></div>
+    `;
+    explainVisible = false;
+    setTimeout(() => { const inp = document.getElementById('answerInput'); if(inp) inp.focus(); }, 100);
+    return;
+  }
+
   // 如果没有options但有数字answer，自动生成选项
   let options = q.options;
   if (!options && typeof q.answer === 'number') {
@@ -2347,6 +2446,42 @@ function renderQuestion() {
     <div class="explain-panel" id="explainPanel"></div>
   `;
   explainVisible = false;
+}
+
+// 填空模式答案提交
+function submitInputAnswer() {
+  const q = quizState.questions[quizState.current];
+  const input = document.getElementById('answerInput');
+  const feedback = document.getElementById('inputFeedback');
+  const submitBtn = document.getElementById('submitBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const explainBtn = document.getElementById('explainBtn');
+  if (!input || !feedback) return;
+
+  const userAns = input.value.trim().replace(/\s/g, '');
+  if (!userAns) { feedback.innerHTML = '<span style="color:#e17055">✏️ 请先写出答案再提交</span>'; return; }
+
+  const correctAns = String(q.answer).replace(/\s/g, '');
+  const isCorrect = userAns === correctAns;
+
+  input.disabled = true;
+  submitBtn.disabled = true;
+
+  if (isCorrect) {
+    input.classList.add('correct');
+    feedback.innerHTML = '<span style="color:#00b894">✅ 太棒了！回答正确！</span>';
+    quizState.score++;
+    quizState.correct++;
+  } else {
+    input.classList.add('wrong');
+    feedback.innerHTML = `<span style="color:#e17055">❌ 再想想哦！正确答案是：<strong>${q.answer}</strong></span>`;
+  }
+
+  nextBtn.style.display = '';
+  explainBtn.style.display = '';
+  if (!isCorrect) {
+    toggleExplain();
+  }
 }
 
 // 防止特殊字符问题的safe id
@@ -2565,7 +2700,7 @@ function showResult() {
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
 
   // 全科成就
-const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','eng_vocab','eng_listen','eng_oral','eng_phonics'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
 
   const container = document.getElementById('resultContent');
@@ -2623,16 +2758,16 @@ function startMatchGame() {
   let html = '';
   pairs.forEach((p, i) => {
     html += `<div class="match-row">
-      <div class="match-item" data-side="left" data-index="${i}" data-pair="${i}" onclick="matchSelect(this)">${p.left}<br><small style="color:#aaa">(${p.type})</small></div>
-      <div class="match-item" data-side="right" data-value="${p.right}" onclick="matchSelect(this)">${rights[i]}</div>
+      <div class="match-item" data-side="left" data-index="${i}" data-value="${p.left}" onclick="matchSelect(this)">${p.left}<br><small style="color:#aaa">(${p.type})</small></div>
+      <div class="match-item" data-side="right" data-value="${rights[i]}" onclick="matchSelect(this)">${rights[i]}</div>
     </div>`;
   });
   mc.innerHTML = html;
 
   window._matchState = { selected: null, matched: 0, total: pairs.length, pairs, rights };
+  // 建立正确映射：left value -> right value
   window._matchCorrectMap = {};
-  // 建立正确映射：left index -> right value
-  pairs.forEach((p, i) => { window._matchCorrectMap[i] = p.right; });
+  pairs.forEach(p => { window._matchCorrectMap[p.left] = p.right; });
 }
 
 function matchSelect(el) {
@@ -2648,8 +2783,8 @@ function matchSelect(el) {
     }
   } else {
     if (el.dataset.side === 'right') {
-      const leftIdx = parseInt(ms.selected.dataset.index);
-      const correctRight = window._matchCorrectMap[leftIdx];
+      const leftValue = ms.selected.dataset.value;
+      const correctRight = window._matchCorrectMap[leftValue];
       if (el.dataset.value === correctRight) {
         ms.selected.classList.add('matched');
         ms.selected.classList.remove('selected');
@@ -2944,7 +3079,7 @@ function createStarParticles() {
 let TRACK_KEY = 'learnTracker';
 const MODULE_NAMES = {
   math_add: '进位加法', math_sub: '退位减法', math_mul: '乘法口诀',
-  math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算',
+  math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算', math_logic: '数学推理',
   chinese_idiom: '成语达人', chinese_match: '近反义词', chinese_reading: '阅读理解',
   chinese_poem: '古诗', chinese_wizard: '绿野仙踪', eng_vocab: '英语词汇', eng_listen: '听力闯关',
   eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习'
