@@ -4375,6 +4375,33 @@ function showResult() {
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
   if (currentQuiz === 'eng_look2' && pct >= 60) checkAchievement('eng_look2_done');
 
+  // 一日一练：构建各科小分HTML
+  function buildDailySubScores() {
+    const subs = {};
+    quizState.questions.forEach((q, i) => {
+      const s = q._subject || '其他';
+      if (!subs[s]) subs[s] = {correct: 0, total: 0};
+      subs[s].total++;
+      if (quizState.answered[i] && quizState.answered[i].correct) subs[s].correct++;
+    });
+    let html = '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0;">';
+    Object.entries(subs).forEach(([k,v]) => {
+      html += '<span style="background:#f0f0ff;padding:4px 12px;border-radius:12px;font-size:14px;">' + k + ' ' + v.correct + '/' + v.total + '</span>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // 一日一练：结果页"再来一次"按钮
+  function retryFromResult() {
+    if (quizState.isDaily) {
+      // 已完成今日练习，提示得分
+      showToast('🎯 今日一练已完成！明天再来挑战吧！');
+    } else {
+      startQuiz(currentQuiz);
+    }
+  }
+
   // 全科成就
 const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours','eng_look2'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
@@ -4386,18 +4413,7 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
     <div class="result-score">${quizState.score} / ${quizState.total}</div>
     <div class="stars-earned">${'⭐'.repeat(starsEarned)}${'☆'.repeat(3 - starsEarned)}</div>
     <p style="color:#888; font-size:14px;">获得 ${starsEarned} 颗星星</p>
-    ${quizState.isDaily ? (() => {
-      const subs = {};
-      quizState.questions.forEach((q, i) => {
-        const s = q._subject || '其他';
-        if (!subs[s]) subs[s] = {correct: 0, total: 0};
-        subs[s].total++;
-        if (quizState.answered[i] && quizState.answered[i].correct) subs[s].correct++;
-      });
-      return '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0;">' +
-        Object.entries(subs).map(([k,v]) => '<span style="background:#f0f0ff;padding:4px 12px;border-radius:12px;font-size:14px;">' + k + ' ' + v.correct + '/' + v.total + '</span>').join('') +
-        '</div>';
-    })() : ''}
+    ${quizState.isDaily ? buildDailySubScores() : ''}
     ${stageInfo}
     ${pct < 60 ? '<div class="tip-bubble" style="margin:12px 0;">💡 正确率不够高，再练练这一节吧～</div>' : ''}
     ${pct > 85 && !allCleared ? '<div class="tip-bubble" style="margin:12px 0;">🎉 正确率很高！继续挑战下一节吧～</div>' : ''}
@@ -4410,7 +4426,7 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
       </div>
     </div>
     <div class="result-btns">
-      <button class="result-btn secondary" onclick="${quizState.isDaily ? 'startDailyPractice()' : 'startQuiz(\\''+currentQuiz+'\\')' }">${quizState.isDaily ? '查看今日成绩' : '再来一次'}</button>
+      <button class="result-btn secondary" onclick="retryFromResult()">${quizState.isDaily ? '查看今日成绩' : '再来一次'}</button>
       <button class="result-btn primary" onclick="backFromQuiz()">${quizState.isDaily ? '返回首页' : '返回列表'}</button>
     </div>
   `;
