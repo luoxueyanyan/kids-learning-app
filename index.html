@@ -874,6 +874,14 @@ body {
         </div>
         <div class="status" id="chinese_wizard_status"></div>
       </div>
+      <div class="module-card" onclick="learnFirst('chinese_guoxue')">
+        <div class="emoji">📜</div>
+        <div class="text">
+          <h4>国学诵读</h4>
+          <p>📜先学：16首古诗+常考方向 → ✏️再练</p>
+        </div>
+        <div class="status" id="chinese_guoxue_status"></div>
+      </div>
     </div>
   </div>
 
@@ -1321,6 +1329,70 @@ const DATA = {
       }
     ]
   },
+  chinese_guoxue: {
+    title: '📜 国学诵读',
+    questions: [
+      // 钱塘湖春行
+      { q: '白居易《钱塘湖春行》：几处早莺争暖树，________？', answer: '谁家新燕啄春泥', hint: '下一句写燕子', inputMode: true },
+      { q: '白居易《钱塘湖春行》：乱花渐欲迷人眼，________。', answer: '浅草才能没马蹄', hint: '写草很短', inputMode: true },
+      { q: '白居易《钱塘湖春行》中最能体现"早春"特点的两个字是？（写两个字）', answer: '早新', hint: '几处___莺，___燕', inputMode: true },
+      // 如梦令
+      { q: '李清照《如梦令》：常记溪亭日暮，________。', answer: '沉醉不知归路', hint: '喝醉了迷路', inputMode: true },
+      { q: '李清照《如梦令》：兴尽晚回舟，________。', answer: '误入藕花深处', hint: '划错方向了', inputMode: true },
+      { q: '李清照《如梦令》最后两句：________，________，惊起一滩鸥鹭。', answer: '争渡争渡', hint: '努力划船，重复两字', inputMode: true },
+      // 过故人庄
+      { q: '孟浩然《过故人庄》：绿树村边合，________。', answer: '青山郭外斜', hint: '写青山', inputMode: true },
+      { q: '孟浩然《过故人庄》：开轩面场圃，________。', answer: '把酒话桑麻', hint: '一边喝酒一边聊农事', inputMode: true },
+      { q: '孟浩然《过故人庄》中约定下次再来的诗句：待到重阳日，________。', answer: '还来就菊花', hint: '重阳节赏花', inputMode: true },
+      // 题破山寺后禅院
+      { q: '常建《题破山寺后禅院》：曲径通幽处，________。', answer: '禅房花木深', hint: '禅房被花草树木围着', inputMode: true },
+      { q: '常建《题破山寺后禅院》：山光悦鸟性，________。', answer: '潭影空人心', hint: '水潭倒影让人心空灵', inputMode: true },
+      { q: '常建《题破山寺后禅院》最后两句：万籁此都寂，________。', answer: '但余钟磬音', hint: '只听到寺庙的钟声', inputMode: true },
+      // 闻王昌龄左迁龙标遥有此寄
+      { q: '李白《闻王昌龄左迁龙标遥有此寄》：我寄愁心与明月，________。', answer: '随风直到夜郎西', hint: '让风把心意带到远方', inputMode: true },
+      { q: '李白《闻王昌龄左迁龙标遥有此寄》的开头两句：________，闻道龙标过五溪。', answer: '杨花落尽子规啼', hint: '杨花飘落、子规鸟啼叫', inputMode: true },
+      // 夜雨寄北
+      { q: '李商隐《夜雨寄北》：何当共剪西窗烛，________。', answer: '却话巴山夜雨时', hint: '回忆今晚巴山的雨', inputMode: true },
+      { q: '李商隐《夜雨寄北》开头：君问归期未有期，________。', answer: '巴山夜雨涨秋池', hint: '巴山连夜雨，秋水涨满了池子', inputMode: true },
+      // 泊秦淮
+      { q: '杜牧《泊秦淮》：商女不知亡国恨，________。', answer: '隔江犹唱后庭花', hint: '讽刺统治者沉迷享乐', inputMode: true },
+      { q: '杜牧《泊秦淮》开头两句：烟笼寒水月笼沙，________。', answer: '夜泊秦淮近酒家', hint: '夜晚停船在秦淮河边', inputMode: true },
+      // 过松源晨炊漆公店
+      { q: '杨万里《过松源晨炊漆公店》：正入万山圈子里，________。', answer: '一山放过一山拦', hint: '过了这座山还有那座山', inputMode: true },
+      { q: '杨万里《过松源晨炊漆公店》告诉我们的道理是？（用4个字概括）', answer: '困难重重', hint: '下山也不容易，一个困难接着一个', inputMode: true },
+      // 浣溪沙
+      { q: '晏殊《浣溪沙》：无可奈何花落去，________。', answer: '似曾相识燕归来', hint: '花落了，但燕子好像又回来了', inputMode: true },
+      { q: '晏殊《浣溪沙》中感叹时光流逝的名句是？无可奈何花落去，________。', answer: '似曾相识燕归来', hint: '花落燕归，春去春回', inputMode: true },
+      // 龟虽寿
+      { q: '曹操《龟虽寿》表达壮志未酬的名句：________，志在千里。', answer: '老骥伏枥', hint: '老马还趴在马槽旁', inputMode: true },
+      { q: '曹操《龟虽寿》：烈士暮年，________。', answer: '壮心不已', hint: '英雄老了但心还不老', inputMode: true },
+      // 观书有感
+      { q: '朱熹《观书有感》：问渠那得清如许？________。', answer: '为有源头活水来', hint: '因为有新鲜水源不断流来', inputMode: true },
+      { q: '朱熹《观书有感》：半亩方塘一鉴开，________。', answer: '天光云影共徘徊', hint: '天空和云的倒影在水里', inputMode: true },
+      // 塞下曲
+      { q: '卢纶《塞下曲》：欲将轻骑逐，________。', answer: '大雪满弓刀', hint: '大雪落满了武器', inputMode: true },
+      { q: '卢纶《塞下曲》开头：月黑雁飞高，________。', answer: '单于夜遁逃', hint: '敌军首领趁夜逃跑', inputMode: true },
+      // 登幽州台歌
+      { q: '陈子昂《登幽州台歌》：念天地之悠悠，________！', answer: '独怆然而涕下', hint: '独自感伤流泪', inputMode: true },
+      { q: '陈子昂《登幽州台歌》：前不见古人，________。', answer: '后不见来者', hint: '后面看不到未来的人', inputMode: true },
+      // 过华清宫绝句
+      { q: '杜牧《过华清宫绝句》：一骑红尘妃子笑，________。', answer: '无人知是荔枝来', hint: '没人知道送的是荔枝', inputMode: true },
+      { q: '杜牧《过华清宫绝句》讽刺的是什么？', answer: '统治者奢侈', hint: '为一个人吃荔枝而累死多少马', inputMode: true },
+      // 竹枝词
+      { q: '刘禹锡《竹枝词》：东边日出西边雨，________。', answer: '道是无晴却有晴', hint: '"晴"谐音"情"', inputMode: true },
+      { q: '刘禹锡《竹枝词》：杨柳青青江水平，________。', answer: '闻郎江上唱歌声', hint: '听到江上有人唱歌', inputMode: true },
+      // 古人谈读书
+      { q: '《论语》："知之为知之，________，是知也。"', answer: '不知为不知', hint: '不知道就说不知道', inputMode: true },
+      { q: '朱熹说的读书"三到"是：心到、___到、口到。', answer: '眼', hint: '用眼睛看', inputMode: true },
+      { q: '曾国藩说读书要"三有"：有志、有识、________。', answer: '有恒', hint: '持之以恒', inputMode: true },
+      { q: '"敏而好学，________"出自《论语》，意思是不以向地位低的人请教为耻。', answer: '不耻下问', hint: '不觉得丢人', inputMode: true },
+      // 诗意理解
+      { q: '"问渠那得清如许？为有源头活水来"比喻什么道理？', answer: '不断学习才能保持进步', hint: '池水清澈因为有活水，人进步因为不断学习', inputMode: true },
+      { q: '"老骥伏枥，志在千里"用了什么修辞手法？', answer: '比喻', hint: '用老马比喻人', inputMode: true },
+      { q: '"道是无晴却有晴"中"晴"暗指哪个字？', answer: '情', hint: '谐音双关', inputMode: true },
+      { q: '"无可奈何花落去，似曾相识燕归来"表达的情感是？', answer: '对时光流逝的感叹', hint: '花落了回不来，但燕子又回来', inputMode: true },
+    ]
+  },
   eng_listen: {
     title: '👂 听力闯关',
     questions: [
@@ -1723,7 +1795,7 @@ function showPage(pageId) {
 
 // ===== 首页 =====
 function updateDailyProgress() {
-const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
   const done = modules.filter(m => state.completed[m]).length;
   const pct = Math.round(done / modules.length * 100);
   document.getElementById('dailyFill').style.width = pct + '%';
@@ -1731,7 +1803,7 @@ const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function updateModuleStatus() {
-const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
   ids.forEach(id => {
     const el = document.getElementById(id + '_status');
     if (el) el.textContent = state.completed[id] ? '✅' : '';
@@ -2266,6 +2338,62 @@ const LEARN_CONTENT = {
       <div class="learn-tip">🎯 记住：这本书最核心的道理是——你想要的东西，其实你已经拥有了！祸兮福之所倚！</div>
     `
   },
+  chinese_guoxue: {
+    title: '📚 学一学：国学诵读',
+    html: `
+      <div class="learn-section">
+        <h3>🌙 16首必背古诗词</h3>
+        <p>下面是老师要求的诵读篇目，<strong>先读熟再练</strong>，考试才能稳稳拿分！</p>
+      </div>
+      <div class="learn-section">
+        <h3>📖 诗词一览</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>钱塘湖春行</strong>（白居易）——几处早莺争暖树，谁家新燕啄春泥</div>
+          <div class="step-item"><strong>如梦令</strong>（李清照）——争渡，争渡，惊起一滩鸥鹭</div>
+          <div class="step-item"><strong>过故人庄</strong>（孟浩然）——待到重阳日，还来就菊花</div>
+          <div class="step-item"><strong>题破山寺后禅院</strong>（常建）——曲径通幽处，禅房花木深</div>
+          <div class="step-item"><strong>闻王昌龄左迁龙标遥有此寄</strong>（李白）——我寄愁心与明月，随风直到夜郎西</div>
+          <div class="step-item"><strong>夜雨寄北</strong>（李商隐）——何当共剪西窗烛，却话巴山夜雨时</div>
+          <div class="step-item"><strong>泊秦淮</strong>（杜牧）——商女不知亡国恨，隔江犹唱后庭花</div>
+          <div class="step-item"><strong>过松源晨炊漆公店</strong>（杨万里）——正入万山圈子里，一山放过一山拦</div>
+          <div class="step-item"><strong>浣溪沙</strong>（晏殊）——无可奈何花落去，似曾相识燕归来</div>
+          <div class="step-item"><strong>龟虽寿</strong>（曹操）——老骥伏枥，志在千里</div>
+          <div class="step-item"><strong>观书有感</strong>（朱熹）——问渠那得清如许？为有源头活水来</div>
+          <div class="step-item"><strong>塞下曲</strong>（卢纶）——欲将轻骑逐，大雪满弓刀</div>
+          <div class="step-item"><strong>登幽州台歌</strong>（陈子昂）——念天地之悠悠，独怆然而涕下</div>
+          <div class="step-item"><strong>过华清宫绝句</strong>（杜牧）——一骑红尘妃子笑，无人知是荔枝来</div>
+          <div class="step-item"><strong>竹枝词</strong>（刘禹锡）——东边日出西边雨，道是无晴却有晴</div>
+          <div class="step-item"><strong>古人谈读书</strong>（论语/朱熹/曾国藩）——知之为知之，不知为不知</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 常考方向</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>默写填空</strong>：给上句写下句，或给下句写上句</div>
+          <div class="step-item"><strong>诗意理解</strong>：这句诗表达了什么感情/道理？</div>
+          <div class="step-item"><strong>修辞手法</strong>：比喻、拟人、双关（如"晴"谐音"情"）</div>
+          <div class="step-item"><strong>炼字赏析</strong>：哪个字用得好？为什么？（如"争""啄"）</div>
+          <div class="step-item"><strong>对比阅读</strong>：两首诗放一起比情感/手法</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>✏️ 诗词易错字</h3>
+        <div class="example-box">
+          <p><strong>啄</strong>春泥（不是"逐"）</p>
+          <p>浅草才能<strong>没</strong>马蹄（不是"莫"）</p>
+          <p><strong>藕</strong>花深处（不是"偶"）</p>
+          <p>把酒话<strong>桑麻</strong>（不是"沙麻"）</p>
+          <p>万<strong>籁</strong>此都寂（不是"赖"）</p>
+          <p>钟<strong>磬</strong>音（不是"庆"）</p>
+          <p><strong>怆</strong>然而涕下（不是"创"）</p>
+          <p>一<strong>骑</strong>红尘（读jì，不是"一匹"）</p>
+          <p>老<strong>骥</strong>伏枥（不是"冀"）</p>
+          <p><strong>枥</strong>（不是"历"）</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 做题技巧：先背熟原文 → 再理解每句意思 → 最后练填空，错了就重读三遍！</div>
+    `
+  },
   eng_listen: {
     title: '📚 学一学：听力技巧',
     html: `
@@ -2700,7 +2828,7 @@ function showResult() {
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
 
   // 全科成就
-const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
 
   const container = document.getElementById('resultContent');
@@ -3081,7 +3209,7 @@ const MODULE_NAMES = {
   math_add: '进位加法', math_sub: '退位减法', math_mul: '乘法口诀',
   math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算', math_logic: '数学推理',
   chinese_idiom: '成语达人', chinese_match: '近反义词', chinese_reading: '阅读理解',
-  chinese_poem: '古诗', chinese_wizard: '绿野仙踪', eng_vocab: '英语词汇', eng_listen: '听力闯关',
+chinese_poem: '古诗', chinese_wizard: '绿野仙踪', chinese_guoxue: '国学诵读', eng_vocab: '英语词汇', eng_listen: '听力闯关',
   eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习'
 };
 
