@@ -76,6 +76,11 @@ body {
 .page { display: none; padding: 10px 14px; animation: fadeIn 0.3s ease; }
 #quizPage { padding: 4px 10px 70px; }
 #learnPage { padding: 6px 12px 10px; }
+/* 学习页和做题页时隐藏顶部栏，节省空间 */
+body.quiz-active .top-bar,
+body.learn-active .top-bar { display: none; }
+body.quiz-active #quizPage,
+body.learn-active #learnPage { padding-top: 0; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -533,7 +538,7 @@ body {
 }
 
 /* ===== 学习页 ===== */
-.learn-section { background: #fff9f0; border-radius: 14px; padding: 12px; margin: 8px 0; border-left: 4px solid var(--accent-orange); }
+.learn-section { background: #fff9f0; border-radius: 14px; padding: 10px 12px; margin: 6px 0; border-left: 4px solid var(--accent-orange); }
 .learn-section h3 { font-size: 16px; color: var(--accent-orange); margin-bottom: 6px; }
 .learn-section p { font-size: 15px; line-height: 1.7; color: #444; margin: 4px 0; }
 .learn-section .example-box { background: #fff; border-radius: 12px; padding: 10px; margin: 8px 0; border: 2px dashed #fdcb6e; }
@@ -2109,6 +2114,10 @@ function checkAchievement(id) {
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
+  // 控制top-bar显隐：做题页和学习页隐藏顶部栏
+  document.body.classList.remove('quiz-active', 'learn-active');
+  if (pageId === 'quizPage') document.body.classList.add('quiz-active');
+  if (pageId === 'learnPage') document.body.classList.add('learn-active');
 
   // 更新导航
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -3678,7 +3687,7 @@ function renderQuestion() {
         <button class="quiz-submit-btn" id="submitBtn" onclick="submitInputAnswer()">提交</button>
       </div>
       <div id="inputFeedback" style="text-align:center; font-size:18px; font-family:var(--font-fun); min-height:28px; margin-bottom:8px;"></div>
-      <div class="quiz-bottom-nav" id="quizBottomNav" style="display:none;">
+      <div class="quiz-bottom-nav" id="quizBottomNav" style="display:flex;">
         <button class="quiz-bottom-btn" id="prevBtnBottom" onclick="prevQuestion()">◀ 上一题</button>
         <button class="quiz-bottom-btn quiz-bottom-btn-next" id="nextBtnBottom" onclick="nextQuestion()">下一题 ▶</button>
       </div>
@@ -3687,7 +3696,16 @@ function renderQuestion() {
     `;
     explainVisible = false;
     setTimeout(() => { const inp = document.getElementById('answerInput'); if(inp) inp.focus(); }, 100);
-    // 如果当前题已答过，自动显示底部导航
+    // 始终初始化底部导航按钮状态（底部导航已改为始终可见）
+    setTimeout(() => {
+      const prevBtnB = document.getElementById('prevBtnBottom');
+      const nextBtnB = document.getElementById('nextBtnBottom');
+      if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+      if (nextBtnB) {
+        nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+      }
+    }, 50);
+    // 如果当前题已答过，禁用输入并显示答案
     if (quizState.answered[quizState.current]) {
       setTimeout(() => {
         const bottomNav = document.getElementById('quizBottomNav');
@@ -3731,7 +3749,7 @@ function renderQuestion() {
         </div>
       `).join('')}
     </div>
-    <div class="quiz-bottom-nav" id="quizBottomNav" style="display:none;">
+    <div class="quiz-bottom-nav" id="quizBottomNav" style="display:flex;">
       <button class="quiz-bottom-btn" id="prevBtnBottom" onclick="prevQuestion()">◀ 上一题</button>
       <button class="quiz-bottom-btn quiz-bottom-btn-next" id="nextBtnBottom" onclick="nextQuestion()">下一题 ▶</button>
     </div>
@@ -3739,7 +3757,16 @@ function renderQuestion() {
     <div class="explain-panel" id="explainPanel"></div>
   `;
   explainVisible = false;
-  // 如果当前题已答过，自动显示底部导航
+  // 始终初始化底部导航按钮状态（底部导航已改为始终可见）
+  setTimeout(() => {
+    const prevBtnB = document.getElementById('prevBtnBottom');
+    const nextBtnB = document.getElementById('nextBtnBottom');
+    if (prevBtnB) prevBtnB.disabled = (quizState.current <= 0);
+    if (nextBtnB) {
+      nextBtnB.textContent = (quizState.current >= quizState.total - 1) ? '📋 查看结果' : '下一题 ▶';
+    }
+  }, 50);
+  // 如果当前题已答过，标记选项状态
   if (quizState.answered[quizState.current]) {
     setTimeout(() => {
       const bottomNav = document.getElementById('quizBottomNav');
