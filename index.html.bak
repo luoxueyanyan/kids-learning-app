@@ -1058,7 +1058,8 @@ const DATA = {
       const a = rand(100, 500);
       const b = rand(100, 499);
       const ans = a + b;
-      return { q: `${a} + ${b} = ____`, answer: String(ans), inputMode: true, hint: '记得进位哦～' };
+      const opts = makeOptions(ans, 4);
+      return { q: `${a} + ${b} = ?`, answer: ans, options: opts, hint: '记得进位哦～' };
     }
   },
   math_sub: {
@@ -1067,7 +1068,8 @@ const DATA = {
       const b = rand(100, 400);
       const a = b + rand(50, 300);
       const ans = a - b;
-      return { q: `${a} - ${b} = ____`, answer: String(ans), inputMode: true, hint: '不够减要借位哦～' };
+      const opts = makeOptions(ans, 4);
+      return { q: `${a} - ${b} = ?`, answer: ans, options: opts, hint: '不够减要借位哦～' };
     }
   },
   math_mul: {
@@ -1076,39 +1078,40 @@ const DATA = {
       const a = rand(2, 5);
       const b = rand(2, 9);
       const ans = a * b;
-      return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: `${a}的乘法口诀～` };
+      const opts = makeOptions(ans, 4);
+      return { q: `${a} × ${b} = ?`, answer: ans, options: opts, hint: `${a}的乘法口诀～` };
     }
   },
   math_word: {
     title: '🧩 趣味应用题',
     questions: [
-      { q: '🏫 学校图书馆有故事书 235 本，科普书比故事书多 168 本。故事书和科普书一共有多少本？', answer: '638', inputMode: true, hint: '先算科普书有多少，再加故事书' },
-      { q: '🍎 水果店运来 5 箱苹果，每箱 24 个。卖出了 78 个，还剩多少个？', answer: '42', inputMode: true, hint: '先算总共有多少个，再减卖出的' },
-      { q: '🍫 一盒巧克力有 8 块，妈妈买了 6 盒。分给小朋友 19 块后，还剩几块？', answer: '29', inputMode: true, hint: '先算一共几块，再减分出去的' },
-      { q: '🌳 公园里种了 3 排树，每排 8 棵。柳树有 12 棵，其余都是杨树，杨树有多少棵？', answer: '12', inputMode: true, hint: '先算一共多少棵，再减柳树' },
-      { q: '👧 三年级一班有 45 人，二班比一班少 7 人。两个班一共有多少人？', answer: '83', inputMode: true, hint: '先算二班有多少人，再加一班' },
-      { q: '✏️ 文具店上午卖出钢笔 156 支，下午卖出 89 支。店里原来有 400 支，还剩多少支？', answer: '155', inputMode: true, hint: '先算一共卖了多少支' },
-      { q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '这道题问的是多多少条' },
-      { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: '3', inputMode: true, hint: '4×6=24，24÷7=3…3' },
-      { q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '先算6辆共多少座位，再和260比较' },
-      { q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: '54', inputMode: true, hint: '先算小灰兔采了36÷2=18个' },
-      { q: '🎒 买一个书包 68 元，一个文具盒 25 元。小红付了 100 元，应找回多少元？', answer: '7', inputMode: true, hint: '先算一共花了多少元' },
-      { q: '🏃 学校运动会，三年级参加跑步的有 35 人，参加跳远的比跑步的多 18 人。同时参加两项的有 12 人，三年级至少有多少人参加了运动项目？', answer: '76', inputMode: true, hint: '先分别算跑步和跳远各多少人，再减重复的12人' },
+      { q: '🏫 学校图书馆有故事书 235 本，科普书比故事书多 168 本。故事书和科普书一共有多少本？', answer: 638, options: [638, 403, 573, 503], hint: '先算科普书有多少，再加故事书' },
+      { q: '🍎 水果店运来 5 箱苹果，每箱 24 个。卖出了 78 个，还剩多少个？', answer: 42, options: [42, 120, 102, 54], hint: '先算总共有多少个，再减卖出的' },
+      { q: '🍫 一盒巧克力有 8 块，妈妈买了 6 盒。分给小朋友 19 块后，还剩几块？', answer: 29, options: [29, 48, 21, 37], hint: '先算一共几块，再减分出去的' },
+      { q: '🌳 公园里种了 3 排树，每排 8 棵。柳树有 12 棵，其余都是杨树，杨树有多少棵？', answer: 12, options: [12, 24, 20, 8], hint: '先算一共多少棵，再减柳树' },
+      { q: '👧 三年级一班有 45 人，二班比一班少 7 人。两个班一共有多少人？', answer: 83, options: [83, 38, 90, 52], hint: '先算二班有多少人，再加一班' },
+      { q: '✏️ 文具店上午卖出钢笔 156 支，下午卖出 89 支。店里原来有 400 支，还剩多少支？', answer: 155, options: [155, 245, 311, 67], hint: '先算一共卖了多少支' },
+      { q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？红鱼比黑鱼多多少条？', answer: 18, options: [18, 4, 30, 6], hint: '这道题问的是多多少条' },
+      { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: 3, options: [3, 4, 2, 1], hint: '4×6=24，24÷7=3…3' },
+      { q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: 10, options: [10, 270, 15, 0], hint: '先算6辆共多少座位，再和260比较' },
+      { q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: 54, options: [54, 72, 48, 18], hint: '先算小灰兔采了36÷2=18个' },
+      { q: '🎒 买一个书包 68 元，一个文具盒 25 元。小红付了 100 元，应找回多少元？', answer: 7, options: [7, 93, 17, 32], hint: '先算一共花了多少元' },
+      { q: '🏃 学校运动会，三年级参加跑步的有 35 人，参加跳远的比跑步的多 18 人。同时参加两项的有 12 人，三年级至少有多少人参加了运动项目？', answer: 76, options: [76, 41, 65, 88], hint: '先分别算跑步和跳远各多少人，再减重复的12人' },
     ]
   },
   math_pattern: {
     title: '🔮 找规律大师',
     questions: [
-      { q: '2, 4, 6, 8, ?, 12 — 问号处填什么？', answer: '10', inputMode: true, hint: '每次加2' },
-      { q: '1, 3, 5, 7, ?, 11 — 问号处填什么？', answer: '9', inputMode: true, hint: '每次加2' },
-      { q: '5, 10, 15, 20, ? — 问号处填什么？', answer: '25', inputMode: true, hint: '每次加5' },
-      { q: '3, 6, 9, 12, ? — 问号处填什么？', answer: '15', inputMode: true, hint: '每次加3' },
-      { q: '100, 90, 80, 70, ? — 问号处填什么？', answer: '60', inputMode: true, hint: '每次减10' },
-      { q: '10, 20, 30, 40, ? — 问号处填什么？', answer: '50', inputMode: true, hint: '每次加10' },
-      { q: '1, 4, 7, 10, ? — 问号处填什么？', answer: '13', inputMode: true, hint: '每次加3' },
-      { q: '25, 20, 15, 10, ? — 问号处填什么？', answer: '5', inputMode: true, hint: '每次减5' },
-      { q: '2, 5, 8, 11, ? — 问号处填什么？', answer: '14', inputMode: true, hint: '每次加3' },
-      { q: '50, 45, 40, 35, ? — 问号处填什么？', answer: '30', inputMode: true, hint: '每次减5' },
+      { q: '2, 4, 6, 8, ?, 12 — 问号处填什么？', answer: 10, options: [10, 9, 11, 14], hint: '每次加2' },
+      { q: '1, 3, 5, 7, ?, 11 — 问号处填什么？', answer: 9, options: [9, 8, 10, 6], hint: '每次加2' },
+      { q: '5, 10, 15, 20, ? — 问号处填什么？', answer: 25, options: [25, 30, 22, 20], hint: '每次加5' },
+      { q: '3, 6, 9, 12, ? — 问号处填什么？', answer: 15, options: [15, 13, 18, 10], hint: '每次加3' },
+      { q: '100, 90, 80, 70, ? — 问号处填什么？', answer: 60, options: [60, 50, 65, 55], hint: '每次减10' },
+      { q: '10, 20, 30, 40, ? — 问号处填什么？', answer: 50, options: [50, 45, 60, 41], hint: '每次加10' },
+      { q: '1, 4, 7, 10, ? — 问号处填什么？', answer: 13, options: [13, 12, 14, 11], hint: '每次加3' },
+      { q: '25, 20, 15, 10, ? — 问号处填什么？', answer: 5, options: [5, 0, 8, 15], hint: '每次减5' },
+      { q: '2, 5, 8, 11, ? — 问号处填什么？', answer: 14, options: [14, 13, 15, 12], hint: '每次加3' },
+      { q: '50, 45, 40, 35, ? — 问号处填什么？', answer: 30, options: [30, 25, 33, 40], hint: '每次减5' },
     ]
   },
   math_mixed: {
@@ -1176,7 +1179,8 @@ const DATA = {
           break;
         }
       }
-      return { q: q.replace(' = ?', ' = ____'), answer: String(ans), inputMode: true, hint };
+      const opts = makeOptions(ans, 4);
+      return { q, answer: ans, options: opts, hint };
     }
   },
   math_logic: {
@@ -3446,31 +3450,31 @@ function wrapGenerator(moduleId) {
       if (diff >= 1) { // 进阶：四位数
         const a = rand(1000, 5000); const b = rand(1000, 4999);
         const ans = a + b;
-        return { q: `${a} + ${b} = ____`, answer: String(ans), inputMode: true, hint: '大数加法，注意进位哦～' };
+        return { q: `${a} + ${b} = ?`, answer: ans, options: makeOptions(ans, 4), hint: '大数加法，注意进位哦～' };
       }
       if (diff >= 2) { // 挑战：三位数连加
         const a = rand(100, 300), b = rand(100, 300), c = rand(100, 300);
         const ans = a + b + c;
-        return { q: `${a} + ${b} + ${c} = ____`, answer: String(ans), inputMode: true, hint: '三个数相加，先加前两个～' };
+        return { q: `${a} + ${b} + ${c} = ?`, answer: ans, options: makeOptions(ans, 4), hint: '三个数相加，先加前两个～' };
       }
     }
     if (moduleId === 'math_sub') {
       if (diff >= 1) {
         const b = rand(1000, 4000); const a = b + rand(100, 3000);
         const ans = a - b;
-        return { q: `${a} - ${b} = ____`, answer: String(ans), inputMode: true, hint: '大数减法，不够减要借位～' };
+        return { q: `${a} - ${b} = ?`, answer: ans, options: makeOptions(ans, 4), hint: '大数减法，不够减要借位～' };
       }
     }
     if (moduleId === 'math_mul') {
       if (diff >= 1) { // 进阶：6~9的乘法
         const a = rand(6, 9), b = rand(2, 9);
         const ans = a * b;
-        return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: `${a}的乘法口诀～` };
+        return { q: `${a} × ${b} = ?`, answer: ans, options: makeOptions(ans, 4), hint: `${a}的乘法口诀～` };
       }
       if (diff >= 2) { // 挑战：两位数×一位数
         const a = rand(11, 25), b = rand(2, 9);
         const ans = a * b;
-        return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: '拆成几十加几再乘～' };
+        return { q: `${a} × ${b} = ?`, answer: ans, options: makeOptions(ans, 4), hint: '拆成几十加几再乘～' };
       }
     }
     return result;
