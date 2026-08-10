@@ -167,39 +167,13 @@ body {
   border: 2px solid transparent;
 }
 .module-card:active { transform: scale(0.97); }
-.module-card.completed { border-color: var(--accent-green); }
-.module-card.locked {
-  opacity: 0.5; filter: grayscale(0.6); pointer-events: none;
-  position: relative;
-}
-.module-card.locked::after {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(255,255,255,0.3); border-radius: 16px;
-}
-.module-card .level-badge {
-  position: absolute; top: -6px; left: -6px;
-  background: var(--bg-gradient); color: #fff;
-  font-size: 11px; padding: 2px 8px; border-radius: 10px;
-  font-weight: bold; line-height: 1.4;
-}
 .module-card { position: relative; }
 .module-card .emoji { font-size: 36px; }
 .module-card .text { flex: 1; }
 .module-card .text h4 { font-size: 17px; color: #333; }
 .module-card .text p { font-size: 12px; color: #999; margin-top: 2px; }
 .module-card .status { font-size: 14px; }
-.level-progress {
-  display: flex; align-items: center; gap: 6px;
-  padding: 8px 12px; margin-bottom: 8px;
-  font-size: 13px; color: #5b4caf; font-weight: bold;
-}
-.level-progress .bar-track {
-  flex: 1; height: 8px; background: #e8e0f0; border-radius: 4px; overflow: hidden;
-}
-.level-progress .bar-fill {
-  height: 100%; background: var(--bg-gradient); border-radius: 4px;
-  transition: width 0.4s ease;
-}
+
 
 .back-btn {
   background: none; border: none; font-size: 24px;
@@ -802,10 +776,8 @@ body {
       🧮 趣味数学
     </div>
 
-    <div class="tip-bubble">三年级要学更大的数和乘法啦！按顺序一关一关闯，通关后解锁下一关～</div>
-    <div class="level-progress" id="mathLevelProgress"></div>
+    <div class="tip-bubble">三年级要学更大的数和乘法啦！每个模块都有多节练习，做完一节再做下一节，加油！</div>
       <div class="module-card" onclick="learnFirst('math_add')">
-        <div class="level-badge">第1关</div>
         <div class="emoji">➕</div>
         <div class="text">
           <h4>进位加法大冒险</h4>
@@ -815,7 +787,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_add')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_sub')">
-        <div class="level-badge">第2关</div>
         <div class="emoji">➖</div>
         <div class="text">
           <h4>退位减法大作战</h4>
@@ -825,7 +796,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_sub')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mul')">
-        <div class="level-badge">第3关</div>
         <div class="emoji">✖️</div>
         <div class="text">
           <h4>乘法口诀初体验</h4>
@@ -835,7 +805,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mul')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_word')">
-        <div class="level-badge">第4关</div>
         <div class="emoji">🧩</div>
         <div class="text">
           <h4>趣味应用题</h4>
@@ -845,7 +814,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_word')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_pattern')">
-        <div class="level-badge">第5关</div>
         <div class="emoji">🔮</div>
         <div class="text">
           <h4>找规律大师</h4>
@@ -855,7 +823,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_pattern')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mixed')">
-        <div class="level-badge">第6关</div>
         <div class="emoji">🌀</div>
         <div class="text">
           <h4>混合运算大闯关</h4>
@@ -865,7 +832,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mixed')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_logic')">
-        <div class="level-badge">第7关</div>
         <div class="emoji">🧠</div>
         <div class="text">
           <h4>数学推理挑战</h4>
@@ -884,12 +850,10 @@ body {
       📖 快乐语文
     </div>
 
-    <div class="tip-bubble">三年级会学到好多新字和成语！按顺序一关一关闯，通关后解锁下一关～</div>
-    <div class="level-progress" id="chineseLevelProgress"></div>
+    <div class="tip-bubble">三年级会学到好多新字和成语！每个模块都有多节练习，做完一节再做下一节，加油！</div>
 
     <div class="module-list">
       <div class="module-card" onclick="startCharLearn()">
-        <div class="level-badge">第1关</div>
         <div class="emoji">✍️</div>
         <div class="text">
           <h4>三年级生字先知道</h4>
@@ -898,7 +862,6 @@ body {
         <div class="status" id="char_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_idiom')">
-        <div class="level-badge">第2关</div>
         <div class="emoji">🎭</div>
         <div class="text">
           <h4>成语小达人</h4>
@@ -908,7 +871,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_idiom')">📖</button>
       </div>
       <div class="module-card" onclick="startQuiz('chinese_match')">
-        <div class="level-badge">第3关</div>
         <div class="emoji">🔗</div>
         <div class="text">
           <h4>近反义词连连看</h4>
@@ -917,7 +879,6 @@ body {
         <div class="status" id="chinese_match_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_reading')">
-        <div class="level-badge">第4关</div>
         <div class="emoji">📚</div>
         <div class="text">
           <h4>阅读小天地</h4>
@@ -927,7 +888,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_reading')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_poem')">
-        <div class="level-badge">第5关</div>
         <div class="emoji">🌙</div>
         <div class="text">
           <h4>古诗启蒙</h4>
@@ -937,7 +897,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_poem')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_wizard')">
-        <div class="level-badge">第6关</div>
         <div class="emoji">🌪️</div>
         <div class="text">
           <h4>绿野仙踪</h4>
@@ -947,7 +906,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_wizard')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_guoxue')">
-        <div class="level-badge">第7关</div>
         <div class="emoji">📜</div>
         <div class="text">
           <h4>国学诵读</h4>
@@ -966,12 +924,10 @@ body {
       🌍 趣味英语
     </div>
 
-    <div class="tip-bubble">三年级开始正式学英语啦！按顺序一关一关闯，通关后解锁下一关～</div>
-    <div class="level-progress" id="englishLevelProgress"></div>
+    <div class="tip-bubble">三年级开始正式学英语啦！每个模块都有多节练习，做完一节再做下一节，加油！</div>
 
     <div class="module-list">
       <div class="module-card" onclick="startVocabLearn()">
-        <div class="level-badge">第1关</div>
         <div class="emoji">📝</div>
         <div class="text">
           <h4>新概念英语词汇</h4>
@@ -980,7 +936,6 @@ body {
         <div class="status" id="eng_vocab_status"></div>
       </div>
       <div class="module-card" onclick="learnFirst('eng_listen')">
-        <div class="level-badge">第2关</div>
         <div class="emoji">👂</div>
         <div class="text">
           <h4>听力闯关</h4>
@@ -990,7 +945,6 @@ body {
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_listen')">📖</button>
       </div>
       <div class="module-card" onclick="startOralPage()">
-        <div class="level-badge">第3关</div>
         <div class="emoji">🗣️</div>
         <div class="text">
           <h4>日常口语100句</h4>
@@ -999,7 +953,6 @@ body {
         <div class="status" id="eng_oral_status"></div>
       </div>
       <div class="module-card" onclick="startPhonicsPage()">
-        <div class="level-badge">第4关</div>
         <div class="emoji">🔤</div>
         <div class="text">
           <h4>自然拼读ABC</h4>
@@ -1794,43 +1747,21 @@ let state = { stars: 0, completed: {}, achievements: [], charIndex: 0 };
 let currentQuiz = null;
 let quizState = { questions: [], current: 0, score: 0, total: 5 };
 
-// ===== 关卡进阶系统 =====
-// 每个学科的模块按顺序排列，前一关完成才解锁下一关
-const LEVEL_ORDER = {
-  math: ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic'],
-  chinese: ['char','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue'],
-  english: ['eng_vocab','eng_listen','eng_oral','eng_phonics']
+// ===== 模块内部练习节制度 =====
+const STAGE_SIZE = 5; // 每节5道题
+const MODULE_STAGES = {
+  math_add: 6, math_sub: 6, math_mul: 5, math_word: 5, math_pattern: 4, math_mixed: 5, math_logic: 4,
+  chinese_idiom: 5, chinese_match: 4, chinese_reading: 4, chinese_poem: 5, chinese_wizard: 4, chinese_guoxue: 5,
+  eng_vocab: 5, eng_listen: 5, eng_oral: 4, eng_phonics: 4
 };
 
-const SPECIAL_MODULES = ['char','eng_vocab','eng_oral','eng_phonics'];
-
-function getModuleLevel(modId) {
-  for (const [subj, list] of Object.entries(LEVEL_ORDER)) {
-    const idx = list.indexOf(modId);
-    if (idx >= 0) return { subject: subj, level: idx };
-  }
-  return { subject: null, level: -1 };
+function getStageProgress(moduleId) {
+  if (!MODULE_STAGES[moduleId]) return 0;
+  return parseInt(localStorage.getItem(ukey('stage_' + moduleId)) || '0');
 }
 
-function isModuleUnlocked(modId) {
-  const { subject, level } = getModuleLevel(modId);
-  if (level < 0) return true;
-  if (level === 0) return true;
-  const order = LEVEL_ORDER[subject];
-  const prevMod = order[level - 1];
-  return !!state.completed[prevMod];
-}
-
-function getUnlockHint(modId) {
-  const { subject, level } = getModuleLevel(modId);
-  if (level <= 0) return '';
-  const order = LEVEL_ORDER[subject];
-  const prevId = order[level - 1];
-  const prevName = MODULE_NAMES[prevId] || prevId;
-  if (!state.completed[prevId]) {
-    return `🔒 先完成「${prevName}」才能解锁哦～`;
-  }
-  return '';
+function setStageProgress(moduleId, stage) {
+  localStorage.setItem(ukey('stage_' + moduleId), String(stage));
 }
 
 // ===== 工具函数 =====
@@ -1874,20 +1805,6 @@ function markComplete(id) {
   saveState();
   updateDailyProgress();
   updateModuleStatus();
-
-  // 关卡解锁提示：完成后检查是否解锁了下一关
-  const { subject, level } = getModuleLevel(id);
-  if (subject && level >= 0) {
-    const order = LEVEL_ORDER[subject];
-    if (level + 1 < order.length) {
-      const nextId = order[level + 1];
-      const nextName = MODULE_NAMES[nextId] || nextId;
-      // 延迟提示，让结果页先显示
-      setTimeout(() => {
-        showToast(`🔓 解锁新关卡：${nextName}！`);
-      }, 1500);
-    }
-  }
 }
 
 function checkAchievement(id) {
@@ -1933,49 +1850,37 @@ const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function updateModuleStatus() {
-const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
-  // 普通模块
+  const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+  // 普通模块：显示节进度
   ids.forEach(id => {
     const el = document.getElementById(id + '_status');
     if (!el) return;
     const card = el.closest('.module-card');
-    const unlocked = isModuleUnlocked(id);
-    if (state.completed[id]) {
+    const totalStages = MODULE_STAGES[id] || 0;
+    const currentStage = getStageProgress(id);
+    if (totalStages > 0 && currentStage >= totalStages) {
       el.textContent = '✅';
-      if (card) { card.classList.remove('locked'); card.classList.add('completed'); }
-    } else if (!unlocked) {
-      el.textContent = '🔒';
-      if (card) { card.classList.add('locked'); card.classList.remove('completed'); }
+      if (card) card.classList.add('completed');
+    } else if (totalStages > 0) {
+      el.textContent = '📖 ' + currentStage + '/' + totalStages;
+      if (card) card.classList.remove('completed');
     } else {
-      el.textContent = '';
-      if (card) { card.classList.remove('locked'); card.classList.remove('completed'); }
+      el.textContent = state.completed[id] ? '✅' : '';
+      if (card) card.classList.remove('completed');
     }
   });
-  // 特殊模块：生字(char)
+  // 特殊模块：生字(char) 无题目，不做节进度
   const charEl = document.getElementById('char_status');
   if (charEl) {
     const charCard = charEl.closest('.module-card');
-    const charUnlocked = isModuleUnlocked('char');
     if (state.completed['char']) {
       charEl.textContent = '✅';
-      if (charCard) { charCard.classList.remove('locked'); charCard.classList.add('completed'); }
-    } else if (!charUnlocked) {
-      charEl.textContent = '🔒';
-      if (charCard) { charCard.classList.add('locked'); charCard.classList.remove('completed'); }
+      if (charCard) charCard.classList.add('completed');
     } else {
       charEl.textContent = '';
-      if (charCard) { charCard.classList.remove('locked'); charCard.classList.remove('completed'); }
+      if (charCard) charCard.classList.remove('completed');
     }
   }
-  // 渲染关卡进度条
-  ['math','chinese','english'].forEach(subj => {
-    const el = document.getElementById(subj + 'LevelProgress');
-    if (!el) return;
-    const order = LEVEL_ORDER[subj];
-    const done = order.filter(id => state.completed[id]).length;
-    const pct = Math.round(done / order.length * 100);
-    el.innerHTML = `🏁 关卡进度 ${done}/${order.length} <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>`;
-  });
 }
 
 function renderAchievements() {
@@ -2593,11 +2498,6 @@ const LEARN_CONTENT = {
 let _currentLearnModule = null;
 
 function learnFirst(moduleId) {
-  // 关卡锁定检查
-  if (!isModuleUnlocked(moduleId)) {
-    showToast(getUnlockHint(moduleId));
-    return;
-  }
   _currentLearnModule = moduleId;
   const learn = LEARN_CONTENT[moduleId];
   const visitedKey = ukey('learnVisited_' + moduleId);
@@ -2667,13 +2567,16 @@ function backFromLearn() {
 
 // ===== 练习系统 =====
 function startQuiz(moduleId) {
-  // 关卡锁定检查
-  if (!isModuleUnlocked(moduleId)) {
-    showToast(getUnlockHint(moduleId));
-    return;
-  }
   currentQuiz = moduleId;
-  quizState = { questions: [], current: 0, score: 0, total: 5 };
+  // 记录当前是第几节
+  const stageNum = getStageProgress(moduleId) + 1;
+  const totalStages = MODULE_STAGES[moduleId] || 0;
+  // 如果已全通，允许继续练习最后一节
+  if (totalStages > 0 && stageNum > totalStages) {
+    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: totalStages };
+  } else {
+    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: stageNum };
+  }
   quizState._startTime = Date.now(); // 计时
 
   trackVisit(moduleId);
@@ -2684,7 +2587,8 @@ function startQuiz(moduleId) {
   }
 
   const module = DATA[moduleId];
-  document.getElementById('quizTitle').textContent = module.title;
+  const stageLabel = totalStages > 0 ? ` (第${quizState.stage}节)` : '';
+  document.getElementById('quizTitle').textContent = module.title + stageLabel;
   // 有学习内容的模块显示"回看学习"按钮
   const reviewBtn = document.getElementById('reviewLearnBtn');
   if (reviewBtn) reviewBtn.style.display = LEARN_CONTENT[moduleId] ? 'inline-block' : 'none';
@@ -2692,36 +2596,19 @@ function startQuiz(moduleId) {
 
   // 生成题目
   if (module.questions) {
-    // 固定题库：按顺序出题，记住进度；循环过一轮后打乱
-    const diff = getDifficulty(moduleId);
-    const maxQ = diff >= 2 ? Math.min(8, module.questions.length) : diff >= 1 ? 6 : 5;
-    
-    // 读取该模块的已做题数（进度）
-    const progressKey = ukey('quizProgress_' + moduleId);
-    let progress = parseInt(localStorage.getItem(progressKey) || '0');
+    // 固定题库：根据当前节号取不同题目段
     const allQ = module.questions;
-    const totalAvailable = allQ.length;
-    
-    // 如果已经做过一轮，打乱顺序重新开始
-    if (progress >= totalAvailable) {
-      progress = 0;
-      localStorage.setItem(progressKey, '0');
-    }
-    
-    // 从当前进度位置按顺序取题，不够就从头循环
+    const stageIdx = quizState.stage - 1; // 0-based
+    const startIdx = stageIdx * STAGE_SIZE;
     let selected = [];
-    for (let i = 0; i < maxQ; i++) {
-      selected.push(allQ[(progress + i) % totalAvailable]);
+    for (let i = 0; i < STAGE_SIZE; i++) {
+      const idx = (startIdx + i) % allQ.length;
+      selected.push(allQ[idx]);
     }
-    
-    // 保存新的进度位置
-    const newProgress = (progress + maxQ) % totalAvailable;
-    localStorage.setItem(progressKey, String(newProgress));
-    
     quizState.questions = selected;
     quizState.total = quizState.questions.length;
   } else {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < STAGE_SIZE; i++) {
       quizState.questions.push(module.generate());
     }
   }
@@ -3051,7 +2938,32 @@ function showResult() {
 
   addStars(starsEarned);
   if (starsEarned > 0) checkAchievement('first_star');
-  if (pct >= 60) markComplete(currentQuiz);
+
+  // 节进度推进：通过则进入下一节
+  const totalStages = MODULE_STAGES[currentQuiz] || 0;
+  let stageInfo = '';
+  let allCleared = false;
+  if (totalStages > 0) {
+    if (pct >= 60) {
+      const curStage = getStageProgress(currentQuiz);
+      if (curStage < totalStages) {
+        setStageProgress(currentQuiz, curStage + 1);
+      }
+      if (curStage + 1 >= totalStages) {
+        markComplete(currentQuiz);
+        allCleared = true;
+      }
+    }
+    const newStage = getStageProgress(currentQuiz);
+    if (allCleared) {
+      stageInfo = '<div class="tip-bubble" style="margin:12px 0;">🎉 全部通关！</div>';
+    } else {
+      stageInfo = `<p style="color:#5b4caf; font-size:15px; margin:8px 0;">📖 已通过第${newStage}节 / 共${totalStages}节</p>`;
+    }
+  } else {
+    // 无节进度的模块，保持原有 markComplete 逻辑
+    if (pct >= 60) markComplete(currentQuiz);
+  }
 
   // 专项成就
   if (currentQuiz === 'math_add' && pct >= 60) checkAchievement('math_add_done');
@@ -3063,7 +2975,7 @@ function showResult() {
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
 
   // 全科成就
-const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+  const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
 
   const container = document.getElementById('resultContent');
@@ -3073,8 +2985,9 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
     <div class="result-score">${quizState.score} / ${quizState.total}</div>
     <div class="stars-earned">${'⭐'.repeat(starsEarned)}${'☆'.repeat(3 - starsEarned)}</div>
     <p style="color:#888; font-size:14px;">获得 ${starsEarned} 颗星星</p>
-    ${pct < 60 ? '<div class="tip-bubble" style="margin:12px 0;">💡 正确率不够高，系统会自动降低难度帮你巩固基础哦～</div>' : ''}
-    ${pct > 85 ? '<div class="tip-bubble" style="margin:12px 0;">🎉 正确率很高！下次会自动升级题目难度～</div>' : ''}
+    ${stageInfo}
+    ${pct < 60 ? '<div class="tip-bubble" style="margin:12px 0;">💡 正确率不够高，再练练这一节吧～</div>' : ''}
+    ${pct > 85 && !allCleared ? '<div class="tip-bubble" style="margin:12px 0;">🎉 正确率很高！继续挑战下一节吧～</div>' : ''}
     <div style="margin:16px 0; text-align:center;">
       <p style="font-size:13px; color:#888; margin-bottom:6px;">这轮练习感觉怎么样？</p>
       <div class="feedback-btns">
@@ -3105,10 +3018,13 @@ function backFromQuiz() {
 // ===== 连线题 =====
 function startMatchGame() {
   currentQuiz = 'chinese_match';
+  const stageNum = getStageProgress('chinese_match') + 1;
+  const totalStages = MODULE_STAGES['chinese_match'] || 0;
+  const stageLabel = totalStages > 0 ? ` (第${stageNum}节)` : '';
   const pairs = DATA.chinese_match.pairs.sort(() => Math.random() - 0.5).slice(0, 4);
   const rights = pairs.map(p => p.right).sort(() => Math.random() - 0.5);
 
-  document.getElementById('quizTitle').textContent = '🔗 近反义词连连看';
+  document.getElementById('quizTitle').textContent = '🔗 近反义词连连看' + stageLabel;
   const reviewBtn2 = document.getElementById('reviewLearnBtn');
   if (reviewBtn2) reviewBtn2.style.display = 'none';
   showPage('quizPage');
@@ -3158,7 +3074,18 @@ function matchSelect(el) {
         showToast('✅ 配对成功！');
         if (ms.matched >= ms.total) {
           setTimeout(() => {
-            markComplete('chinese_match');
+            const totalStages = MODULE_STAGES['chinese_match'] || 0;
+            if (totalStages > 0) {
+              const curStage = getStageProgress('chinese_match');
+              if (curStage < totalStages) {
+                setStageProgress('chinese_match', curStage + 1);
+              }
+              if (curStage + 1 >= totalStages) {
+                markComplete('chinese_match');
+              }
+            } else {
+              markComplete('chinese_match');
+            }
             addStars(3);
             checkAchievement('first_star');
             showToast('🎉 全部配对成功！');
@@ -3187,10 +3114,6 @@ function matchSelect(el) {
 
 // ===== 生字学习 =====
 function startCharLearn() {
-  if (!isModuleUnlocked('char')) {
-    showToast(getUnlockHint('char'));
-    return;
-  }
   showPage('charPage');
   renderChar();
 }
@@ -3317,10 +3240,6 @@ if ('speechSynthesis' in window) {
 let vocabIndex = parseInt(localStorage.getItem(ukey('vocabIndex')) || '0');
 
 function startVocabLearn() {
-  if (!isModuleUnlocked('eng_vocab')) {
-    showToast(getUnlockHint('eng_vocab'));
-    return;
-  }
   showPage('vocabPage');
   renderVocab();
 }
@@ -3391,10 +3310,6 @@ function saveVocabState() {
 
 // ===== 英语口语 =====
 function startOralPage() {
-  if (!isModuleUnlocked('eng_oral')) {
-    showToast(getUnlockHint('eng_oral'));
-    return;
-  }
   showPage('oralPage');
   renderOral();
 }
@@ -3437,10 +3352,6 @@ function toggleScene(el) {
 
 // ===== 自然拼读 =====
 function startPhonicsPage() {
-  if (!isModuleUnlocked('eng_phonics')) {
-    showToast(getUnlockHint('eng_phonics'));
-    return;
-  }
   showPage('phonicsPage');
   renderPhonics();
 }
