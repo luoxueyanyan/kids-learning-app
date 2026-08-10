@@ -146,6 +146,15 @@ body {
 
 /* ===== 数学页面 ===== */
 .module-list { display: flex; flex-direction: column; gap: 12px; }
+.review-learn-btn:active { background: #e8e0ff; }
+
+.card-learn-btn {
+  background: rgba(91,76,175,0.1); border: none; font-size: 18px;
+  padding: 4px 8px; border-radius: 12px; cursor: pointer;
+  margin-left: auto; flex-shrink: 0; line-height: 1;
+}
+.card-learn-btn:active { background: rgba(91,76,175,0.25); }
+
 .module-card {
   background: #fff; border-radius: 16px; padding: 18px;
   box-shadow: var(--card-shadow); cursor: pointer;
@@ -165,6 +174,14 @@ body {
   background: none; border: none; font-size: 24px;
   cursor: pointer; color: #fff; padding: 4px;
 }
+
+.review-learn-btn {
+  margin-left: auto; background: rgba(255,255,255,0.9); border: none;
+  font-size: 13px; padding: 6px 12px; border-radius: 20px;
+  cursor: pointer; color: #5b4caf; white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.review-learn-btn:active { background: #e8e0ff; }
 
 .page-title {
   font-size: 22px; color: #333; margin-bottom: 16px;
@@ -764,6 +781,7 @@ body {
           <p>📚先学：三位数加法怎么进位 → 🎮再练</p>
         </div>
         <div class="status" id="math_add_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_add')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_sub')">
         <div class="emoji">➖</div>
@@ -772,6 +790,7 @@ body {
           <p>📚先学：退位借位的方法 → 🎮再练</p>
         </div>
         <div class="status" id="math_sub_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_sub')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mul')">
         <div class="emoji">✖️</div>
@@ -780,6 +799,7 @@ body {
           <p>📚先学：乘法是什么？口诀怎么背 → 🎮再练</p>
         </div>
         <div class="status" id="math_mul_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mul')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_word')">
         <div class="emoji">🧩</div>
@@ -788,6 +808,7 @@ body {
           <p>📚先学：应用题解题三步法 → 🎮再练</p>
         </div>
         <div class="status" id="math_word_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_word')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_pattern')">
         <div class="emoji">🔮</div>
@@ -796,6 +817,7 @@ body {
           <p>📚先学：发现规律的方法 → 🎮再练</p>
         </div>
         <div class="status" id="math_pattern_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_pattern')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_mixed')">
         <div class="emoji">🌀</div>
@@ -804,6 +826,7 @@ body {
           <p>📚先学：先乘除后加减、括号优先 → 🎮再练</p>
         </div>
         <div class="status" id="math_mixed_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_mixed')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('math_logic')">
         <div class="emoji">🧠</div>
@@ -812,6 +835,7 @@ body {
           <p>📚先学：逆向推理、和倍问题 → ✍️自己写答案</p>
         </div>
         <div class="status" id="math_logic_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_logic')">📖</button>
       </div>
     </div>
   </div>
@@ -841,6 +865,7 @@ body {
           <p>📚先学：成语故事和含义 → 🎮再练</p>
         </div>
         <div class="status" id="chinese_idiom_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_idiom')">📖</button>
       </div>
       <div class="module-card" onclick="startQuiz('chinese_match')">
         <div class="emoji">🔗</div>
@@ -857,6 +882,7 @@ body {
           <p>📚先学：阅读理解答题技巧 → 🎮再练</p>
         </div>
         <div class="status" id="chinese_reading_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_reading')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_poem')">
         <div class="emoji">🌙</div>
@@ -865,6 +891,7 @@ body {
           <p>📚先学：古诗背景和意思 → 🎮再练</p>
         </div>
         <div class="status" id="chinese_poem_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_poem')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_wizard')">
         <div class="emoji">🌪️</div>
@@ -873,6 +900,7 @@ body {
           <p>📚课外阅读：读名著做测验 → 🎮再练</p>
         </div>
         <div class="status" id="chinese_wizard_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_wizard')">📖</button>
       </div>
       <div class="module-card" onclick="learnFirst('chinese_guoxue')">
         <div class="emoji">📜</div>
@@ -881,6 +909,7 @@ body {
           <p>📜先学：16首古诗+常考方向 → ✏️再练</p>
         </div>
         <div class="status" id="chinese_guoxue_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_guoxue')">📖</button>
       </div>
     </div>
   </div>
@@ -910,6 +939,7 @@ body {
           <p>📚先学：听力技巧 → 🎮听音选词</p>
         </div>
         <div class="status" id="eng_listen_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_listen')">📖</button>
       </div>
       <div class="module-card" onclick="startOralPage()">
         <div class="emoji">🗣️</div>
@@ -971,6 +1001,7 @@ body {
     <div class="page-title">
       <button class="back-btn" onclick="backFromQuiz()">←</button>
       <span id="quizTitle">练习</span>
+      <button class="review-learn-btn" id="reviewLearnBtn" onclick="reviewLearn()" style="display:none;">📖 回看学习</button>
     </div>
     <div class="quiz-container" id="quizContainer"></div>
   </div>
@@ -2429,14 +2460,22 @@ let _currentLearnModule = null;
 function learnFirst(moduleId) {
   _currentLearnModule = moduleId;
   const learn = LEARN_CONTENT[moduleId];
+  const visitedKey = ukey('learnVisited_' + moduleId);
+  const hasVisited = localStorage.getItem(visitedKey) === '1';
 
   if (learn) {
-    // 有学习内容的模块 → 显示学习页
-    document.getElementById('learnTitle').textContent = learn.title;
-    document.getElementById('learnContent').innerHTML = learn.html + `
-      <button class="learn-go-btn" onclick="goQuizFromLearn()">🎮 学会了，去闯关！</button>
-    `;
-    showPage('learnPage');
+    if (hasVisited) {
+      // 已学过 → 直接进入做题页
+      startQuiz(moduleId);
+    } else {
+      // 首次进入 → 显示学习页
+      localStorage.setItem(visitedKey, '1');
+      document.getElementById('learnTitle').textContent = learn.title;
+      document.getElementById('learnContent').innerHTML = learn.html + `
+        <button class="learn-go-btn" onclick="goQuizFromLearn()">🎮 学会了，去闯关！</button>
+      `;
+      showPage('learnPage');
+    }
   } else {
     // 没有单独学习页的模块 → 直接进入练习
     startQuiz(moduleId);
@@ -2446,6 +2485,32 @@ function learnFirst(moduleId) {
 function goQuizFromLearn() {
   if (_currentLearnModule) {
     startQuiz(_currentLearnModule);
+  }
+}
+
+function reviewLearn() {
+  // 从做题页回看学习内容
+  if (_currentLearnModule && LEARN_CONTENT[_currentLearnModule]) {
+    const learn = LEARN_CONTENT[_currentLearnModule];
+    document.getElementById('learnTitle').textContent = learn.title;
+    document.getElementById('learnContent').innerHTML = learn.html + `
+      <button class="learn-go-btn" onclick="goQuizFromLearn()">🎮 学会了，继续闯关！</button>
+    `;
+    showPage('learnPage');
+  }
+}
+
+function showLearnPage(moduleId) {
+  // 从模块卡片直接进入学习页（不跳转做题）
+  _currentLearnModule = moduleId;
+  const learn = LEARN_CONTENT[moduleId];
+  if (learn) {
+    localStorage.setItem(ukey('learnVisited_' + moduleId), '1');
+    document.getElementById('learnTitle').textContent = learn.title;
+    document.getElementById('learnContent').innerHTML = learn.html + `
+      <button class="learn-go-btn" onclick="goQuizFromLearn()">🎮 学会了，去闯关！</button>
+    `;
+    showPage('learnPage');
   }
 }
 
@@ -2475,15 +2540,40 @@ function startQuiz(moduleId) {
 
   const module = DATA[moduleId];
   document.getElementById('quizTitle').textContent = module.title;
+  // 有学习内容的模块显示"回看学习"按钮
+  const reviewBtn = document.getElementById('reviewLearnBtn');
+  if (reviewBtn) reviewBtn.style.display = LEARN_CONTENT[moduleId] ? 'inline-block' : 'none';
   showPage('quizPage');
 
   // 生成题目
   if (module.questions) {
-    // 固定题库，随机抽5题；自适应难度高时全部出题
+    // 固定题库：按顺序出题，记住进度；循环过一轮后打乱
     const diff = getDifficulty(moduleId);
     const maxQ = diff >= 2 ? Math.min(8, module.questions.length) : diff >= 1 ? 6 : 5;
-    const shuffled = [...module.questions].sort(() => Math.random() - 0.5);
-    quizState.questions = shuffled.slice(0, Math.min(maxQ, shuffled.length));
+    
+    // 读取该模块的已做题数（进度）
+    const progressKey = ukey('quizProgress_' + moduleId);
+    let progress = parseInt(localStorage.getItem(progressKey) || '0');
+    const allQ = module.questions;
+    const totalAvailable = allQ.length;
+    
+    // 如果已经做过一轮，打乱顺序重新开始
+    if (progress >= totalAvailable) {
+      progress = 0;
+      localStorage.setItem(progressKey, '0');
+    }
+    
+    // 从当前进度位置按顺序取题，不够就从头循环
+    let selected = [];
+    for (let i = 0; i < maxQ; i++) {
+      selected.push(allQ[(progress + i) % totalAvailable]);
+    }
+    
+    // 保存新的进度位置
+    const newProgress = (progress + maxQ) % totalAvailable;
+    localStorage.setItem(progressKey, String(newProgress));
+    
+    quizState.questions = selected;
     quizState.total = quizState.questions.length;
   } else {
     for (let i = 0; i < 5; i++) {
@@ -2874,6 +2964,8 @@ function startMatchGame() {
   const rights = pairs.map(p => p.right).sort(() => Math.random() - 0.5);
 
   document.getElementById('quizTitle').textContent = '🔗 近反义词连连看';
+  const reviewBtn2 = document.getElementById('reviewLearnBtn');
+  if (reviewBtn2) reviewBtn2.style.display = 'none';
   showPage('quizPage');
 
   const container = document.getElementById('quizContainer');
@@ -3556,6 +3648,23 @@ function clearAllData() {
   // 只清除当前用户的数据
   const keysToRemove = ['stars','completed','achievements','charIndex','vocabIndex','learnTracker'];
   keysToRemove.forEach(k => localStorage.removeItem(ukey(k)));
+  // 清除带前缀的动态key（学习进度、做题进度）
+  Object.keys(localStorage).forEach(k => {
+    if (k.indexOf('learnVisited_') === 0 || k.indexOf('quizProgress_') === 0) {
+      // 只清除当前用户的：key格式为 learnVisited_xxx_username
+      if (!currentUser || k.endsWith('_' + currentUser) || k.indexOf('_' + currentUser + '_') > -1 || k === 'learnVisited_' || k === 'quizProgress_') {
+        // 无用户时全部清除，有用户时只清除含该用户名的
+        if (!currentUser) {
+          localStorage.removeItem(k);
+        } else {
+          const uSuffix = '_' + currentUser;
+          if (k.endsWith(uSuffix) || k.indexOf(uSuffix + '_') > -1) {
+            localStorage.removeItem(k);
+          }
+        }
+      }
+    }
+  });
   location.reload();
 }
 
