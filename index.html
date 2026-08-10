@@ -74,13 +74,20 @@ body {
 
 /* 页面容器 */
 .page { display: none; padding: 10px 14px; animation: fadeIn 0.3s ease; }
+body.subject-active .page { padding: 6px 10px; }
 #quizPage { padding: 4px 10px 70px; }
-#learnPage { padding: 6px 12px 10px; }
+#learnPage { padding: 2px 8px 60px; }
 /* 学习页和做题页时隐藏顶部栏，节省空间 */
 body.quiz-active .top-bar,
-body.learn-active .top-bar { display: none; }
+body.learn-active .top-bar,
+body.subject-active .top-bar { display: none; }
 body.quiz-active #quizPage,
 body.learn-active #learnPage { padding-top: 0; }
+body.subject-active .page-title { font-size: 16px; margin-bottom: 2px; }
+body.subject-active .page-title .back-btn { padding: 4px 10px; font-size: 15px; }
+body.subject-active .tip-bubble { padding: 8px 12px; margin: 4px 0 8px; font-size: 13px; }
+body.learn-active .page-title { font-size: 15px; margin-bottom: 2px; padding: 4px 0; }
+body.learn-active .page-title .back-btn { padding: 4px 8px; font-size: 15px; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -157,6 +164,7 @@ body.learn-active #learnPage { padding-top: 0; }
 
 /* ===== 数学页面 ===== */
 .module-list { display: flex; flex-direction: column; gap: 12px; }
+body.subject-active .module-list { gap: 8px; }
 .review-learn-btn:active { background: #e8e0ff; }
 
 .card-learn-btn {
@@ -173,6 +181,8 @@ body.learn-active #learnPage { padding-top: 0; }
   transition: transform 0.2s;
   border: 2px solid transparent;
 }
+body.subject-active .module-card { padding: 12px 14px; gap: 10px; }
+body.subject-active .module-card .emoji { font-size: 28px; }
 .module-card:active { transform: scale(0.97); }
 .module-card { position: relative; }
 .module-card .emoji { font-size: 36px; }
@@ -2115,10 +2125,11 @@ function checkAchievement(id) {
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(pageId).classList.add('active');
-  // 控制top-bar显隐：做题页和学习页隐藏顶部栏
-  document.body.classList.remove('quiz-active', 'learn-active');
+  // 控制top-bar显隐：做题页、学习页、学科模块列表页隐藏顶部栏
+  document.body.classList.remove('quiz-active', 'learn-active', 'subject-active');
   if (pageId === 'quizPage') document.body.classList.add('quiz-active');
   if (pageId === 'learnPage') document.body.classList.add('learn-active');
+  if (['mathPage', 'chinesePage', 'englishPage'].includes(pageId)) document.body.classList.add('subject-active');
 
   // 更新导航
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
