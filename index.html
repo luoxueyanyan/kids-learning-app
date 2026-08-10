@@ -353,6 +353,7 @@ body.subject-active .module-card .emoji { font-size: 28px; }
   outline: none; transition: all 0.2s; background: #f8f9fa;
 }
 .quiz-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(102,126,234,0.15); }
+.quiz-input::placeholder { font-size: 16px; }
 .quiz-input.correct { border-color: var(--accent-green); background: #e6fff9; }
 .quiz-input.wrong { border-color: var(--accent-red); background: #fff0ed; }
 .quiz-submit-btn {
@@ -1742,10 +1743,10 @@ hint: '注意运算顺序哦～';
       { q: '头用英语怎么说？', answer: 'head', hint: 'h开头', inputMode: true },
       { q: '脸用英语怎么说？', answer: 'face', hint: 'f开头', inputMode: true },
       { q: '鼻子用英语怎么说？', answer: 'nose', hint: 'n开头', inputMode: true },
-      { q: '脚用英语怎么说？', answer: 'foot', hint: 'f开头，注意复数是feet', inputMode: true },
+{ q: '脚用英语怎么说？', answer: 'foot', hint: 'f开头，复数是不规则的哦～', inputMode: true },
       { q: '腿用英语怎么说？', answer: 'leg', hint: 'l开头', inputMode: true },
-      { q: '"Touch your nose"是什么意思？', answer: '摸你的鼻子', hint: 'touch=摸', inputMode: true },
-      { q: '"Clap your hands"是什么意思？', answer: '拍拍你的手', hint: 'clap=拍', inputMode: true },
+{ q: '"Touch your nose"是什么意思？', answer: '摸你的鼻子', hint: 'touch和什么动作有关？', inputMode: true },
+{ q: '"Clap your hands"是什么意思？', answer: '拍拍你的手', hint: 'clap是手的什么动作？', inputMode: true },
     ]
   },
   eng_animals: {
@@ -1760,9 +1761,9 @@ hint: '注意运算顺序哦～';
       { q: '鱼用英语怎么说？', answer: 'fish', hint: 'f开头，单复数同形', inputMode: true },
       { q: '鸭子用英语怎么说？', answer: 'duck', hint: 'd开头', inputMode: true },
       { q: '猪用英语怎么说？', answer: 'pig', hint: 'p开头', inputMode: true },
-      { q: '两只猫的复数形式是？', answer: 'cats', hint: '加s', inputMode: true },
-      { q: '三只兔子的复数形式是？', answer: 'rabbits', hint: '加s', inputMode: true },
-      { q: '"I like dogs"是什么意思？', answer: '我喜欢狗', hint: 'like=喜欢', inputMode: true },
+{ q: '两只猫的复数形式是？', answer: 'cats', hint: '大部分名词变复数怎么做？', inputMode: true },
+{ q: '三只兔子的复数形式是？', answer: 'rabbits', hint: '大部分名词变复数怎么做？', inputMode: true },
+{ q: '"I like dogs"是什么意思？', answer: '我喜欢狗', hint: 'like是什么意思呢？', inputMode: true },
     ]
   },
   eng_colours: {
@@ -1778,54 +1779,54 @@ hint: '注意运算顺序哦～';
       { q: '数字5用英语怎么说？', answer: 'five', hint: 'f开头', inputMode: true },
       { q: '数字8用英语怎么说？', answer: 'eight', hint: 'e开头', inputMode: true },
       { q: '数字10用英语怎么说？', answer: 'ten', hint: 't开头', inputMode: true },
-      { q: '"What colour is it?"是什么意思？', answer: '它是什么颜色', hint: 'colour=颜色', inputMode: true },
-      { q: '"How many?"是什么意思？', answer: '有多少个', hint: 'how many=多少个', inputMode: true },
+{ q: '"What colour is it?"是什么意思？', answer: '它是什么颜色', hint: 'colour是什么意思呢？', inputMode: true },
+{ q: '"How many?"是什么意思？', answer: '有多少个', hint: 'how many是在问什么？', inputMode: true },
     ]
   },
   eng_look2: {
     title: '📘 Look 2 精练',
     questions: [
       // Unit 1: What's your name? - be动词与代词
-      { q: '"She ___ a student." 填入正确的be动词', answer: 'is', hint: '她用is', inputMode: true },
-      { q: '"I ___ from China." 填入正确的be动词', answer: 'am', hint: 'I用am', inputMode: true },
-      { q: '"They ___ my friends." 填入正确的be动词', answer: 'are', hint: 'they用are', inputMode: true },
-      { q: '"___ you hungry?" 填入正确的be动词', answer: 'Are', hint: 'you用are', inputMode: true },
-      { q: '"He ___ not tall." 填入正确的be动词', answer: 'is', hint: 'he用is', inputMode: true },
+{ q: '"She ___ a student." 填入正确的be动词', answer: 'is', hint: '想想主语是第三人称单数哦～', inputMode: true },
+{ q: '"I ___ from China." 填入正确的be动词', answer: 'am', hint: '第一人称搭配哪个be动词呢？', inputMode: true },
+{ q: '"They ___ my friends." 填入正确的be动词', answer: 'are', hint: '复数主语搭配哪个be动词？', inputMode: true },
+{ q: '"___ you hungry?" 填入正确的be动词', answer: 'Are', hint: 'you搭配哪个be动词呢？', inputMode: true },
+{ q: '"He ___ not tall." 填入正确的be动词', answer: 'is', hint: '第三人称单数搭配哪个be动词？', inputMode: true },
       // Unit 1: 指示代词
-      { q: '"___ is my book."（这个）填入英语', answer: 'This', hint: '近处用this', inputMode: true },
-      { q: '"___ are your shoes."（那些）填入英语', answer: 'Those', hint: '远处复数用those', inputMode: true },
+{ q: '"___ is my book."（这个）填入英语', answer: 'This', hint: '近处指东西用哪个词？', inputMode: true },
+{ q: '"___ are your shoes."（那些）填入英语', answer: 'Those', hint: '远处复数用哪个词？', inputMode: true },
       // Unit 2: School things - have/has
-      { q: '"I ___ a pencil." 填入正确动词', answer: 'have', hint: 'I用have', inputMode: true },
-      { q: '"She ___ two brothers." 填入正确动词', answer: 'has', hint: 'She用has', inputMode: true },
-      { q: '"We ___ a big classroom." 填入正确动词', answer: 'have', hint: 'we用have', inputMode: true },
-      { q: '铅笔盒用英语怎么说？', answer: 'pencil case', hint: 'p开头', inputMode: true },
-      { q: '橡皮用英语怎么说？', answer: 'eraser', hint: 'e开头', inputMode: true },
-      { q: '尺子用英语怎么说？', answer: 'ruler', hint: 'r开头', inputMode: true },
+{ q: '"I ___ a pencil." 填入正确动词', answer: 'have', hint: '第一人称搭配哪个动词？', inputMode: true },
+{ q: '"She ___ two brothers." 填入正确动词', answer: 'has', hint: '第三人称单数动词要变身的哦～', inputMode: true },
+{ q: '"We ___ a big classroom." 填入正确动词', answer: 'have', hint: '复数主语搭配哪个动词？', inputMode: true },
+{ q: '铅笔盒用英语怎么说？', answer: 'pencil case', hint: 'pencil + 什么？', inputMode: true },
+{ q: '橡皮用英语怎么说？', answer: 'eraser', hint: '擦掉写错的字用什么？', inputMode: true },
+{ q: '尺子用英语怎么说？', answer: 'ruler', hint: '量长度的工具英文是？', inputMode: true },
       // Unit 3: Family - Who疑问句
-      { q: '"___ is she?" "She is my sister." 填疑问词', answer: 'Who', hint: '问人用who', inputMode: true },
-      { q: '"___ old are you?" "I am nine." 填疑问词', answer: 'How', hint: '问年龄用how old', inputMode: true },
-      { q: '妈妈用英语怎么说？', answer: 'mother', hint: 'm开头，也可说mom', inputMode: true },
-      { q: '爸爸用英语怎么说？', answer: 'father', hint: 'f开头，也可说dad', inputMode: true },
-      { q: '姐姐/妹妹用英语怎么说？', answer: 'sister', hint: 's开头', inputMode: true },
-      { q: '哥哥/弟弟用英语怎么说？', answer: 'brother', hint: 'b开头', inputMode: true },
+{ q: '"___ is she?" "She is my sister." 填疑问词', answer: 'Who', hint: '问"是谁"用哪个疑问词？', inputMode: true },
+{ q: '"___ old are you?" "I am nine." 填疑问词', answer: 'How', hint: '问"多大"用哪个疑问词？', inputMode: true },
+{ q: '妈妈用英语怎么说？', answer: 'mother', hint: '妈妈的正式说法，m开头', inputMode: true },
+{ q: '爸爸用英语怎么说？', answer: 'father', hint: '爸爸的正式说法，f开头', inputMode: true },
+{ q: '姐姐/妹妹用英语怎么说？', answer: 'sister', hint: '姐妹的英文，s开头', inputMode: true },
+{ q: '哥哥/弟弟用英语怎么说？', answer: 'brother', hint: '兄弟的英文，b开头', inputMode: true },
       // Unit 4: Food - like/don't like & countable/uncountable
-      { q: '"I ___ apples."（喜欢）填入英语', answer: 'like', hint: '喜欢', inputMode: true },
-      { q: '"She ___ like fish."（不喜欢）填入两个词', answer: "doesn't", hint: "第三人称否定用doesn't", inputMode: true },
-      { q: '"Do you like ___?"（米饭，不可数）填入英语', answer: 'rice', hint: 'r开头，不可数名词', inputMode: true },
-      { q: '面包用英语怎么说？', answer: 'bread', hint: 'b开头，不可数', inputMode: true },
-      { q: '牛奶用英语怎么说？', answer: 'milk', hint: 'm开头，不可数', inputMode: true },
-      { q: '鸡蛋用英语怎么说？', answer: 'egg', hint: 'e开头，可数', inputMode: true },
-      { q: '鸡肉用英语怎么说？', answer: 'chicken', hint: 'c开头', inputMode: true },
+{ q: '"I ___ apples."（喜欢）填入英语', answer: 'like', hint: '"喜欢"用英语怎么说？', inputMode: true },
+{ q: '"She ___ like fish."（不喜欢）填入两个词', answer: "doesn't", hint: '第三人称否定用什么？', inputMode: true },
+{ q: '"Do you like ___?"（米饭，不可数）填入英语', answer: 'rice', hint: '米饭的英文，不可数名词', inputMode: true },
+{ q: '面包用英语怎么说？', answer: 'bread', hint: '面包的英文，不可数名词', inputMode: true },
+{ q: '牛奶用英语怎么说？', answer: 'milk', hint: '牛奶的英文，不可数名词', inputMode: true },
+{ q: '鸡蛋用英语怎么说？', answer: 'egg', hint: '鸡蛋的英文，可数名词', inputMode: true },
+{ q: '鸡肉用英语怎么说？', answer: 'chicken', hint: '鸡肉的英文，c开头', inputMode: true },
       // Unit 5: Animals - can/can't
-      { q: '"A bird ___ fly."（能）填入英语', answer: 'can', hint: '能、会', inputMode: true },
-      { q: '"A fish ___ walk."（不能）填入英语', answer: "can't", hint: '不能，cannot的缩写', inputMode: true },
-      { q: '"___ you swim?"（你能…吗）填入英语', answer: 'Can', hint: '问能力用can', inputMode: true },
-      { q: '大象用英语怎么说？', answer: 'elephant', hint: 'e开头', inputMode: true },
-      { q: '老虎用英语怎么说？', answer: 'tiger', hint: 't开头', inputMode: true },
-      { q: '长颈鹿用英语怎么说？', answer: 'giraffe', hint: 'g开头', inputMode: true },
+{ q: '"A bird ___ fly."（能）填入英语', answer: 'can', hint: '"能、会"用哪个情态动词？', inputMode: true },
+{ q: '"A fish ___ walk."（不能）填入英语', answer: "can't", hint: '"不能"的缩写形式是什么？', inputMode: true },
+{ q: '"___ you swim?"（你能…吗）填入英语', answer: 'Can', hint: '问"能不能"用什么开头？', inputMode: true },
+{ q: '大象用英语怎么说？', answer: 'elephant', hint: '大象的英文，e开头', inputMode: true },
+{ q: '老虎用英语怎么说？', answer: 'tiger', hint: '老虎的英文，t开头', inputMode: true },
+{ q: '长颈鹿用英语怎么说？', answer: 'giraffe', hint: '长颈鹿的英文，g开头', inputMode: true },
       // Unit 6: Places - there is/are &方位介词
-      { q: '"There ___ a park near my school." 填入正确词', answer: 'is', hint: '单数用is', inputMode: true },
-      { q: '"There ___ three books on the desk." 填入正确词', answer: 'are', hint: '复数用are', inputMode: true },
+{ q: '"There ___ a park near my school." 填入正确词', answer: 'is', hint: '单数名词搭配哪个be动词？', inputMode: true },
+{ q: '"There ___ three books on the desk." 填入正确词', answer: 'are', hint: '复数名词搭配哪个be动词？', inputMode: true },
       { q: '"The cat is ___ the box."（在…里面）填入介词', answer: 'in', hint: '在里面', inputMode: true },
       { q: '"The ball is ___ the table."（在…下面）填入介词', answer: 'under', hint: '在下面', inputMode: true },
       { q: '"The picture is ___ the wall."（在…上面）填入介词', answer: 'on', hint: '在表面上', inputMode: true },
@@ -3716,27 +3717,38 @@ const LEARN_CONTENT = {
         <h3>🔑 Unit 1-2：be动词 & have/has</h3>
         <div class="step-list">
           <div class="step-item"><strong>I am / You are / He is / She is / It is / We are / They are</strong></div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('I am. You are. He is. She is. It is. We are. They are.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item">缩写：I'm / You're / He's / She's / It's / We're / They're</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish(&quot;I'm. You're. He's. She's. It's. We're. They're.&quot;)" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>have/has</strong>：I/You/We/They <strong>have</strong> → He/She/It <strong>has</strong></div>
           <div class="step-item">例：I <strong>have</strong> a pen. She <strong>has</strong> two pens.</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('I have a pen. She has two pens.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
         </div>
       </div>
       <div class="learn-section">
         <h3>🔑 Unit 3-4：疑问句 & like用法</h3>
         <div class="step-list">
           <div class="step-item"><strong>Who is she?</strong> She is my sister.（问人）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('Who is she? She is my sister.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>How old are you?</strong> I am nine.（问年龄）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('How old are you? I am nine.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>I like apples.</strong> 我喜欢苹果。（like + 名词复数/不可数）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('I like apples.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>She doesn't like fish.</strong> 她不喜欢鱼。（第三人称否定）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish(&quot;She doesn't like fish.&quot;)" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
         </div>
       </div>
       <div class="learn-section">
         <h3>🔑 Unit 5-6：can/can't & There be</h3>
         <div class="step-list">
           <div class="step-item"><strong>A bird can fly.</strong> 鸟会飞。（can + 动词原形）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('A bird can fly.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>A fish can't walk.</strong> 鱼不会走。（can't = cannot）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish(&quot;A fish can't walk.&quot;)" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>There is a park.</strong> 有一个公园。（单数用is）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('There is a park.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item"><strong>There are three books.</strong> 有三本书。（复数用are）</div>
+          <div class="step-item"><button class="speak-btn" onclick="speakEnglish('There are three books.')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></div>
           <div class="step-item">方位介词：<strong>in</strong>(里) <strong>on</strong>(上) <strong>under</strong>(下) <strong>behind</strong>(后)</div>
         </div>
       </div>
@@ -3745,7 +3757,9 @@ const LEARN_CONTENT = {
         <div class="example-box">
           <p>he/she/it 后面的动词要变身：</p>
           <p>like → <strong>likes</strong> &nbsp; have → <strong>has</strong> &nbsp; go → <strong>goes</strong></p>
+          <p><button class="speak-btn" onclick="speakEnglish('likes, has, goes')" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></p>
           <p>否定用 <strong>doesn't + 动词原形</strong>：He <strong>doesn't like</strong> fish. ✅</p>
+          <p><button class="speak-btn" onclick="speakEnglish(&quot;He doesn't like fish.&quot;)" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#00b894,#00cec9);color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:14px;cursor:pointer;font-family:var(--font-fun);">🔊 读一读</button></p>
           <p>He <strong>don't likes</strong> fish. ❌</p>
         </div>
       </div>
@@ -4079,12 +4093,23 @@ function submitInputAnswer() {
   if (isCorrect) {
     input.classList.add('correct');
     feedback.innerHTML = '<span style="color:#00b894">✅ 太棒了！回答正确！</span>';
+    speakChinese('真棒！');
     quizState.score++;
     quizState.correct++;
     document.getElementById('quizScore').textContent = `${quizState.score * 20}分`;
   } else {
     input.classList.add('wrong');
-    feedback.innerHTML = `<span style="color:#e17055">❌ 再想想哦！正确答案是：<strong>${q.answer}</strong></span>`;
+    feedback.innerHTML = '<span style="color:#e17055">❌ 再想想哦！</span><button id="showAnswerBtn" style="display:block;margin:8px auto;padding:8px 20px;border:2px solid #e17055;background:#fff;border-radius:20px;color:#e17055;font-size:15px;cursor:pointer;font-family:var(--font-fun);">👀 查看正确答案</button>';
+    speakChinese('再想想哦');
+    setTimeout(() => {
+      const btn = document.getElementById('showAnswerBtn');
+      if (btn) btn.onclick = function() {
+        this.textContent = '✅ 正确答案：' + q.answer;
+        this.style.borderColor = '#00b894';
+        this.style.color = '#00b894';
+        this.disabled = true;
+      };
+    }, 50);
   }
 
   // 标记当前题已答
@@ -4126,22 +4151,32 @@ function selectOption(el, value) {
     quizState.score++;
     document.getElementById('quizScore').textContent = `${quizState.score * 20}分`;
     showToast('🎉 太棒了！');
+    speakChinese('真棒！');
   } else {
     el.classList.add('wrong');
-    // 高亮正确答案
-    allOpts.forEach(opt => {
-      if (String(opt.dataset.value) === String(q.answer)) opt.classList.add('correct');
-    });
     showToast('😅 没关系，再想想！');
-    // 显示"看解析"按钮
-    const explainBtn = document.getElementById('explainBtn');
-    if (explainBtn) explainBtn.classList.add('show');
-  }
-
-  // 选择题答后显示解析按钮
-  if (!isCorrect) {
-    const explainBtn = document.getElementById('explainBtn');
-    if (explainBtn) explainBtn.classList.add('show');
+    speakChinese('再想想哦');
+    // 不自动高亮正确答案，添加"查看答案"按钮
+    const quizContainer = document.getElementById('quizContainer');
+    const existingBtn = quizContainer.querySelector('.show-answer-btn');
+    if (!existingBtn) {
+      const showBtn = document.createElement('button');
+      showBtn.className = 'show-answer-btn';
+      showBtn.textContent = '👀 查看正确答案';
+      showBtn.style.cssText = 'display:block;margin:10px auto;padding:8px 22px;border:2px solid #e17055;background:#fff;border-radius:20px;color:#e17055;font-size:15px;cursor:pointer;font-family:var(--font-fun);';
+      showBtn.onclick = function() {
+        allOpts.forEach(opt => {
+          if (String(opt.dataset.value) === String(q.answer)) opt.classList.add('correct');
+        });
+        this.textContent = '✅ 已显示正确答案';
+        this.style.borderColor = '#00b894';
+        this.style.color = '#00b894';
+        this.disabled = true;
+      };
+      const bottomNav = document.getElementById('quizBottomNav');
+      if (bottomNav) quizContainer.insertBefore(showBtn, bottomNav);
+      else quizContainer.appendChild(showBtn);
+    }
   }
   // 标记当前题已答
   quizState.answered[quizState.current] = true;
@@ -4440,11 +4475,7 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function backFromQuiz() {
-  if (currentQuiz === '_daily') showPage('homePage');
-  else if (currentQuiz && currentQuiz.startsWith('math')) showPage('mathPage');
-  else if (currentQuiz && currentQuiz.startsWith('chinese')) showPage('chinesePage');
-  else if (currentQuiz && currentQuiz.startsWith('eng')) showPage('englishPage');
-  else showPage('homePage');
+  showPage('homePage');
 }
 
 // ===== 连线题 =====
@@ -4601,6 +4632,22 @@ function prevChar() {
 }
 
 // ===== 语音朗读 =====
+function speakChinese(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'zh-CN';
+    utter.rate = 1.0;
+    utter.pitch = 1.2;
+    const voices = window.speechSynthesis.getVoices();
+    const cnVoice = voices.find(v => v.lang === 'zh-CN')
+      || voices.find(v => v.lang.startsWith('zh'))
+      || voices[0];
+    if (cnVoice) utter.voice = cnVoice;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
 function speakEnglish(text, slow) {
   // 微信内置浏览器检测
   const isWechat = /MicroMessenger/i.test(navigator.userAgent);
