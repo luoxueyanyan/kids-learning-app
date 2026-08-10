@@ -840,6 +840,51 @@ body {
         <div class="status" id="math_logic_status"></div>
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_logic')">📖</button>
       </div>
+      <div class="module-card" onclick="learnFirst('math_time')">
+        <div class="emoji">⏰</div>
+        <div class="text">
+          <h4>时分秒闯关</h4>
+          <p>📚先学：时间单位换算、经过时间 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_time_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_time')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('math_measure')">
+        <div class="emoji">📏</div>
+        <div class="text">
+          <h4>测量小达人</h4>
+          <p>📚先学：长度/质量单位换算 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_measure_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_measure')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('math_times')">
+        <div class="emoji">✖️</div>
+        <div class="text">
+          <h4>多位数乘一位数</h4>
+          <p>📚先学：笔算乘法、进位与0的乘法 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_times_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_times')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('math_fraction')">
+        <div class="emoji">🍕</div>
+        <div class="text">
+          <h4>分数初体验</h4>
+          <p>📚先学：认识分数、比较大小、简单加减 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_fraction_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_fraction')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('math_perimeter')">
+        <div class="emoji">📐</div>
+        <div class="text">
+          <h4>周长计算师</h4>
+          <p>📚先学：长方形/正方形周长公式 → ✍️自己写答案</p>
+        </div>
+        <div class="status" id="math_perimeter_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('math_perimeter')">📖</button>
+      </div>
     </div>
   </div>
 
@@ -914,6 +959,24 @@ body {
         <div class="status" id="chinese_guoxue_status"></div>
         <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_guoxue')">📖</button>
       </div>
+      <div class="module-card" onclick="learnFirst('chinese_textbook')">
+        <div class="emoji">📖</div>
+        <div class="text">
+          <h4>课本大闯关</h4>
+          <p>📚先学：8单元课文重点 → 🎮再练</p>
+        </div>
+        <div class="status" id="chinese_textbook_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_textbook')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('chinese_ancient')">
+        <div class="emoji">🏛️</div>
+        <div class="text">
+          <h4>课本古诗</h4>
+          <p>📚先学：6首课本古诗+诗意 → ✏️再练</p>
+        </div>
+        <div class="status" id="chinese_ancient_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('chinese_ancient')">📖</button>
+      </div>
     </div>
   </div>
 
@@ -959,6 +1022,33 @@ body {
           <p>📚26个字母发音，拼读入门</p>
         </div>
         <div class="status" id="eng_phonics_status"></div>
+      </div>
+      <div class="module-card" onclick="learnFirst('eng_body')">
+        <div class="emoji">🏃</div>
+        <div class="text">
+          <h4>身体部位</h4>
+          <p>📚先学：head/hand/eye等词汇 → ✏️再练</p>
+        </div>
+        <div class="status" id="eng_body_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_body')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('eng_animals')">
+        <div class="emoji">🐾</div>
+        <div class="text">
+          <h4>动物世界</h4>
+          <p>📚先学：cat/dog/monkey等词汇 → ✏️再练</p>
+        </div>
+        <div class="status" id="eng_animals_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_animals')">📖</button>
+      </div>
+      <div class="module-card" onclick="learnFirst('eng_colours')">
+        <div class="emoji">🎨</div>
+        <div class="text">
+          <h4>颜色与数字</h4>
+          <p>📚先学：red/blue/five等词汇 → ✏️再练</p>
+        </div>
+        <div class="status" id="eng_colours_status"></div>
+        <button class="card-learn-btn" onclick="event.stopPropagation(); showLearnPage('eng_colours')">📖</button>
       </div>
     </div>
   </div>
@@ -1202,6 +1292,81 @@ const DATA = {
       { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
     ]
   },
+  math_time: {
+    title: '⏰ 时分秒闯关',
+    questions: [
+      { q: '1时=___分？', answer: '60', hint: '1时=60分', inputMode: true },
+      { q: '1分=___秒？', answer: '60', hint: '1分=60秒', inputMode: true },
+      { q: '2时=___分？', answer: '120', hint: '2×60=120', inputMode: true },
+      { q: '3分=___秒？', answer: '180', hint: '3×60=180', inputMode: true },
+      { q: '从8:00到8:45经过了___分？', answer: '45', hint: '45-0=45', inputMode: true },
+      { q: '从9:30到10:15经过了___分？', answer: '45', hint: '10:15-9:30=45分', inputMode: true },
+      { q: '一节课40分钟，8:20开始，___结束？', answer: '9:00', hint: '8:20+40分=9:00', inputMode: true },
+{ q: '小明7:50到校，迟到了10分钟，学校规定___到校？', answer: '8:00', hint: '7:50+10分=8:00，规定时间比迟到时间早10分', inputMode: true },
+      { q: '360秒=___分？', answer: '6', hint: '360÷60=6', inputMode: true },
+      { q: '2时30分=___分？', answer: '150', hint: '2×60+30=150', inputMode: true }
+    ]
+  },
+  math_measure: {
+    title: '📏 测量小达人',
+    questions: [
+      { q: '1厘米=___毫米？', answer: '10', hint: '1厘米=10毫米', inputMode: true },
+      { q: '1分米=___厘米？', answer: '10', hint: '1分米=10厘米', inputMode: true },
+      { q: '1米=___分米？', answer: '10', hint: '1米=10分米', inputMode: true },
+      { q: '1千米=___米？', answer: '1000', hint: '1千米=1000米', inputMode: true },
+      { q: '1吨=___千克？', answer: '1000', hint: '1吨=1000千克', inputMode: true },
+      { q: '3千米=___米？', answer: '3000', hint: '3×1000=3000', inputMode: true },
+      { q: '5分米=___厘米？', answer: '50', hint: '5×10=50', inputMode: true },
+      { q: '一头大象约重4___？', answer: '吨', hint: '大象很重，用吨', inputMode: true },
+      { q: '一支铅笔长约15___？', answer: '厘米', hint: '铅笔大约15厘米', inputMode: true },
+      { q: '2米=___厘米？', answer: '200', hint: '2×100=200', inputMode: true }
+    ]
+  },
+  math_times: {
+    title: '✖️ 多位数乘一位数',
+    questions: [
+      { q: '20×3=___？', answer: '60', hint: '2×3=6，再加0', inputMode: true },
+      { q: '200×4=___？', answer: '800', hint: '2×4=8，再加两个0', inputMode: true },
+      { q: '12×3=___？', answer: '36', hint: '10×3=30，2×3=6', inputMode: true },
+      { q: '18×3=___？', answer: '54', hint: '10×3=30，8×3=24，30+24=54', inputMode: true },
+      { q: '24×9=___？', answer: '216', hint: '20×9=180，4×9=36，180+36=216', inputMode: true },
+      { q: '137×6=___？', answer: '822', hint: '100×6=600，30×6=180，7×6=42', inputMode: true },
+      { q: '0×5=___？', answer: '0', hint: '0和任何数相乘都得0', inputMode: true },
+      { q: '508×3=___？', answer: '1524', hint: '500×3=1500，8×3=24', inputMode: true },
+      { q: '280×3=___？', answer: '840', hint: '28×3=84，再加0', inputMode: true },
+      { q: '45×6=___？', answer: '270', hint: '40×6=240，5×6=30', inputMode: true }
+    ]
+  },
+  math_fraction: {
+    title: '🍕 分数初体验',
+    questions: [
+      { q: '把一个蛋糕平均分成4份，每份是它的___分之___？', answer: '四分之一（或1/4）', hint: '4份取1份', inputMode: true },
+      { q: '1/3___1/5（填>或<）？', answer: '>', hint: '分的份数越少，每份越大', inputMode: true },
+      { q: '2/5+1/5=___？', answer: '3/5', hint: '分母不变，分子相加', inputMode: true },
+      { q: '3/7-1/7=___？', answer: '2/7', hint: '分母不变，分子相减', inputMode: true },
+      { q: '1/4和2/4谁大？___', answer: '2/4', hint: '分母相同，分子大的大', inputMode: true },
+      { q: '5/6-2/6=___？', answer: '3/6', hint: '5-2=3，分母不变', inputMode: true },
+      { q: '分母是4、分子是3的分数是___？', answer: '3/4', hint: '分母在下，分子在上', inputMode: true },
+      { q: '把一根绳子平均分成5段，每段是它的___分之___？', answer: '五分之一（或1/5）', hint: '5段取1段', inputMode: true },
+      { q: '3/8+4/8=___？', answer: '7/8', hint: '3+4=7，分母不变', inputMode: true },
+      { q: '1/2和1/3谁大？___', answer: '1/2', hint: '分的份数越少，每份越大', inputMode: true }
+    ]
+  },
+  math_perimeter: {
+    title: '📐 周长计算师',
+    questions: [
+      { q: '长方形长5厘米、宽3厘米，周长=___厘米？', answer: '16', hint: '(5+3)×2=16', inputMode: true },
+      { q: '正方形边长4厘米，周长=___厘米？', answer: '16', hint: '4×4=16', inputMode: true },
+      { q: '长方形长8米、宽5米，周长=___米？', answer: '26', hint: '(8+5)×2=26', inputMode: true },
+      { q: '正方形边长9分米，周长=___分米？', answer: '36', hint: '9×4=36', inputMode: true },
+      { q: '长方形周长20厘米、长6厘米，宽=___厘米？', answer: '4', hint: '20÷2-6=4', inputMode: true },
+      { q: '正方形周长28厘米，边长=___厘米？', answer: '7', hint: '28÷4=7', inputMode: true },
+      { q: '一块长方形菜地长12米、宽8米，四周围篱笆，篱笆长___米？', answer: '40', hint: '(12+8)×2=40', inputMode: true },
+      { q: '一个正方形花坛周长32米，边长=___米？', answer: '8', hint: '32÷4=8', inputMode: true },
+      { q: '长方形长10厘米、宽比长短4厘米，周长=___厘米？', answer: '32', hint: '宽=10-4=6，(10+6)×2=32', inputMode: true },
+      { q: '用一根24厘米的铁丝围成正方形，边长是___厘米？', answer: '6', hint: '24÷4=6', inputMode: true }
+    ]
+  },
   chinese_idiom: {
     title: '🎭 成语小达人',
     questions: [
@@ -1421,6 +1586,91 @@ const DATA = {
       { q: '"老骥伏枥，志在千里"用了什么修辞手法？', answer: '比喻', hint: '用老马比喻人', inputMode: true },
       { q: '"道是无晴却有晴"中"晴"暗指哪个字？', answer: '情', hint: '谐音双关', inputMode: true },
       { q: '"无可奈何花落去，似曾相识燕归来"表达的情感是？', answer: '对时光流逝的感叹', hint: '花落了回不来，但燕子又回来', inputMode: true },
+    ]
+  },
+  chinese_textbook: {
+    title: '📖 课本大闯关',
+    questions: [
+      { q: '《大青树下的小学》写的是___？', answer: '边疆民族小学', options: ['边疆民族小学','城市实验小学','海边渔民小学','山区希望小学'], hint: '少数民族小朋友一起上学' },
+      { q: '《花的学校》中花孩子们在___跑出来？', answer: '雨天', options: ['雨天','晴天','春天','夜晚'], hint: '下雨天花孩子们最喜欢跑出来' },
+      { q: '《秋天的雨》的写作结构是___？', answer: '总分总', options: ['总分总','时间顺序','空间顺序','因果关系'], hint: '先总写秋天来了，再分写各种景物，最后总结' },
+      { q: '童话最重要的特点是___？', answer: '丰富的想象', options: ['丰富的想象','全是真人真事','只写动物','必须押韵'], hint: '童话里动物会说话、树会走路' },
+      { q: '《搭船的鸟》写的是哪种鸟？', answer: '翠鸟', options: ['翠鸟','麻雀','鹦鹉','燕子'], hint: '这种鸟颜色很翠绿' },
+      { q: '《金色的草地》中草地变色的原因是___？', answer: '蒲公英花开花合', options: ['蒲公英花开花合','太阳光照变化','下雨变色','秋天到了'], hint: '蒲公英张开是金色，合拢是绿色' },
+      { q: '《富饶的西沙群岛》写的是___？', answer: '海岛风光', options: ['海岛风光','高山雪景','草原牧歌','城市夜景'], hint: '西沙群岛在海里，有很多鱼和珊瑚' },
+      { q: '《美丽的小兴安岭》按___顺序写？', answer: '四季', options: ['四季','时间','空间','事情发展'], hint: '春夏秋冬各写一段' },
+      { q: '《大自然的声音》写了风声、水声和___？', answer: '动物的声音', options: ['动物的声音','雷声','人声','车声'], hint: '大自然里有风吹、水流，还有小动物叫' },
+      { q: '《司马光》讲的是司马光___的故事？', answer: '砸缸救小朋友', options: ['砸缸救小朋友','读书破万卷','写诗成名','种树救村'], hint: '缸里掉进小朋友，司马光想了个办法' },
+      { q: '三年级上册语文第5单元的训练重点是___？', answer: '留心观察', options: ['留心观察','写日记','预测故事','背诵古诗'], hint: '《搭船的鸟》《金色的草地》都是仔细观察写出来的' },
+      { q: '三年级上册语文第2单元的语文要素是___？', answer: '运用多种方法理解难懂的词语', options: ['运用多种方法理解难懂的词语','学习编写童话','背诵默写古诗','写观察日记'], hint: '查字典、联系上下文、请教别人都是好方法' },
+    ]
+  },
+  chinese_ancient: {
+    title: '🏛️ 课本古诗',
+    questions: [
+      { q: '杜牧《山行》：远上寒山石径斜，________。', answer: '白云生处有人家', hint: '白云升起的地方有人家', inputMode: true },
+      { q: '杜牧《山行》：停车坐爱枫林晚，________。', answer: '霜叶红于二月花', hint: '秋天的枫叶比春天的花还红', inputMode: true },
+      { q: '杜牧《山行》中"霜叶红于二月花"的意思是___？', answer: '秋天的枫叶比二月的花还红', hint: '霜叶=经霜的枫叶，红于=比…更红', inputMode: true },
+      { q: '苏轼《赠刘景文》：荷尽已无擎雨盖，________。', answer: '菊残犹有傲霜枝', hint: '荷花谢了，菊花还有傲骨', inputMode: true },
+      { q: '苏轼《赠刘景文》：一年好景君须记，________。', answer: '最是橙黄橘绿时', hint: '橙子黄了橘子绿了，好时节', inputMode: true },
+      { q: '《赠刘景文》告诉我们要珍惜___？', answer: '秋天的美景', hint: '虽然荷尽菊残，但橙黄橘绿正是好时候', inputMode: true },
+      { q: '叶绍翁《夜书所见》：萧萧梧叶送寒声，________。', answer: '江上秋风动客情', hint: '秋风让诗人思念家乡', inputMode: true },
+      { q: '叶绍翁《夜书所见》：知有儿童挑促织，________。', answer: '夜深篱落一灯明', hint: '深夜篱笆旁有一盏灯亮着', inputMode: true },
+      { q: '李白《望天门山》：天门中断楚江开，________。', answer: '碧水东流至此回', hint: '碧绿的江水向东流到这里回旋', inputMode: true },
+      { q: '苏轼《饮湖上初晴后雨》：水光潋滟晴方好，________。', answer: '山色空蒙雨亦奇', hint: '晴天水光好，雨天山色奇', inputMode: true },
+      { q: '苏轼《饮湖上初晴后雨》：欲把西湖比西子，________。', answer: '淡妆浓抹总相宜', hint: '不管是淡妆还是浓抹都很美', inputMode: true },
+      { q: '刘禹锡《望洞庭》：遥望洞庭山水翠，________。', answer: '白银盘里一青螺', hint: '洞庭湖像银盘，君山像青螺', inputMode: true },
+    ]
+  },
+  eng_body: {
+    title: '🏃 身体部位',
+    questions: [
+      { q: '手用英语怎么说？', answer: 'hand', hint: 'h开头', inputMode: true },
+      { q: '胳膊用英语怎么说？', answer: 'arm', hint: 'a开头', inputMode: true },
+      { q: '耳朵用英语怎么说？', answer: 'ear', hint: 'e开头', inputMode: true },
+      { q: '嘴巴用英语怎么说？', answer: 'mouth', hint: 'm开头', inputMode: true },
+      { q: '眼睛用英语怎么说？', answer: 'eye', hint: 'e开头，三个字母', inputMode: true },
+      { q: '头用英语怎么说？', answer: 'head', hint: 'h开头', inputMode: true },
+      { q: '脸用英语怎么说？', answer: 'face', hint: 'f开头', inputMode: true },
+      { q: '鼻子用英语怎么说？', answer: 'nose', hint: 'n开头', inputMode: true },
+      { q: '脚用英语怎么说？', answer: 'foot', hint: 'f开头，注意复数是feet', inputMode: true },
+      { q: '腿用英语怎么说？', answer: 'leg', hint: 'l开头', inputMode: true },
+      { q: '"Touch your nose"是什么意思？', answer: '摸你的鼻子', hint: 'touch=摸', inputMode: true },
+      { q: '"Clap your hands"是什么意思？', answer: '拍拍你的手', hint: 'clap=拍', inputMode: true },
+    ]
+  },
+  eng_animals: {
+    title: '🐾 动物世界',
+    questions: [
+      { q: '猫用英语怎么说？', answer: 'cat', hint: 'c开头', inputMode: true },
+      { q: '狗用英语怎么说？', answer: 'dog', hint: 'd开头', inputMode: true },
+      { q: '猴子用英语怎么说？', answer: 'monkey', hint: 'm开头', inputMode: true },
+      { q: '熊猫用英语怎么说？', answer: 'panda', hint: 'p开头', inputMode: true },
+      { q: '兔子用英语怎么说？', answer: 'rabbit', hint: 'r开头', inputMode: true },
+      { q: '鸟用英语怎么说？', answer: 'bird', hint: 'b开头', inputMode: true },
+      { q: '鱼用英语怎么说？', answer: 'fish', hint: 'f开头，单复数同形', inputMode: true },
+      { q: '鸭子用英语怎么说？', answer: 'duck', hint: 'd开头', inputMode: true },
+      { q: '猪用英语怎么说？', answer: 'pig', hint: 'p开头', inputMode: true },
+      { q: '两只猫的复数形式是？', answer: 'cats', hint: '加s', inputMode: true },
+      { q: '三只兔子的复数形式是？', answer: 'rabbits', hint: '加s', inputMode: true },
+      { q: '"I like dogs"是什么意思？', answer: '我喜欢狗', hint: 'like=喜欢', inputMode: true },
+    ]
+  },
+  eng_colours: {
+    title: '🎨 颜色与数字',
+    questions: [
+      { q: '红色用英语怎么说？', answer: 'red', hint: 'r开头', inputMode: true },
+      { q: '蓝色用英语怎么说？', answer: 'blue', hint: 'b开头', inputMode: true },
+      { q: '绿色用英语怎么说？', answer: 'green', hint: 'g开头', inputMode: true },
+      { q: '黄色用英语怎么说？', answer: 'yellow', hint: 'y开头', inputMode: true },
+      { q: '黑色用英语怎么说？', answer: 'black', hint: 'b开头', inputMode: true },
+      { q: '白色用英语怎么说？', answer: 'white', hint: 'w开头', inputMode: true },
+      { q: '橙色用英语怎么说？', answer: 'orange', hint: 'o开头', inputMode: true },
+      { q: '数字5用英语怎么说？', answer: 'five', hint: 'f开头', inputMode: true },
+      { q: '数字8用英语怎么说？', answer: 'eight', hint: 'e开头', inputMode: true },
+      { q: '数字10用英语怎么说？', answer: 'ten', hint: 't开头', inputMode: true },
+      { q: '"What colour is it?"是什么意思？', answer: '它是什么颜色', hint: 'colour=颜色', inputMode: true },
+      { q: '"How many?"是什么意思？', answer: '有多少个', hint: 'how many=多少个', inputMode: true },
     ]
   },
   eng_listen: {
@@ -1750,9 +2000,9 @@ let quizState = { questions: [], current: 0, score: 0, total: 5 };
 // ===== 模块内部练习节制度 =====
 const STAGE_SIZE = 5; // 每节5道题
 const MODULE_STAGES = {
-  math_add: 6, math_sub: 6, math_mul: 5, math_word: 5, math_pattern: 4, math_mixed: 5, math_logic: 4,
-  chinese_idiom: 5, chinese_match: 4, chinese_reading: 4, chinese_poem: 5, chinese_wizard: 4, chinese_guoxue: 5,
-  eng_vocab: 5, eng_listen: 5, eng_oral: 4, eng_phonics: 4
+math_add: 6, math_sub: 6, math_mul: 5, math_word: 5, math_pattern: 4, math_mixed: 5, math_logic: 4, math_time: 2, math_measure: 2, math_times: 2, math_fraction: 2, math_perimeter: 2,
+  chinese_idiom: 5, chinese_match: 4, chinese_reading: 4, chinese_poem: 5, chinese_wizard: 4, chinese_guoxue: 5, chinese_textbook: 4, chinese_ancient: 5,
+  eng_vocab: 5, eng_listen: 5, eng_oral: 4, eng_phonics: 4, eng_body: 3, eng_animals: 3, eng_colours: 3
 };
 
 function getStageProgress(moduleId) {
@@ -1842,7 +2092,7 @@ function showPage(pageId) {
 
 // ===== 首页 =====
 function updateDailyProgress() {
-const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics','char'];
+const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
   const done = modules.filter(m => state.completed[m]).length;
   const pct = Math.round(done / modules.length * 100);
   document.getElementById('dailyFill').style.width = pct + '%';
@@ -1850,7 +2100,7 @@ const modules = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
 }
 
 function updateModuleStatus() {
-  const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
   // 普通模块：显示节进度
   ids.forEach(id => {
     const el = document.getElementById(id + '_status');
@@ -2223,6 +2473,209 @@ const LEARN_CONTENT = {
       { q: '6×□ - 9 = 27，□ = ？', answer: '6', hint: '6×□=27+9=36', inputMode: true }
     ]
   },
+  math_time: {
+    title: '📚 学一学：时分秒闯关',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识钟表</h3>
+        <p>钟面上有三根针：<strong>时针</strong>最短最粗，走得最慢；<strong>分针</strong>较长较细；<strong>秒针</strong>最长最细，走得最快。</p>
+      </div>
+      <div class="learn-section">
+        <h3>📝 时间单位关系</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1时 = 60分</strong><br>时针走1大格 = 1小时，分针正好走一圈</div>
+          <div class="step-item"><strong>1分 = 60秒</strong><br>分针走1小格 = 1分钟，秒针正好走一圈</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 时间单位换算</h3>
+        <div class="example-box">
+          <div class="label">例题：2时30分 = ？分</div>
+          <p>2时 = 2×60 = 120分</p>
+          <p>120 + 30 = 150分</p>
+          <div class="formula">2时30分 = 150分</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：360秒 = ？分</div>
+          <p>360 ÷ 60 = 6分</p>
+          <div class="formula">360秒 = 6分</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 计算经过时间</h3>
+        <div class="example-box">
+          <div class="label">例题：从8:00到8:45经过了多少分？</div>
+          <p>8:45 - 8:00 = 45分</p>
+          <div class="formula">经过 45分</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：一节课40分钟，8:20开始，几点结束？</div>
+          <p>8:20 + 40分 = 8:60 = 9:00</p>
+          <div class="formula">9:00结束</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：时→分乘60，分→时除60；计算经过时间用结束时间减开始时间！</div>
+    `
+  },
+  math_measure: {
+    title: '📚 学一学：测量小达人',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识长度单位</h3>
+        <p>我们学过的长度单位从小到大：<strong>毫米→厘米→分米→米→千米</strong></p>
+      </div>
+      <div class="learn-section">
+        <h3>📝 长度单位换算</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1厘米 = 10毫米</strong><br>指甲盖的厚度约1毫米</div>
+          <div class="step-item"><strong>1分米 = 10厘米</strong><br>手掌宽度约1分米</div>
+          <div class="step-item"><strong>1米 = 10分米</strong><br>课桌高度约7分米</div>
+          <div class="step-item"><strong>1千米 = 1000米</strong><br>操场两圈半约1千米</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 认识质量单位</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1吨 = 1000千克</strong><br>一头大象约重4吨，一袋大米约25千克</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 换算例题</h3>
+        <div class="example-box">
+          <div class="label">例题：3千米 = ？米</div>
+          <p>3 × 1000 = 3000米</p>
+          <div class="formula">3千米 = 3000米</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：2米 = ？厘米</div>
+          <p>2米 = 20分米 = 200厘米</p>
+          <div class="formula">2米 = 200厘米</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：大单位变小单位乘进率，小单位变大单位除进率！选择单位要看物体大小！</div>
+    `
+  },
+  math_times: {
+    title: '📚 学一学：多位数乘一位数',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 口算整十整百乘一位数</h3>
+        <p>先把0前面的数相乘，再在末尾添0。</p>
+        <div class="example-box">
+          <div class="label">例题：20 × 3 = ？</div>
+          <p>2 × 3 = 6，末尾添1个0 → 60</p>
+          <div class="formula">20 × 3 = 60</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：200 × 4 = ？</div>
+          <p>2 × 4 = 8，末尾添2个0 → 800</p>
+          <div class="formula">200 × 4 = 800</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📝 笔算乘法三步走</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>不进位</strong>：12×3 → 10×3=30，2×3=6，30+6=36</div>
+          <div class="step-item"><strong>进位</strong>：18×3 → 8×3=24，写4进2；1×3+2=5 → 54</div>
+          <div class="step-item"><strong>连续进位</strong>：24×9 → 4×9=36写6进3；2×9+3=21 → 216</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 特殊情况</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>0和任何数相乘都得0</strong><br>0×5=0，0×100=0</div>
+          <div class="step-item"><strong>中间有0</strong>：508×3 → 8×3=24写4进2；0×3+2=2；5×3=15 → 1524</div>
+          <div class="step-item"><strong>末尾有0</strong>：280×3 → 先算28×3=84，再添0 → 840</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：从个位乘起，满几十就进几！0×任何数=0，但0做加法还是原数！</div>
+    `
+  },
+  math_fraction: {
+    title: '📚 学一学：分数初体验',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识分数</h3>
+        <p>把一个东西<strong>平均分</strong>成几份，取其中的几份，就用分数表示。</p>
+        <div class="step-list">
+          <div class="step-item"><strong>几分之一</strong>：平均分成4份，取1份 → 1/4（四分之一）</div>
+          <div class="step-item"><strong>几分之几</strong>：平均分成5份，取3份 → 3/5（五分之三）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📝 分数的读写</h3>
+        <p>分数线下面的叫<strong>分母</strong>（总共分几份），上面的叫<strong>分子</strong>（取了几份）。</p>
+        <div class="example-box">
+          <div class="label">3/4 读作：四分之三</div>
+          <p>分母=4（平均分成4份），分子=3（取了3份）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 比较大小</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>同分母</strong>：分母相同，分子大的分数大<br>2/4 > 1/4</div>
+          <div class="step-item"><strong>同分子</strong>：分子相同（都是1），分母小的分数大<br>1/2 > 1/3（分的份数越少，每份越大）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 同分母加减</h3>
+        <div class="example-box">
+          <div class="label">加法：2/5 + 1/5 = ？</div>
+          <p>分母不变，分子相加：2+1=3</p>
+          <div class="formula">2/5 + 1/5 = 3/5</div>
+        </div>
+        <div class="example-box">
+          <div class="label">减法：5/6 - 2/6 = ？</div>
+          <p>分母不变，分子相减：5-2=3</p>
+          <div class="formula">5/6 - 2/6 = 3/6</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：一定要"平均分"才能写分数！同分母加减，分母不变，分子加减！</div>
+    `
+  },
+  math_perimeter: {
+    title: '📚 学一学：周长计算师',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识周长</h3>
+        <p><strong>周长</strong>就是围成一个图形的所有边长之和，也就是绕图形一圈的长度。</p>
+      </div>
+      <div class="learn-section">
+        <h3>📝 两个重要公式</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>长方形周长 = (长+宽) × 2</strong><br>因为长方形有2条长和2条宽</div>
+          <div class="step-item"><strong>正方形周长 = 边长 × 4</strong><br>因为正方形4条边一样长</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 正向计算</h3>
+        <div class="example-box">
+          <div class="label">例题：长方形长5厘米、宽3厘米，周长=？</div>
+          <p>(5+3) × 2 = 8 × 2 = 16厘米</p>
+          <div class="formula">周长 = 16厘米</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：正方形边长4厘米，周长=？</div>
+          <p>4 × 4 = 16厘米</p>
+          <div class="formula">周长 = 16厘米</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 逆向计算</h3>
+        <div class="example-box">
+          <div class="label">例题：长方形周长20厘米、长6厘米，宽=？</div>
+          <p>宽 = 周长÷2 - 长 = 20÷2 - 6 = 4厘米</p>
+          <div class="formula">宽 = 4厘米</div>
+        </div>
+        <div class="example-box">
+          <div class="label">例题：正方形周长28厘米，边长=？</div>
+          <p>边长 = 周长÷4 = 28÷4 = 7厘米</p>
+          <div class="formula">边长 = 7厘米</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：长方形周长=长加宽的和乘2，正方形周长=边长乘4！逆向求边长用除法！</div>
+    `
+  },
   chinese_idiom: {
     title: '📚 学一学：成语故事',
     html: `
@@ -2418,6 +2871,7 @@ const LEARN_CONTENT = {
       </div>
       <div class="learn-section">
         <h3>📖 诗词一览</h3>
+        <p>💡 以下16首来自江南实验学校国学诵读手册（五级/三年级上），课本要求的6首古诗请看「课本古诗」模块哦！</p>
         <div class="step-list">
           <div class="step-item"><strong>钱塘湖春行</strong>（白居易）——几处早莺争暖树，谁家新燕啄春泥</div>
           <div class="step-item"><strong>如梦令</strong>（李清照）——争渡，争渡，惊起一滩鸥鹭</div>
@@ -2436,6 +2890,10 @@ const LEARN_CONTENT = {
           <div class="step-item"><strong>竹枝词</strong>（刘禹锡）——东边日出西边雨，道是无晴却有晴</div>
           <div class="step-item"><strong>古人谈读书</strong>（论语/朱熹/曾国藩）——知之为知之，不知为不知</div>
         </div>
+      </div>
+      <div class="learn-section" style="background:#fff3e0; border-radius:12px; padding:12px; margin:12px 0; border:2px solid #ff9800;">
+        <h3 style="color:#e65100;">⚠️ 课本古诗在另一个模块</h3>
+        <p>三年级上册语文课本要求的6首古诗（山行、赠刘景文、夜书所见、望天门山、饮湖上初晴后雨、望洞庭）在<strong>「课本古诗」</strong>模块里练习哦！</p>
       </div>
       <div class="learn-section">
         <h3>🔑 常考方向</h3>
@@ -2463,6 +2921,522 @@ const LEARN_CONTENT = {
         </div>
       </div>
       <div class="learn-tip">🎯 做题技巧：先背熟原文 → 再理解每句意思 → 最后练填空，错了就重读三遍！</div>
+    `
+  },
+  chinese_textbook: {
+    title: '📚 学一学：课本大闯关',
+    html: `
+      <div class="learn-section">
+        <h3>📖 三年级上册8个单元概览</h3>
+        <p>人教版三年级上册语文一共8个单元，每个单元都有重点课文和训练重点，先了解再闯关！</p>
+      </div>
+      <div class="learn-section">
+        <h3>🗂️ 8个单元重点</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>一单元「校园生活」</strong>：《大青树下的小学》写边疆民族小学，不同民族小朋友一起上学；《花的学校》写花孩子们在雨天跑出来</div>
+          <div class="step-item"><strong>二单元「金秋时节」</strong>：《古诗三首》写秋天美景；《秋天的雨》用总分总结构写秋天</div>
+          <div class="step-item"><strong>三单元「童话世界」</strong>：童话有丰富的想象，角色会说话会思考，事情可以是假的但道理是真的</div>
+          <div class="step-item"><strong>四单元「预测与想象」</strong>：读故事可以预测后面发生什么，预测让阅读更有趣</div>
+          <div class="step-item"><strong>五单元「留心观察」</strong>：《搭船的鸟》写翠鸟的美丽和动作；《金色的草地》写蒲公英花开花合</div>
+          <div class="step-item"><strong>六单元「祖国河山」</strong>：《富饶的西沙群岛》写海岛风光；《美丽的小兴安岭》按四季顺序写</div>
+          <div class="step-item"><strong>七单元「我与自然」</strong>：《大自然的声音》写风声水声鸟声，大自然是音乐家</div>
+          <div class="step-item"><strong>八单元「美好品质」</strong>：《司马光》写砸缸救小朋友，遇事要冷静动脑筋</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 课文主旨速记</h3>
+        <div class="example-box">
+          <p>《大青树下的小学》→ 团结友爱、民族团结</p>
+          <p>《花的学校》→ 自由快乐、向往自然</p>
+          <p>《秋天的雨》→ 秋天丰收美丽</p>
+          <p>《搭船的鸟》→ 仔细观察发现美</p>
+          <p>《金色的草地》→ 留心观察有新发现</p>
+          <p>《富饶的西沙群岛》→ 祖国海岛物产丰富</p>
+          <p>《美丽的小兴安岭》→ 祖国四季都很美</p>
+          <p>《大自然的声音》→ 大自然声音美妙</p>
+          <p>《司马光》→ 遇事冷静、机智救人</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 做题技巧：记住每个单元的主题和课文主旨，题目就不难啦！</div>
+    `
+  },
+  chinese_ancient: {
+    title: '📚 学一学：课本古诗',
+    html: `
+      <div class="learn-section">
+        <h3>🏛️ 课本要求的6首古诗</h3>
+        <p>人教版三年级上册课本要求掌握的6首古诗，<strong>先读熟理解再练</strong>，每首都要会默写！</p>
+      </div>
+      <div class="learn-section">
+        <h3>📖 二单元：秋天的古诗</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《山行》杜牧</strong>：远上寒山石径斜，白云生处有人家。停车坐爱枫林晚，霜叶红于二月花。→ 写秋天的枫叶比春天的花还红，表达对秋天美景的喜爱</div>
+          <div class="step-item"><strong>《赠刘景文》苏轼</strong>：荷尽已无擎雨盖，菊残犹有傲霜枝。一年好景君须记，最是橙黄橘绿时。→ 告诉朋友要珍惜秋天的美景</div>
+          <div class="step-item"><strong>《夜书所见》叶绍翁</strong>：萧萧梧叶送寒声，江上秋风动客情。知有儿童挑促织，夜深篱落一灯明。→ 写秋天夜晚思念家乡</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 六单元：祖国河山的古诗</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《望天门山》李白</strong>：天门中断楚江开，碧水东流至此回。两岸青山相对出，孤帆一片日边来。→ 写天门山的雄伟壮观</div>
+          <div class="step-item"><strong>《饮湖上初晴后雨》苏轼</strong>：水光潋滟晴方好，山色空蒙雨亦奇。欲把西湖比西子，淡妆浓抹总相宜。→ 写西湖晴天雨天都很美</div>
+          <div class="step-item"><strong>《望洞庭》刘禹锡</strong>：湖光秋月两相和，潭面无风镜未磨。遥望洞庭山水翠，白银盘里一青螺。→ 写洞庭湖秋天月夜的宁静美</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>✏️ 易错字提醒</h3>
+        <div class="example-box">
+          <p>白云<strong>生</strong>处（不是"深"）</p>
+          <p>霜叶红于<strong>二月花</strong>（不是"二日花"）</p>
+          <p>菊残犹有<strong>傲</strong>霜枝（不是"敖"）</p>
+          <p>最是<strong>橙</strong>黄<strong>橘</strong>绿时（不是"陈""桔"）</p>
+          <p><strong>萧萧</strong>梧叶（不是"潇潇"）</p>
+          <p>碧水东流<strong>至此回</strong>（不是"至回"）</p>
+          <p>水光<strong>潋滟</strong>（不是"涟艳"）</p>
+          <p>山色<strong>空蒙</strong>（不是"空朦"）</p>
+          <p><strong>淡妆</strong>浓抹（不是"淡装"）</p>
+          <p>白银盘里一<strong>青螺</strong>（不是"青罗"）</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 做题技巧：先把6首诗背熟 → 理解每句意思和主题 → 默写时注意易错字！</div>
+    `
+  },
+  math_time: {
+    title: '📚 学一学：时分秒',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 时间单位关系</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1时 = 60分</strong></div>
+          <div class="step-item"><strong>1分 = 60秒</strong></div>
+          <div class="step-item"><strong>1时 = 3600秒</strong>（60×60）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 换算方法</h3>
+        <div class="example-box">
+          <p><strong>大→小</strong>（时→分，分→秒）：×60</p>
+          <p>2时 = 2×60 = 120分</p>
+          <p>3分 = 3×60 = 180秒</p>
+          <p><strong>小→大</strong>（秒→分，分→时）：÷60</p>
+          <p>360秒 = 360÷60 = 6分</p>
+          <p>120分 = 120÷60 = 2时</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 计算经过时间</h3>
+        <div class="example-box">
+          <div class="label">例1：从8:00到8:45经过多少分？</div>
+          <p>8:45 - 8:00 = 45分</p>
+          <div class="label">例2：从9:30到10:15经过多少分？</div>
+          <p>10:15 - 9:30 → 先算到10:00是30分，再算10:00到10:15是15分 → 30+15=45分</p>
+          <div class="label">例3：一节课40分钟，8:20开始，几点结束？</div>
+          <p>8:20 + 40分 = 9:00</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 复合换算</h3>
+        <div class="example-box">
+          <p>2时30分 = 2×60+30 = 150分</p>
+          <p>1时15分 = 60+15 = 75分</p>
+          <p>135分 = 2时15分（135÷60=2余15）</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：时间换算就记住一个字——"60"！大变小乘60，小变大除60。</div>
+    `
+  },
+  math_measure: {
+    title: '📚 学一学：测量单位',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 长度单位</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1厘米 = 10毫米</strong>（指甲盖的宽度≈1厘米）</div>
+          <div class="step-item"><strong>1分米 = 10厘米</strong>（手掌的长度≈1分米）</div>
+          <div class="step-item"><strong>1米 = 10分米 = 100厘米</strong>（一臂的长度≈1米）</div>
+          <div class="step-item"><strong>1千米 = 1000米</strong>（走两站路的距离≈1千米）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 质量单位</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>1吨 = 1000千克</strong>（一辆小汽车≈1吨）</div>
+          <div class="step-item"><strong>1千克 = 1000克</strong>（两瓶矿泉水≈1千克）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 选择合适的单位</h3>
+        <div class="example-box">
+          <p>📐 <strong>铅笔长15厘米</strong>（不用毫米，也不用米）</p>
+          <p>📐 <strong>操场跑道长200米</strong>（不用千米，太短）</p>
+          <p>📐 <strong>北京到上海约1000千米</strong>（远距离用千米）</p>
+          <p>⚖️ <strong>一个苹果约200克</strong>（轻的东西用克）</p>
+          <p>⚖️ <strong>一头大象约4吨</strong>（很重的东西用吨）</p>
+          <p>⚖️ <strong>一袋大米约5千克</strong>（日常用品用千克）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 换算练习</h3>
+        <div class="example-box">
+          <p>3千米 = 3000米</p>
+          <p>5分米 = 50厘米</p>
+          <p>2米 = 200厘米</p>
+          <p>4000千克 = 4吨</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：长度"10"和"1000"两档，质量也是"1000"一档。选单位看东西大小！</div>
+    `
+  },
+  math_times: {
+    title: '📚 学一学：多位数乘一位数',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 口算整十整百</h3>
+        <div class="example-box">
+          <p><strong>20×3</strong>：先算2×3=6，再加0 → 60</p>
+          <p><strong>200×4</strong>：先算2×4=8，再加两个0 → 800</p>
+          <p><strong>300×5</strong>：先算3×5=15，再加两个0 → 1500</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 笔算方法</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>从个位乘起</strong>：用一位数依次去乘多位数的每一位</div>
+          <div class="step-item"><strong>满几十进几</strong>：某一位乘出来的积满几十，就向前一位进几</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 例题</h3>
+        <div class="example-box">
+          <div class="label">例1：137 × 6 = ？</div>
+          <p>个位：7×6=42 → 写2进4</p>
+          <p>十位：3×6=18，18+4=22 → 写2进2</p>
+          <p>百位：1×6=6，6+2=8</p>
+          <p>答案：822</p>
+        </div>
+        <div class="example-box">
+          <div class="label">例2：508 × 3 = ？</div>
+          <p>个位：8×3=24 → 写4进2</p>
+          <p>十位：0×3=0，0+2=2 → 写2</p>
+          <p>百位：5×3=15</p>
+          <p>答案：1524</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 关于0的乘法</h3>
+        <div class="example-box">
+          <p><strong>0和任何数相乘都得0</strong></p>
+          <p>0×5=0，0×100=0</p>
+          <p>注意：中间有0时别忘了进位！如508×3，十位0×3=0但要加个位进的2</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：笔算从个位起，一位一位乘，有进就加前一位！</div>
+    `
+  },
+  math_fraction: {
+    title: '📚 学一学：分数',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 什么是分数？</h3>
+        <p>把一个东西<strong>平均分</strong>成几份，取其中的几份，就用分数表示。</p>
+        <div class="example-box">
+          <p>🍕 把一个披萨平均分成4份，每份是它的 <strong>1/4</strong>（四分之一）</p>
+          <p>🍰 把一个蛋糕平均分成8份，取3份，就是 <strong>3/8</strong>（八分之三）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 分数的各部分名称</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>分子</strong>：上面的数，表示取了几份</div>
+          <div class="step-item"><strong>分母</strong>：下面的数，表示平均分成了几份</div>
+          <div class="step-item"><strong>分数线</strong>：中间的横线，表示"平均分"</div>
+        </div>
+        <div class="example-box">
+          <p>3/4 → 分母4（分4份），分子3（取3份）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 比较大小</h3>
+        <div class="example-box">
+          <p><strong>分母相同</strong>：分子大的分数大</p>
+          <p>3/5 > 2/5（都是5份，取3份比取2份多）</p>
+          <p><strong>分子相同</strong>（都是1）：分母小的分数大</p>
+          <p>1/3 > 1/5（分3份每份更大，分5份每份更小）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 简单加减</h3>
+        <div class="example-box">
+          <p><strong>同分母分数相加减：分母不变，分子相加减</strong></p>
+          <p>2/5 + 1/5 = 3/5（分母还是5，2+1=3）</p>
+          <p>5/6 - 2/6 = 3/6（分母还是6，5-2=3）</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：记住"平均分"三个字！不是平均分就不能用分数。同分母加减最简单——分母不动，分子算！</div>
+    `
+  },
+  math_perimeter: {
+    title: '📚 学一学：周长',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 什么是周长？</h3>
+        <p>围成一个图形<strong>所有边的长度之和</strong>就是周长。</p>
+        <div class="example-box">
+          <p>走一圈操场，走了一圈的总长度就是操场的周长！</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 长方形周长公式</h3>
+        <div class="example-box">
+          <p><strong>长方形周长 =（长+宽）× 2</strong></p>
+          <p>长5厘米、宽3厘米 → (5+3)×2 = 16厘米</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 正方形周长公式</h3>
+        <div class="example-box">
+          <p><strong>正方形周长 = 边长 × 4</strong></p>
+          <p>边长4厘米 → 4×4 = 16厘米</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 逆向应用</h3>
+        <div class="example-box">
+          <div class="label">已知周长求边长</div>
+          <p>长方形周长20厘米、长6厘米 → 宽=20÷2-6=4厘米</p>
+          <p>正方形周长28厘米 → 边长=28÷4=7厘米</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 生活应用</h3>
+        <div class="example-box">
+          <p>🌱 菜地围篱笆：长12米、宽8米 → (12+8)×2=40米篱笆</p>
+          <p>🖼️ 画框：正方形边长9分米 → 9×4=36分米边条</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：长方形"长加宽乘2"，正方形"边长乘4"。逆向题反过来除就行！</div>
+    `
+  },
+  chinese_textbook: {
+    title: '📚 学一学：8单元课文重点',
+    html: `
+      <div class="learn-section">
+        <h3>📖 第1单元：学校生活</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《大青树下的小学》</strong>：写边疆民族小学的上学场景，不同民族的小朋友一起学习</div>
+          <div class="step-item"><strong>《花的学校》</strong>：泰戈尔散文诗，花孩子们在雨天跑出来，想象丰富</div>
+          <div class="step-item"><strong>《不懂就要问》</strong>：孙中山小时候敢提问，学习要主动</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第2单元：秋天的美景</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《山行》等古诗</strong>：见"课本古诗"模块</div>
+          <div class="step-item"><strong>《秋天的雨》</strong>：总分总结构，写秋天是一把钥匙、是一盒颜料</div>
+          <div class="step-item">语文要素：<strong>运用多种方法理解难懂的词语</strong></div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第3单元：童话世界</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>童话最重要的特点</strong>：丰富的想象</div>
+          <div class="step-item"><strong>《去年的树》</strong>：鸟儿遵守诺言，友情和诚信</div>
+          <div class="step-item">语文要素：<strong>感受童话丰富的想象</strong></div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第4单元：预测与推想</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《总也倒不了的老屋》</strong>：老屋总被请求留下，预测故事发展</div>
+          <div class="step-item">语文要素：<strong>一边读一边预测</strong></div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第5单元：留心观察</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《搭船的鸟》</strong>：写翠鸟的外形和动作，仔细观察</div>
+          <div class="step-item"><strong>《金色的草地》</strong>：蒲公英花开花合让草地变色</div>
+          <div class="step-item">语文要素：<strong>留心观察</strong></div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第6单元：祖国山河</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《望天门山》等古诗</strong>：见"课本古诗"模块</div>
+          <div class="step-item"><strong>《富饶的西沙群岛》</strong>：海岛风光，物产丰富</div>
+          <div class="step-item"><strong>《美丽的小兴安岭》</strong>：按四季顺序写</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第7单元：我与自然</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《大自然的声音》</strong>：风声、水声、动物的声音</div>
+          <div class="step-item"><strong>《父亲、树林和鸟》</strong>：父亲对自然的了解</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>📖 第8单元：美好品质</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>《司马光》</strong>：砸缸救小朋友，遇事冷静果断</div>
+          <div class="step-item"><strong>《灰雀》</strong>：列宁和男孩的故事，诚实</div>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：每个单元记住"课文名+主旨+语文要素"，考试就够用了！</div>
+    `
+  },
+  chinese_ancient: {
+    title: '📚 学一学：课本6首古诗',
+    html: `
+      <div class="learn-section">
+        <h3>🍁《山行》- 杜牧</h3>
+        <p>远上寒山石径斜，白云生处有人家。</p>
+        <p>停车坐爱枫林晚，霜叶红于二月花。</p>
+        <p><strong>诗意</strong>：秋天山行，被红叶吸引停下马车。"霜叶红于二月花"=秋叶比春花还美</p>
+        <p><strong>名句</strong>：霜叶红于二月花——赞秋之美</p>
+      </div>
+      <div class="learn-section">
+        <h3>🍊《赠刘景文》- 苏轼</h3>
+        <p>荷尽已无擎雨盖，菊残犹有傲霜枝。</p>
+        <p>一年好景君须记，最是橙黄橘绿时。</p>
+        <p><strong>诗意</strong>：虽然荷花谢了菊花残了，但橙黄橘绿正是好时节。珍惜秋天！</p>
+        <p><strong>名句</strong>：最是橙黄橘绿时——秋天也有美好</p>
+      </div>
+      <div class="learn-section">
+        <h3>🌙《夜书所见》- 叶绍翁</h3>
+        <p>萧萧梧叶送寒声，江上秋风动客情。</p>
+        <p>知有儿童挑促织，夜深篱落一灯明。</p>
+        <p><strong>诗意</strong>：秋夜听到梧叶声，思念家乡。看到小孩捉蟋蟀，更添思乡之情</p>
+        <p><strong>关键词</strong>：促织=蟋蟀，客情=思乡之情</p>
+      </div>
+      <div class="learn-section">
+        <h3>🏔️《望天门山》- 李白</h3>
+        <p>天门中断楚江开，碧水东流至此回。</p>
+        <p>两岸青山相对出，孤帆一片日边来。</p>
+        <p><strong>诗意</strong>：天门山被长江隔开，碧水回旋，孤帆远来。写天门山的雄伟壮观</p>
+      </div>
+      <div class="learn-section">
+        <h3>🌅《饮湖上初晴后雨》- 苏轼</h3>
+        <p>水光潋滟晴方好，山色空蒙雨亦奇。</p>
+        <p>欲把西湖比西子，淡妆浓抹总相宜。</p>
+        <p><strong>诗意</strong>：晴天西湖水光好，雨天山色也奇妙。把西湖比作西施，怎样都美</p>
+        <p><strong>名句</strong>：欲把西湖比西子，淡妆浓抹总相宜——西湖的千古名句</p>
+      </div>
+      <div class="learn-section">
+        <h3>🌊《望洞庭》- 刘禹锡</h3>
+        <p>湖光秋月两相和，潭面无风镜未磨。</p>
+        <p>遥望洞庭山水翠，白银盘里一青螺。</p>
+        <p><strong>诗意</strong>：秋月下的洞庭湖如未磨的铜镜，君山像银盘里的青螺</p>
+        <p><strong>修辞</strong>：比喻——把湖面比作铜镜，把君山比作青螺</p>
+      </div>
+      <div class="learn-tip">🎯 诀窍：6首课本古诗是考试必考！先背原文，再理解诗意，最后记名句和修辞手法。</div>
+    `
+  },
+  eng_body: {
+    title: '📚 学一学：身体部位',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识身体部位</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>head</strong> /hed/ 头 — 点点头 nod your head</div>
+          <div class="step-item"><strong>face</strong> /feɪs/ 脸 — 摸摸脸 touch your face</div>
+          <div class="step-item"><strong>eye</strong> /aɪ/ 眼睛 — 眨眨眼 blink your eyes</div>
+          <div class="step-item"><strong>ear</strong> /ɪr/ 耳朵 — 扯耳朵 pull your ear</div>
+          <div class="step-item"><strong>nose</strong> /noʊz/ 鼻子 — 捏鼻子 touch your nose</div>
+          <div class="step-item"><strong>mouth</strong> /maʊθ/ 嘴巴 — 张大嘴 open your mouth</div>
+          <div class="step-item"><strong>arm</strong> /ɑːrm/ 胳膊 — 举举手 raise your arms</div>
+          <div class="step-item"><strong>hand</strong> /hænd/ 手 — 拍拍手 clap your hands</div>
+          <div class="step-item"><strong>leg</strong> /leɡ/ 腿 — 跺跺脚 stamp your legs</div>
+          <div class="step-item"><strong>foot</strong> /fʊt/ 脚 — 复数 feet /fiːt/</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 常用指令</h3>
+        <div class="example-box">
+          <p>Touch your <strong>nose</strong>. 摸你的鼻子</p>
+          <p>Clap your <strong>hands</strong>. 拍拍你的手</p>
+          <p>Stamp your <strong>foot</strong>. 跺跺脚</p>
+          <p>Open your <strong>mouth</strong>. 张开嘴</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：边读边做动作！说 "touch your nose" 就摸鼻子，记得更牢！</div>
+    `
+  },
+  eng_animals: {
+    title: '📚 学一学：动物世界',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识动物</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>cat</strong> /kæt/ 猫 🐱</div>
+          <div class="step-item"><strong>dog</strong> /dɔːɡ/ 狗 🐶</div>
+          <div class="step-item"><strong>monkey</strong> /ˈmʌŋki/ 猴子 🐵</div>
+          <div class="step-item"><strong>panda</strong> /ˈpændə/ 熊猫 🐼</div>
+          <div class="step-item"><strong>rabbit</strong> /ˈræbɪt/ 兔子 🐰</div>
+          <div class="step-item"><strong>bird</strong> /bɜːrd/ 鸟 🐦</div>
+          <div class="step-item"><strong>fish</strong> /fɪʃ/ 鱼 🐟</div>
+          <div class="step-item"><strong>duck</strong> /dʌk/ 鸭子 🦆</div>
+          <div class="step-item"><strong>pig</strong> /pɪɡ/ 猪 🐷</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 名词复数</h3>
+        <div class="example-box">
+          <p>大多数动物加 <strong>-s</strong>：cat→cats, dog→dogs, rabbit→rabbits</p>
+          <p>以o/s/x/sh/ch结尾加 <strong>-es</strong></p>
+          <p>特殊变化：fish → <strong>fish</strong>（单复数同形）</p>
+          <p>"I like <strong>dogs</strong>." 我喜欢狗（喜欢一类动物用复数）</p>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 常用句型</h3>
+        <div class="example-box">
+          <p>What's this? It's a <strong>cat</strong>. 这是什么？这是一只猫。</p>
+          <p>Do you like <strong>monkeys</strong>? 你喜欢猴子吗？</p>
+          <p>I like <strong>pandas</strong>. 我喜欢熊猫。</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：说一种动物时用 a cat，说喜欢时用复数 cats！</div>
+    `
+  },
+  eng_colours: {
+    title: '📚 学一学：颜色与数字',
+    html: `
+      <div class="learn-section">
+        <h3>🔑 认识颜色</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>red</strong> /red/ 红色 🔴</div>
+          <div class="step-item"><strong>blue</strong> /bluː/ 蓝色 🔵</div>
+          <div class="step-item"><strong>green</strong> /ɡriːn/ 绿色 🟢</div>
+          <div class="step-item"><strong>yellow</strong> /ˈjeloʊ/ 黄色 🟡</div>
+          <div class="step-item"><strong>black</strong> /blæk/ 黑色 ⚫</div>
+          <div class="step-item"><strong>white</strong> /waɪt/ 白色 ⚪</div>
+          <div class="step-item"><strong>orange</strong> /ˈɔːrɪndʒ/ 橙色 🟠（也是"橙子"的意思）</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>🔑 认识数字 1-10</h3>
+        <div class="step-list">
+          <div class="step-item"><strong>one</strong> /wʌn/ 1</div>
+          <div class="step-item"><strong>two</strong> /tuː/ 2</div>
+          <div class="step-item"><strong>three</strong> /θriː/ 3</div>
+          <div class="step-item"><strong>four</strong> /fɔːr/ 4</div>
+          <div class="step-item"><strong>five</strong> /faɪv/ 5</div>
+          <div class="step-item"><strong>six</strong> /sɪks/ 6</div>
+          <div class="step-item"><strong>seven</strong> /ˈsevn/ 7</div>
+          <div class="step-item"><strong>eight</strong> /eɪt/ 8</div>
+          <div class="step-item"><strong>nine</strong> /naɪn/ 9</div>
+          <div class="step-item"><strong>ten</strong> /ten/ 10</div>
+        </div>
+      </div>
+      <div class="learn-section">
+        <h3>💡 常用句型</h3>
+        <div class="example-box">
+          <p>What colour is it? It's <strong>red</strong>. 它是什么颜色？红色。</p>
+          <p>How many? <strong>Five</strong>. 有多少个？五个。</p>
+          <p>I see <strong>three</strong> <strong>blue</strong> birds. 我看到三只蓝色的鸟。</p>
+        </div>
+      </div>
+      <div class="learn-tip">🎯 诀窍：orange既是颜色也是水果！看到东西就想想它的英文颜色和数量！</div>
     `
   },
   eng_listen: {
@@ -2871,6 +3845,14 @@ function generateExplanation(q) {
       steps.push('🔑 阅读理解要回到原文找答案');
       steps.push(`💡 ${hint}`);
       steps.push(`✅ 正确答案：${answer}`);
+    } else if (currentQuiz === 'chinese_textbook') {
+      steps.push('🔑 课文理解题要回忆课文内容和单元重点');
+      steps.push(`💡 ${hint}`);
+      steps.push(`✅ 正确答案：${answer}`);
+    } else if (currentQuiz === 'chinese_ancient') {
+      steps.push('🔑 课本古诗要一字不差地默写');
+      steps.push(`💡 ${hint}`);
+      steps.push(`✅ 正确答案：${answer}`);
     } else {
       steps.push(`💡 ${hint}`);
       steps.push(`✅ 正确答案：${answer}`);
@@ -2975,7 +3957,7 @@ function showResult() {
   if (currentQuiz === 'eng_listen' && pct >= 60) checkAchievement('eng_listen_done');
 
   // 全科成就
-  const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','eng_vocab','eng_listen','eng_oral','eng_phonics'];
+const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','math_mixed','math_logic','math_time','math_measure','math_times','math_fraction','math_perimeter','chinese_idiom','chinese_match','chinese_reading','chinese_poem','chinese_wizard','chinese_guoxue','chinese_textbook','chinese_ancient','eng_vocab','eng_listen','eng_oral','eng_phonics','eng_body','eng_animals','eng_colours'];
   if (allMods.every(m => state.completed[m])) checkAchievement('all_done');
 
   const container = document.getElementById('resultContent');
@@ -3404,10 +4386,12 @@ function createStarParticles() {
 // ===== 学习行为采集系统 =====
 let TRACK_KEY = 'learnTracker';
 const MODULE_NAMES = {
-  math_add: '进位加法', math_sub: '退位减法', math_mul: '乘法口诀',
+math_add: '进位加法', math_sub: '退位减法', math_mul: '乘法口诀',
   math_word: '应用题', math_pattern: '找规律', math_mixed: '混合运算', math_logic: '数学推理',
+  math_time: '时分秒闯关', math_measure: '测量小达人', math_times: '多位数乘一位数', math_fraction: '分数初体验', math_perimeter: '周长计算师',
+  chinese_textbook: '课本大闯关', chinese_ancient: '课本古诗', eng_body: '身体部位', eng_animals: '动物世界', eng_colours: '颜色与数字',
   chinese_idiom: '成语达人', chinese_match: '近反义词', chinese_reading: '阅读理解',
-chinese_poem: '古诗', chinese_wizard: '绿野仙踪', chinese_guoxue: '国学诵读', eng_vocab: '英语词汇', eng_listen: '听力闯关',
+chinese_poem: '古诗', chinese_wizard: '绿野仙踪', chinese_guoxue: '国学诵读', chinese_textbook: '课本大闯关', chinese_ancient: '课本古诗', eng_vocab: '英语词汇', eng_listen: '听力闯关',
   eng_oral: '日常口语', eng_phonics: '自然拼读', char_learn: '生字学习', char: '生字学习'
 };
 
