@@ -2510,7 +2510,7 @@ function renderQuestion() {
     questionHTML += `<div style="display:flex; justify-content:center; gap:12px; margin-bottom:8px;">
       <button class="listen-btn" onclick="speakEnglish('${q.answer}')">🔊 听一听</button>
       <button class="listen-btn" onclick="speakEnglishSlow('${q.answer}')" style="background:linear-gradient(135deg,#43a047,#2e7d32)">🐢 慢速</button>
-    </div><div style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">点🔊听正常速度，点🐢听慢速发音<br><span style="font-size:11px;color:#aaa;">如听不到声音，请检查手机静音开关或用Chrome打开</span></div>`;
+    </div><div style="text-align:center; color:#888; font-size:13px; margin-bottom:12px;">点🔊听正常速度，点🐢听慢速发音<br><span style="font-size:11px;color:#aaa;">如果听不到：①检查手机静音开关 ②微信内请点右上角"…"用浏览器打开</span></div>`;
   }
 
   // 填空输入模式
@@ -3006,6 +3006,9 @@ function prevChar() {
 
 // ===== 语音朗读 =====
 function speakEnglish(text, slow) {
+  // 微信内置浏览器检测
+  const isWechat = /MicroMessenger/i.test(navigator.userAgent);
+  
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
@@ -3019,10 +3022,41 @@ function speakEnglish(text, slow) {
       || voices.find(v => v.lang.startsWith('en')) 
       || voices[0];
     if (enVoice) utter.voice = enVoice;
+    
+    // 检测是否真正播放成功
+    let spoken = false;
+    utter.onstart = () => { spoken = true; };
+    utter.onerror = () => {
+      // speechSynthesis失败，尝试responsivevoice降级
+      tryResponsiveVoice(text, slow);
+    };
+    
     window.speechSynthesis.speak(utter);
+    
+    // iOS/微信等环境下可能静默失败，1秒后检测
+    setTimeout(() => {
+      if (!spoken && !window.speechSynthesis.speaking) {
+        tryResponsiveVoice(text, slow);
+      }
+    }, 1000);
+    
+    // 微信环境提示
+    if (isWechat) {
+      showToast('💡 微信内可能听不了，请点右上角"…"→用浏览器打开', 3000);
+    }
   } else {
-    showToast('⚠️ 当前浏览器不支持语音朗读，请尝试用Chrome或Safari打开');
+    tryResponsiveVoice(text, slow);
   }
+}
+
+// 降级方案：用在线TTS API
+function tryResponsiveVoice(text, slow) {
+  // 尝试用有道词典API或直接打开发音
+  const audio = new Audio();
+  audio.src = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=${slow ? 2 : 1}`;
+  audio.play().catch(() => {
+    showToast('⚠️ 语音播放失败，请用Chrome或Safari打开本页', 3000);
+  });
 }
 
 function speakEnglishSlow(text) {
