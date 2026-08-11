@@ -4286,11 +4286,32 @@ function submitInputAnswer() {
   const explainBtn = document.getElementById('explainBtn');
   if (!input || !feedback) return;
 
-  const userAns = input.value.trim().replace(/\s/g, '');
+  const userAns = input.value.trim().replace(/\s/g, '')
+    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
   if (!userAns) { feedback.innerHTML = '<span style="color:#e17055">✏️ 请先写出答案再提交</span>'; return; }
 
-  const correctAns = String(q.answer).replace(/\s/g, '');
-  const isCorrect = userAns === correctAns;
+  const correctAns = String(q.answer).replace(/\s/g, '')
+    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
+  // 支持模糊匹配：忽略多余等号及等号右边内容，以及多种算式写法
+  const normalize = s => s.replace(/\s/g, '').replace(/＝/g, '=').replace(/－/g, '-')
+    .replace(/×/g, '*').replace(/÷/g, '/').replace(/ー/g, '-');
+  const userNorm = normalize(input.value.trim());
+  const correctNorm = normalize(String(q.answer));
+  // 精确匹配
+  let isCorrect = userNorm === correctNorm;
+  // 模糊匹配：如果正确答案含等号，尝试只比较等号左边（算式部分）
+  if (!isCorrect && correctNorm.includes('=')) {
+    const correctLeft = correctNorm.split('=')[0];
+    const userLeft = userNorm.split('=')[0];
+    if (correctLeft && userLeft && correctLeft === userLeft) isCorrect = true;
+  }
+  // 模糊匹配：如果用户多加了等号（如 "27-18=9" 对 "27-18=9"）
+  if (!isCorrect) {
+    // 去掉所有等号后比较
+    const userNoEq = userNorm.replace(/=/g, '');
+    const correctNoEq = correctNorm.replace(/=/g, '');
+    if (userNoEq === correctNoEq) isCorrect = true;
+  }
 
   input.disabled = true;
   submitBtn.disabled = true;
