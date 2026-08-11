@@ -4176,6 +4176,7 @@ function renderQuestion() {
         ${q.hint ? `<div class="q-hint">💡 ${q.hint}</div>` : ''}
       </div>
       <div class="quiz-input-wrap">
+        <span style="font-size:24px;font-weight:bold;color:#6c5ce7;margin-right:8px;font-family:var(--font-fun);">=</span>
         <input type="text" class="quiz-input" id="answerInput" placeholder="写出你的答案" autocomplete="off" onkeydown="if(event.key==='Enter')submitInputAnswer()">
         <button class="quiz-submit-btn" id="submitBtn" onclick="submitInputAnswer()">提交</button>
       </div>
