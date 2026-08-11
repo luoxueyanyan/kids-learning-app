@@ -503,6 +503,44 @@ body.subject-active .module-card .emoji { font-size: 28px; }
 .toast.show { display: block; }
 @keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
+/* 模块已完成弹窗 */
+.module-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 998;
+  display: none; align-items: center; justify-content: center;
+}
+.module-overlay.active { display: flex; }
+.module-overlay-box {
+  background: #fff; border-radius: 20px; padding: 28px 24px;
+  width: 85%; max-width: 340px; text-align: center;
+  animation: popIn 0.3s ease; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.module-overlay-title { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #333; }
+.module-overlay-btns { display: flex; flex-direction: column; gap: 12px; }
+.module-overlay-btn {
+  padding: 14px 20px; border-radius: 16px; font-size: 17px;
+  font-weight: bold; border: none; cursor: pointer; transition: transform 0.2s;
+  font-family: var(--font-fun);
+}
+.module-overlay-btn:active { transform: scale(0.95); }
+.score-btn { background: linear-gradient(135deg, #6c5ce7, #a29bfe); color: #fff; }
+.retry-btn { background: linear-gradient(135deg, #00b894, #00cec9); color: #fff; }
+.score-box { max-width: 380px; }
+.score-box .score-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 15px;
+}
+.score-box .score-row:last-child { border-bottom: none; }
+.score-box .score-label { color: #888; }
+.score-box .score-value { font-weight: bold; color: #333; }
+.score-box .score-big { font-size: 48px; font-weight: bold; margin: 10px 0; }
+.score-box .score-close-btn {
+  margin-top: 16px; padding: 12px 32px; border-radius: 20px;
+  background: var(--primary); color: #fff; font-size: 16px;
+  font-weight: bold; border: none; cursor: pointer;
+}
+
 /* 英语科目卡片 */
 .subject-card.english { background: linear-gradient(135deg, #00b894, #00cec9); }
 
@@ -761,6 +799,23 @@ body.subject-active .module-card .emoji { font-size: 28px; }
 
 <div class="stars-container" id="starsContainer"></div>
 <div class="toast" id="toast"></div>
+
+<!-- 模块已完成选择弹窗 -->
+<div class="module-overlay" id="moduleOverlay" onclick="closeModuleOverlay(event)">
+  <div class="module-overlay-box">
+    <div class="module-overlay-title" id="moduleOverlayTitle">🎯 模块已完成</div>
+    <div class="module-overlay-btns">
+      <button class="module-overlay-btn score-btn" onclick="showModuleScore()">📊 查看成绩</button>
+      <button class="module-overlay-btn retry-btn" onclick="retryModuleQuiz()">🔄 重新挑战</button>
+    </div>
+  </div>
+</div>
+
+<!-- 成绩详情弹窗 -->
+<div class="module-overlay" id="scoreOverlay" onclick="closeScoreOverlay(event)">
+  <div class="module-overlay-box score-box" id="scoreBoxContent">
+  </div>
+</div>
 
 <div class="app-container">
   <!-- 用户选择页 -->
@@ -1279,7 +1334,7 @@ return { q: `${a} - ${b} = ____`, answer: String(ans), inputMode: true, hint: '�
       const a = rand(2, 5);
       const b = rand(2, 9);
       const ans = a * b;
-return { q: `${a} × ${b} \right] < /dev/null | = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
+return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
     }
   },
   math_word: {
@@ -1291,7 +1346,9 @@ return { q: `${a} × ${b} \right] < /dev/null | = ____`, answer: String(ans), in
 { q: '🌳 公园里种了 3 排树，每排 8 棵。柳树有 12 棵，其余都是杨树，杨树有多少棵？', answer: '12', inputMode: true, hint: '动动脑筋～' },
 { q: '👧 三年级一班有 45 人，二班比一班少 7 人。两个班一共有多少人？', answer: '83', inputMode: true, hint: '动动脑筋～' },
 { q: '✏️ 文具店上午卖出钢笔 156 支，下午卖出 89 支。店里原来有 400 支，还剩多少支？', answer: '155', inputMode: true, hint: '动动脑筋～' },
-{ q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '看清问题哦～' },
+{ q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼是黑鱼的几倍？', answer: '4', inputMode: true, hint: '看清问题哦～' },
+{ q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '看清问题哦～' },
+{ q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？', answer: '3', inputMode: true, hint: '动动脑筋～' },
 { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: '3', inputMode: true, hint: '动动脑筋～' },
 { q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '动动脑筋～' },
 { q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: '54', inputMode: true, hint: '动动脑筋～' },
@@ -1503,6 +1560,30 @@ hint: '注意运算顺序哦～';
       { left: '迅速', right: '缓慢', type: '反义词' },
       { left: '仔细', right: '认真', type: '近义词' },
       { left: '温暖', right: '寒冷', type: '反义词' },
+      { left: '聪明', right: '笨拙', type: '反义词' },
+      { left: '安静', right: '喧闹', type: '反义词' },
+      { left: '困难', right: '容易', type: '反义词' },
+      { left: '开心', right: '欢乐', type: '近义词' },
+      { left: '黑暗', right: '光明', type: '反义词' },
+      { left: '高大', right: '矮小', type: '反义词' },
+      { left: '勤劳', right: '懒惰', type: '反义词' },
+      { left: '幸福', right: '美满', type: '近义词' },
+      { left: '干净', right: '肮脏', type: '反义词' },
+      { left: '诚实', right: '虚伪', type: '反义词' },
+      { left: '危险', right: '安全', type: '反义词' },
+      { left: '漂亮', right: '美丽', type: '近义词' },
+      { left: '谦虚', right: '骄傲', type: '反义词' },
+      { left: '强大', right: '弱小', type: '反义词' },
+      { left: '悲伤', right: '哀愁', type: '近义词' },
+      { left: '轻松', right: '紧张', type: '反义词' },
+      { left: '热闹', right: '冷清', type: '反义词' },
+      { left: '宽阔', right: '狭窄', type: '反义词' },
+      { left: '欢乐', right: '愉快', type: '近义词' },
+      { left: '简单', right: '复杂', type: '反义词' },
+      { left: '明亮', right: '昏暗', type: '反义词' },
+      { left: '伟大', right: '渺小', type: '反义词' },
+      { left: '盼望', right: '希望', type: '近义词' },
+      { left: '匆忙', right: '悠闲', type: '反义词' },
     ]
   },
   chinese_reading: {
@@ -2948,31 +3029,31 @@ const LEARN_CONTENT = {
     html: `
       <div class="learn-section">
         <h3>🎭 画蛇添足 <button class="speak-btn" onclick="speakChinese('画蛇添足')">🔊</button></h3>
-        <p>古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。<button class="speak-btn" onclick="speakChinese('古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。')">🔊</button></p>
-        <p><strong>意思</strong>：做了多余的事，反而不好。<button class="speak-btn" onclick="speakChinese('做了多余的事，反而不好。')">🔊</button></p>
+        <p class="click-speak" onclick="speakChinese('古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。')">古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。🔊</p>
+        <p class="click-speak" onclick="speakChinese('做了多余的事，反而不好。可在做事多此一举时说')"><strong>表达的意思</strong>：做了多余的事，反而不好。<em>（可在做事多此一举时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 亡羊补牢 <button class="speak-btn" onclick="speakChinese('亡羊补牢')">🔊</button></h3>
-        <p>丢了羊之后赶紧修补羊圈，羊就不会再丢了。<button class="speak-btn" onclick="speakChinese('丢了羊之后赶紧修补羊圈，羊就不会再丢了。')">🔊</button></p>
-        <p><strong>意思</strong>：出了问题及时补救，还不算晚。<button class="speak-btn" onclick="speakChinese('出了问题及时补救，还不算晚。')">🔊</button></p>
+        <p class="click-speak" onclick="speakChinese('丢了羊之后赶紧修补羊圈，羊就不会再丢了。')">丢了羊之后赶紧修补羊圈，羊就不会再丢了。🔊</p>
+        <p class="click-speak" onclick="speakChinese('出了问题及时补救，还不算晚。可在犯错后及时改正时说')"><strong>表达的意思</strong>：出了问题及时补救，还不算晚。<em>（可在犯错后及时改正时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 守株待兔 <button class="speak-btn" onclick="speakChinese('守株待兔')">🔊</button></h3>
-        <p>一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。<button class="speak-btn" onclick="speakChinese('一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。')">🔊</button></p>
-        <p><strong>意思</strong>：不努力，想靠运气成功是不行的。<button class="speak-btn" onclick="speakChinese('不努力，想靠运气成功是不行的。')">🔊</button></p>
+        <p class="click-speak" onclick="speakChinese('一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。')">一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。🔊</p>
+        <p class="click-speak" onclick="speakChinese('不努力，想靠运气成功是不行的。可在看到别人偷懒碰运气时说')"><strong>表达的意思</strong>：不努力，想靠运气成功是不行的。<em>（可在看到别人偷懒碰运气时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 掩耳盗铃 <button class="speak-btn" onclick="speakChinese('掩耳盗铃')">🔊</button></h3>
-        <p>有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。<button class="speak-btn" onclick="speakChinese('有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。')">🔊</button></p>
-        <p><strong>意思</strong>：自己骗自己，明明骗不了别人。<button class="speak-btn" onclick="speakChinese('自己骗自己，明明骗不了别人。')">🔊</button></p>
+        <p class="click-speak" onclick="speakChinese('有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。')">有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。🔊</p>
+        <p class="click-speak" onclick="speakChinese('自己骗自己，明明骗不了别人。可在看到有人自欺欺人时说')"><strong>表达的意思</strong>：自己骗自己，明明骗不了别人。<em>（可在看到有人自欺欺人时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 更多成语</h3>
-        <p><strong>走马观花</strong>：骑在马上看花 → 粗略地看，不仔细 <button class="speak-btn" onclick="speakChinese('走马观花，骑在马上看花，粗略地看，不仔细')">🔊</button></p>
-        <p><strong>三顾茅庐</strong>：刘备三次请诸葛亮 → 诚心诚意地邀请 <button class="speak-btn" onclick="speakChinese('三顾茅庐，刘备三次请诸葛亮，诚心诚意地邀请')">🔊</button></p>
-        <p><strong>恍然大悟</strong>：突然一下子明白了 <button class="speak-btn" onclick="speakChinese('恍然大悟，突然一下子明白了')">🔊</button></p>
-        <p><strong>滴水穿石</strong>：水一直滴也能穿石头 → 坚持不懈 <button class="speak-btn" onclick="speakChinese('滴水穿石，水一直滴也能穿石头，坚持不懈')">🔊</button></p>
-        <p><strong>持之以恒</strong>：长久地坚持做一件事 <button class="speak-btn" onclick="speakChinese('持之以恒，长久地坚持做一件事')">🔊</button></p>
+        <p class="click-speak" onclick="speakChinese('走马观花，骑在马上看花，粗略地看，不仔细。可在走马观花式游览时说')"><strong>走马观花</strong>：骑在马上看花 → 表达的意思：粗略地看，不仔细 <em>（可在走马观花式游览时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('三顾茅庐，刘备三次请诸葛亮，诚心诚意地邀请。可在真心请人帮忙时说')"><strong>三顾茅庐</strong>：刘备三次请诸葛亮 → 表达的意思：诚心诚意地邀请 <em>（可在真心请人帮忙时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('恍然大悟，突然一下子明白了。可在想通某件事时说')"><strong>恍然大悟</strong>：表达的意思：突然一下子明白了 <em>（可在想通某件事时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('滴水穿石，水一直滴也能穿石头，坚持不懈。可在鼓励别人坚持到底时说')"><strong>滴水穿石</strong>：水一直滴也能穿石头 → 表达的意思：坚持不懈 <em>（可在鼓励别人坚持到底时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('持之以恒，长久地坚持做一件事。可在夸奖别人做事有毅力时说')"><strong>持之以恒</strong>：表达的意思：长久地坚持做一件事 <em>（可在夸奖别人做事有毅力时说）</em>🔊</p>
       </div>
       <div class="learn-tip">🎯 学成语要理解故事，死记硬背不如记住故事！</div>
     `
@@ -3806,8 +3887,131 @@ const LEARN_CONTENT = {
 
 let _currentLearnModule = null;
 
+// ===== 模块成绩记录 =====
+function saveModuleScore(moduleId, score, total, stars) {
+  const key = ukey('modScore_' + moduleId);
+  const prev = JSON.parse(localStorage.getItem(key) || 'null') || { best: 0, bestTotal: 0, bestStars: 0, lastScore: 0, lastTotal: 0, lastStars: 0, attempts: 0 };
+  prev.attempts++;
+  if (score > prev.best) { prev.best = score; prev.bestTotal = total; prev.bestStars = stars; }
+  prev.lastScore = score; prev.lastTotal = total; prev.lastStars = stars;
+  localStorage.setItem(key, JSON.stringify(prev));
+}
+
+function getModuleScore(moduleId) {
+  const key = ukey('modScore_' + moduleId);
+  return JSON.parse(localStorage.getItem(key) || 'null');
+}
+
+function isModuleCleared(moduleId) {
+  const totalStages = MODULE_STAGES[moduleId] || 0;
+  if (totalStages > 0) return getStageProgress(moduleId) >= totalStages;
+  return !!state.completed[moduleId];
+}
+
+let _pendingModuleId = null;
+
+function showModuleClearedOverlay(moduleId) {
+  _pendingModuleId = moduleId;
+  const name = MODULE_NAMES[moduleId] || moduleId;
+  const isLearnOnly = ['char','eng_vocab','eng_oral','eng_phonics'].includes(moduleId);
+  document.getElementById('moduleOverlayTitle').textContent = '🎯 「' + name + '」已完成！';
+  const btns = document.querySelector('#moduleOverlay .module-overlay-btns');
+  if (isLearnOnly) {
+    btns.innerHTML = `
+      <button class="module-overlay-btn score-btn" onclick="retryLearnModule()">📖 重新查看</button>
+      <button class="module-overlay-btn" style="background:#f0f0f5;color:#666;" onclick="closeModuleOverlay()">关闭</button>
+    `;
+  } else {
+    btns.innerHTML = `
+      <button class="module-overlay-btn score-btn" onclick="showModuleScore()">📊 查看成绩</button>
+      <button class="module-overlay-btn retry-btn" onclick="retryModuleQuiz()">🔄 重新挑战</button>
+    `;
+  }
+  document.getElementById('moduleOverlay').classList.add('active');
+}
+
+function closeModuleOverlay(e) {
+  if (e && e.target !== document.getElementById('moduleOverlay')) return;
+  document.getElementById('moduleOverlay').classList.remove('active');
+  _pendingModuleId = null;
+}
+
+function showModuleScore() {
+  document.getElementById('moduleOverlay').classList.remove('active');
+  const moduleId = _pendingModuleId;
+  if (!moduleId) return;
+  const sc = getModuleScore(moduleId);
+  const name = MODULE_NAMES[moduleId] || moduleId;
+  const totalStages = MODULE_STAGES[moduleId] || 0;
+  const curStage = getStageProgress(moduleId);
+
+  let html = `<div class="module-overlay-title">📊 「${name}」成绩单</div>`;
+  if (sc) {
+    const bestPct = Math.round(sc.best / sc.bestTotal * 100);
+    const lastPct = Math.round(sc.lastScore / sc.lastTotal * 100);
+    html += `<div class="score-big" style="color:${bestPct >= 80 ? '#6c5ce7' : bestPct >= 60 ? '#00b894' : '#e17055'}">${bestPct}%</div>`;
+    html += `<p style="color:#888;font-size:13px;margin-bottom:12px;">最高正确率</p>`;
+    html += `<div class="score-row"><span class="score-label">🏆 最高分</span><span class="score-value">${sc.best} / ${sc.bestTotal} ${'⭐'.repeat(sc.bestStars)}${'☆'.repeat(3-sc.bestStars)}</span></div>`;
+    html += `<div class="score-row"><span class="score-label">📋 最近得分</span><span class="score-value">${sc.lastScore} / ${sc.lastTotal} ${'⭐'.repeat(sc.lastStars)}${'☆'.repeat(3-sc.lastStars)}</span></div>`;
+    html += `<div class="score-row"><span class="score-label">🔢 练习次数</span><span class="score-value">${sc.attempts} 次</span></div>`;
+  } else {
+    html += `<p style="color:#888;margin:16px 0;">暂无成绩记录</p>`;
+  }
+  if (totalStages > 0) {
+    html += `<div class="score-row"><span class="score-label">📖 通关进度</span><span class="score-value">${curStage} / ${totalStages} 节</span></div>`;
+  }
+  html += `<div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">`;
+  html += `<button class="module-overlay-btn retry-btn" style="flex:1" onclick="closeScoreAndRetry()">🔄 重新挑战</button>`;
+  html += `<button class="score-close-btn" style="flex:1" onclick="closeScoreOverlay()">关闭</button>`;
+  html += `</div>`;
+  document.getElementById('scoreBoxContent').innerHTML = html;
+  document.getElementById('scoreOverlay').classList.add('active');
+}
+
+function closeScoreOverlay(e) {
+  if (e && e.target !== document.getElementById('scoreOverlay')) return;
+  document.getElementById('scoreOverlay').classList.remove('active');
+  _pendingModuleId = null;
+}
+
+function closeScoreAndRetry() {
+  document.getElementById('scoreOverlay').classList.remove('active');
+  const moduleId = _pendingModuleId;
+  _pendingModuleId = null;
+  if (moduleId) {
+    _currentLearnModule = moduleId;
+    startQuiz(moduleId);
+  }
+}
+
+function retryModuleQuiz() {
+  document.getElementById('moduleOverlay').classList.remove('active');
+  const moduleId = _pendingModuleId;
+  _pendingModuleId = null;
+  if (moduleId) {
+    _currentLearnModule = moduleId;
+    startQuiz(moduleId);
+  }
+}
+
+function retryLearnModule() {
+  document.getElementById('moduleOverlay').classList.remove('active');
+  const moduleId = _pendingModuleId;
+  _pendingModuleId = null;
+  if (!moduleId) return;
+  if (moduleId === 'char') { showPage('charPage'); renderChar(); }
+  else if (moduleId === 'eng_vocab') { showPage('vocabPage'); renderVocab(); }
+  else if (moduleId === 'eng_oral') { showPage('oralPage'); renderOral(); }
+  else if (moduleId === 'eng_phonics') { showPage('phonicsPage'); renderPhonics(); }
+}
+
 function learnFirst(moduleId) {
   _currentLearnModule = moduleId;
+  // 已全通 → 弹出选择面板
+  if (isModuleCleared(moduleId)) {
+    showModuleClearedOverlay(moduleId);
+    return;
+  }
   const learn = LEARN_CONTENT[moduleId];
   const visitedKey = ukey('learnVisited_' + moduleId);
   const hasVisited = localStorage.getItem(visitedKey) === '1';
@@ -4374,6 +4578,9 @@ function showResult() {
   addStars(starsEarned);
   if (starsEarned > 0) checkAchievement('first_star');
 
+  // 保存模块成绩
+  if (currentQuiz) saveModuleScore(currentQuiz, quizState.score, quizState.total, starsEarned);
+
   // 节进度推进：通过则进入下一节
   const totalStages = MODULE_STAGES[currentQuiz] || 0;
   let stageInfo = '';
@@ -4481,13 +4688,18 @@ function backFromQuiz() {
 // ===== 连线题 =====
 function startMatchGame() {
   currentQuiz = 'chinese_match';
-  const stageNum = getStageProgress('chinese_match') + 1;
-  const totalStages = MODULE_STAGES['chinese_match'] || 0;
-  const stageLabel = totalStages > 0 ? ` (第${stageNum}节)` : '';
-  const pairs = DATA.chinese_match.pairs.sort(() => Math.random() - 0.5).slice(0, 4);
+  // 从全部词对中随机抽取4对，保证每次进入题目不同
+  const allPairs = DATA.chinese_match.pairs.slice(); // 复制数组避免修改原数据
+  const shuffled = allPairs.sort(() => Math.random() - 0.5);
+  const pairs = shuffled.slice(0, 4);
   const rights = pairs.map(p => p.right).sort(() => Math.random() - 0.5);
 
-  document.getElementById('quizTitle').textContent = '🔗 近反义词连连看' + stageLabel;
+  // 显示第几轮（基于localStorage记录）
+  const roundKey = ukey('match_round');
+  let roundNum = parseInt(localStorage.getItem(roundKey) || '0') + 1;
+  localStorage.setItem(roundKey, String(roundNum));
+
+  document.getElementById('quizTitle').textContent = '🔗 近反义词连连看（第' + roundNum + '轮）';
   const reviewBtn2 = document.getElementById('reviewLearnBtn');
   if (reviewBtn2) reviewBtn2.style.display = 'none';
   showPage('quizPage');
@@ -4537,22 +4749,24 @@ function matchSelect(el) {
         showToast('✅ 配对成功！');
         if (ms.matched >= ms.total) {
           setTimeout(() => {
-            const totalStages = MODULE_STAGES['chinese_match'] || 0;
-            if (totalStages > 0) {
-              const curStage = getStageProgress('chinese_match');
-              if (curStage < totalStages) {
-                setStageProgress('chinese_match', curStage + 1);
-              }
-              if (curStage + 1 >= totalStages) {
-                markComplete('chinese_match');
-              }
-            } else {
-              markComplete('chinese_match');
-            }
+            markComplete('chinese_match');
             addStars(3);
+            saveModuleScore('chinese_match', ms.total, ms.total, 3);
             checkAchievement('first_star');
             showToast('🎉 全部配对成功！');
-            setTimeout(() => showPage('chinesePage'), 1500);
+            // 显示完成界面，让用户选择继续或返回
+            const container = document.getElementById('quizContainer');
+            const roundKey2 = ukey('match_round');
+            const rn = parseInt(localStorage.getItem(roundKey2) || '1');
+            container.innerHTML = `
+              <div style="text-align:center; padding:40px 20px;">
+                <div style="font-size:48px; margin-bottom:16px;">🎉</div>
+                <div style="font-size:22px; font-weight:bold; margin-bottom:8px;">第${rn}轮通关！</div>
+                <div style="font-size:14px; color:#888; margin-bottom:24px;">获得了 ⭐3 颗星星</div>
+                <button onclick="startMatchGame()" style="background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; border:none; padding:14px 36px; border-radius:25px; font-size:17px; font-weight:bold; margin:8px; cursor:pointer; box-shadow:0 4px 15px rgba(102,126,234,0.4);">🔄 再来一轮</button>
+                <button onclick="showPage('chinesePage')" style="background:#f0f0f0; color:#555; border:none; padding:14px 36px; border-radius:25px; font-size:17px; font-weight:bold; margin:8px; cursor:pointer;">↩️ 返回语文</button>
+              </div>
+            `;
           }, 500);
         }
       } else {
@@ -4577,6 +4791,7 @@ function matchSelect(el) {
 
 // ===== 生字学习 =====
 function startCharLearn() {
+  if (isModuleCleared('char')) { showModuleClearedOverlay('char'); return; }
   showPage('charPage');
   renderChar();
 }
@@ -4769,6 +4984,7 @@ if ('speechSynthesis' in window) {
 let vocabIndex = parseInt(localStorage.getItem(ukey('vocabIndex')) || '0');
 
 function startVocabLearn() {
+  if (isModuleCleared('eng_vocab')) { showModuleClearedOverlay('eng_vocab'); return; }
   showPage('vocabPage');
   renderVocab();
 }
@@ -4839,6 +5055,7 @@ function saveVocabState() {
 
 // ===== 英语口语 =====
 function startOralPage() {
+  if (isModuleCleared('eng_oral')) { showModuleClearedOverlay('eng_oral'); return; }
   showPage('oralPage');
   renderOral();
 }
@@ -4881,6 +5098,7 @@ function toggleScene(el) {
 
 // ===== 自然拼读 =====
 function startPhonicsPage() {
+  if (isModuleCleared('eng_phonics')) { showModuleClearedOverlay('eng_phonics'); return; }
   showPage('phonicsPage');
   renderPhonics();
 }
@@ -5072,7 +5290,7 @@ function wrapGenerator(moduleId) {
       if (diff >= 1) { // 进阶：6~9的乘法
         const a = rand(6, 9), b = rand(2, 9);
         const ans = a * b;
-return { q: `${a} × ${b} \right] < /dev/null | = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
+return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: '背背口诀～' };
       }
       if (diff >= 2) { // 挑战：两位数×一位数
         const a = rand(11, 25), b = rand(2, 9);
