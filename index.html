@@ -1388,14 +1388,14 @@ hint: '注意运算顺序哦～';
           const a = rand(2, 5), b = rand(2, 9), c = rand(10, 50);
           ans = a * b + c;
           q = `${a} × ${b} + ${c} = ?`;
-          hint = '先算乘法哦～';
+          hint = '你可以的！';
           break;
         }
         case 2: { // a × b - c
           const a = rand(3, 5), b = rand(2, 9), c = rand(1, a * b - 1);
           ans = a * b - c;
           q = `${a} × ${b} - ${c} = ?`;
-          hint = '先算乘法哦～';
+          hint = '你可以的！';
           break;
         }
         case 3: { // a - b × c (a > b×c)
@@ -4304,6 +4304,7 @@ function submitInputAnswer() {
   } else {
     input.classList.add('wrong');
     feedback.innerHTML = '<span style="color:#e17055">❌ 再想想哦！</span><button id="showAnswerBtn" style="display:block;margin:8px auto;padding:8px 20px;border:2px solid #e17055;background:#fff;border-radius:20px;color:#e17055;font-size:15px;cursor:pointer;font-family:var(--font-fun);">👀 查看正确答案</button>';
+    playSoundEffect('wrong');
     speakChinese('再想想哦');
     setTimeout(() => {
       const btn = document.getElementById('showAnswerBtn');
@@ -4359,6 +4360,7 @@ function selectOption(el, value) {
   } else {
     el.classList.add('wrong');
     showToast('😅 没关系，再想想！');
+    playSoundEffect('wrong');
     speakChinese('再想想哦');
     // 不自动高亮正确答案，添加"查看答案"按钮
     const quizContainer = document.getElementById('quizContainer');
@@ -4652,7 +4654,8 @@ const allMods = ['math_add','math_sub','math_mul','math_word','math_pattern','ma
   container.innerHTML = `
     <div class="big-emoji">${emoji}</div>
     <h2>${pct >= 80 ? '太厉害了！' : pct >= 60 ? '做得不错！' : pct >= 40 ? '继续加油！' : '再练练吧！'}</h2>
-    <div class="result-score">${quizState.score} / ${quizState.total}</div>
+    <div class="result-score" style="font-size:36px; letter-spacing:2px;">✅ 答对 ${quizState.score} 题 / 共 ${quizState.total} 题</div>
+    <div style="font-size:22px; color:var(--accent-orange); font-weight:bold; margin-bottom:8px;">正确率 ${pct}%</div>
     <div class="stars-earned">${'⭐'.repeat(starsEarned)}${'☆'.repeat(3 - starsEarned)}</div>
     <p style="color:#888; font-size:14px;">获得 ${starsEarned} 颗星星</p>
     ${quizState.isDaily ? buildDailySubScores() : ''}
@@ -4870,11 +4873,48 @@ function randomPraise() {
   return { ...p, emoji: e, display: `${e} ${p.cn} ${p.en}` };
 }
 
+// ===== 游戏音效（Web Audio API 合成） =====
+function playSoundEffect(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (type === 'correct') {
+      // 答对：三连升调叮~ (C5→E5→G5)
+      [523.25, 659.25, 783.99].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.25, ctx.currentTime + i * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.1);
+        osc.stop(ctx.currentTime + i * 0.1 + 0.25);
+      });
+    } else if (type === 'wrong') {
+      // 答错：两连降调噔~ (E4→C4)
+      [329.63, 261.63].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.12 + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.12);
+        osc.stop(ctx.currentTime + i * 0.12 + 0.25);
+      });
+    }
+  } catch(e) {}
+}
+
 function speakPraise() {
   const p = randomPraise();
-  // 先说英文，再说中文，语调活泼
+  // 先播音效，再播语音
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
+    playSoundEffect('correct');
     const voices = window.speechSynthesis.getVoices();
     // 英文部分
     const enUtter = new SpeechSynthesisUtterance(p.en);
