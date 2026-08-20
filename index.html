@@ -4344,6 +4344,11 @@ function submitInputAnswer() {
     const correctNoEq = correctNorm.replace(/=/g, '');
     if (userNoEq === correctNoEq) isCorrect = true;
   }
+  // 算式过程匹配：用户写了计算过程如 "28÷4=7"，正确答案只是 "7"，取等号右边比较
+  if (!isCorrect && userNorm.includes('=')) {
+    const userRight = userNorm.split('=').pop();
+    if (userRight && userRight === correctNorm) isCorrect = true;
+  }
   // 分数等价匹配：正确答案含"（或X）"时，提取括号内数字分数也视为正确
   if (!isCorrect) {
     const altMatch = correctNorm.match(/[（(]或([^)）]+)[)）]/);
