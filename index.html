@@ -300,7 +300,7 @@ body.subject-active .module-card .emoji { font-size: 28px; }
   color: #fff; border-radius: 20px; padding: 22px 16px;
   margin-bottom: 14px; position: relative;
 }
-.quiz-question .q-text { font-size: 28px; margin-bottom: 8px; }
+.quiz-question .q-text { font-size: 28px; margin-bottom: 8px; overflow-wrap: break-word; word-break: break-word; }
 .quiz-question .q-hint { font-size: 14px; opacity: 0.7; }
 
 .explain-btn {
@@ -814,6 +814,17 @@ body.subject-active .module-card .emoji { font-size: 28px; }
 <!-- 成绩详情弹窗 -->
 <div class="module-overlay" id="scoreOverlay" onclick="closeScoreOverlay(event)">
   <div class="module-overlay-box score-box" id="scoreBoxContent">
+  </div>
+</div>
+
+<!-- 更新提示弹窗 -->
+<div class="module-overlay" id="updateOverlay" onclick="closeUpdateOverlay(event)">
+  <div class="module-overlay-box" style="max-width:380px;">
+    <div class="module-overlay-title" id="updateOverlayTitle">🎉 有新更新</div>
+    <div id="updateOverlayContent" style="text-align:left; font-size:15px; line-height:1.7; padding:8px 4px; max-height:50vh; overflow-y:auto;"></div>
+    <div class="module-overlay-btns" style="margin-top:12px;">
+      <button class="module-overlay-btn score-btn" onclick="closeUpdateOverlay()" style="flex:1;">知道了</button>
+    </div>
   </div>
 </div>
 
@@ -1350,7 +1361,8 @@ return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: '
 { q: '🐟 鱼缸里有红鱼 24 条，黑鱼 6 条。红鱼比黑鱼多多少条？', answer: '18', inputMode: true, hint: '看清问题哦～' },
 { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？', answer: '3', inputMode: true, hint: '动动脑筋～' },
 { q: '🎂 妈妈买了 4 盒蛋糕，每盒 6 块。平均分给 7 个小朋友，每人分几块？还剩几块？——还剩几块？', answer: '3', inputMode: true, hint: '动动脑筋～' },
-{ q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '动动脑筋～' },
+{ q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人，共能坐多少人？', answer: '270', inputMode: true, hint: '动动脑筋～' },
+{ q: '🎈 学校组织春游，租了 6 辆大巴，每辆坐 45 人。结果来了 260 人，够坐吗？还差几个座位？', answer: '10', inputMode: true, hint: '先算总共能坐多少人～' },
 { q: '🐰 小白兔采了 36 个蘑菇，小灰兔采的个数是小白兔的一半。两只兔子一共采了多少个？', answer: '54', inputMode: true, hint: '动动脑筋～' },
 { q: '🎒 买一个书包 68 元，一个文具盒 25 元。小红付了 100 元，应找回多少元？', answer: '7', inputMode: true, hint: '动动脑筋～' },
 { q: '🏃 学校运动会，三年级参加跑步的有 35 人，参加跳远的比跑步的多 18 人。同时参加两项的有 12 人，三年级至少有多少人参加了运动项目？', answer: '76', inputMode: true, hint: '动动脑筋～' },
@@ -1381,7 +1393,7 @@ return { q: `${a} × ${b} = ____`, answer: String(ans), inputMode: true, hint: '
           const b = rand(2, 5), c = rand(2, 9), a = rand(10, 50);
           ans = a + b * c;
           q = `${a} + ${b} × ${c} = ?`;
-hint: '注意运算顺序哦～';
+hint = '注意运算顺序哦～';
           break;
         }
         case 1: { // a × b + c
@@ -1404,28 +1416,28 @@ hint: '注意运算顺序哦～';
           const a = product + rand(5, 30);
           ans = a - product;
           q = `${a} - ${b} × ${c} = ?`;
-hint: '注意运算顺序哦～';
+hint = '注意运算顺序哦～';
           break;
         }
         case 4: { // (a + b) × c  有括号
           const a = rand(2, 8), b = rand(2, 8), c = rand(2, 5);
           ans = (a + b) * c;
           q = `(${a} + ${b}) × ${c} = ?`;
-hint: '注意运算顺序哦～';
+hint = '注意运算顺序哦～';
           break;
         }
         case 5: { // a × b + c × d
           const a = rand(2, 4), b = rand(2, 5), c = rand(2, 4), d = rand(2, 5);
           ans = a * b + c * d;
           q = `${a} × ${b} + ${c} × ${d} = ?`;
-hint: '注意运算顺序哦～';
+hint = '注意运算顺序哦～';
           break;
         }
         case 6: { // a + b ÷ c  含除法
           const c = rand(2, 5), b = c * rand(2, 9), a = rand(10, 50);
           ans = a + b / c;
           q = `${a} + ${b} ÷ ${c} = ?`;
-hint: '注意运算顺序哦～';
+hint = '注意运算顺序哦～';
           break;
         }
         case 7: { // (a - b) × c  括号减法
@@ -1469,7 +1481,7 @@ hint: '注意运算顺序哦～';
 { q: '从8:00到8:45经过了___分？', answer: '45', hint: '算算时间差～', inputMode: true },
 { q: '从9:30到10:15经过了___分？', answer: '45', hint: '算算时间差～', inputMode: true },
 { q: '一节课40分钟，8:20开始，___结束？', answer: '9:00', hint: '算算时间差～', inputMode: true },
-{ q: '小明7:50到校，迟到了10分钟，学校规定___到校？', answer: '8:00', hint: '算算时间差～', inputMode: true },
+{ q: '小明7:50到校，迟到了10分钟，学校规定___到校？', answer: '7:40', hint: '算算时间差～', inputMode: true },
 { q: '360秒=___分？', answer: '6', hint: '想想时间单位～', inputMode: true },
 { q: '2时30分=___分？', answer: '150', hint: '想想时间单位～', inputMode: true }
     ]
@@ -1763,7 +1775,6 @@ hint: '注意运算顺序哦～';
       { q: '杨万里《过松源晨炊漆公店》告诉我们的道理是？（用4个字概括）', answer: '困难重重', hint: '下山也不容易，一个困难接着一个', inputMode: true },
       // 浣溪沙
       { q: '晏殊《浣溪沙》：无可奈何花落去，________。', answer: '似曾相识燕归来', hint: '花落了，但燕子好像又回来了', inputMode: true },
-      { q: '晏殊《浣溪沙》中感叹时光流逝的名句是？无可奈何花落去，________。', answer: '似曾相识燕归来', hint: '花落燕归，春去春回', inputMode: true },
       // 龟虽寿
       { q: '曹操《龟虽寿》表达壮志未酬的名句：________，志在千里。', answer: '老骥伏枥', hint: '老马还趴在马槽旁', inputMode: true },
       { q: '曹操《龟虽寿》：烈士暮年，________。', answer: '壮心不已', hint: '英雄老了但心还不老', inputMode: true },
@@ -3045,30 +3056,30 @@ const LEARN_CONTENT = {
       <div class="learn-section">
         <h3>🎭 画蛇添足 <button class="speak-btn" onclick="speakChinese('画蛇添足')">🔊</button></h3>
         <p class="click-speak" onclick="speakChinese('古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。')">古时候有人比赛画蛇，先画完的人又给蛇添上了脚，结果反而输了。🔊</p>
-        <p class="click-speak" onclick="speakChinese('做了多余的事，反而不好。可在做事多此一举时说')"><strong>表达的意思</strong>：做了多余的事，反而不好。<em>（可在做事多此一举时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('做了多余的事，反而不好。可在做事多此一举时说')"><strong>表达的意思为</strong>：做了多余的事，反而不好。<em>（可在做事多此一举时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 亡羊补牢 <button class="speak-btn" onclick="speakChinese('亡羊补牢')">🔊</button></h3>
         <p class="click-speak" onclick="speakChinese('丢了羊之后赶紧修补羊圈，羊就不会再丢了。')">丢了羊之后赶紧修补羊圈，羊就不会再丢了。🔊</p>
-        <p class="click-speak" onclick="speakChinese('出了问题及时补救，还不算晚。可在犯错后及时改正时说')"><strong>表达的意思</strong>：出了问题及时补救，还不算晚。<em>（可在犯错后及时改正时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('出了问题及时补救，还不算晚。可在犯错后及时改正时说')"><strong>表达的意思为</strong>：出了问题及时补救，还不算晚。<em>（可在犯错后及时改正时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 守株待兔 <button class="speak-btn" onclick="speakChinese('守株待兔')">🔊</button></h3>
         <p class="click-speak" onclick="speakChinese('一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。')">一个农夫偶然捡到撞树桩的兔子，就天天守着树桩等，再也没等到。🔊</p>
-        <p class="click-speak" onclick="speakChinese('不努力，想靠运气成功是不行的。可在看到别人偷懒碰运气时说')"><strong>表达的意思</strong>：不努力，想靠运气成功是不行的。<em>（可在看到别人偷懒碰运气时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('不努力，想靠运气成功是不行的。可在看到别人偷懒碰运气时说')"><strong>表达的意思为</strong>：不努力，想靠运气成功是不行的。<em>（可在看到别人偷懒碰运气时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 掩耳盗铃 <button class="speak-btn" onclick="speakChinese('掩耳盗铃')">🔊</button></h3>
         <p class="click-speak" onclick="speakChinese('有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。')">有人想偷铃铛，怕响就捂住自己的耳朵，以为别人也听不到。🔊</p>
-        <p class="click-speak" onclick="speakChinese('自己骗自己，明明骗不了别人。可在看到有人自欺欺人时说')"><strong>表达的意思</strong>：自己骗自己，明明骗不了别人。<em>（可在看到有人自欺欺人时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('自己骗自己，明明骗不了别人。可在看到有人自欺欺人时说')"><strong>表达的意思为</strong>：自己骗自己，明明骗不了别人。<em>（可在看到有人自欺欺人时说）</em>🔊</p>
       </div>
       <div class="learn-section">
         <h3>🎭 更多成语</h3>
-        <p class="click-speak" onclick="speakChinese('走马观花，骑在马上看花，粗略地看，不仔细。可在走马观花式游览时说')"><strong>走马观花</strong>：骑在马上看花 → 表达的意思：粗略地看，不仔细 <em>（可在走马观花式游览时说）</em>🔊</p>
-        <p class="click-speak" onclick="speakChinese('三顾茅庐，刘备三次请诸葛亮，诚心诚意地邀请。可在真心请人帮忙时说')"><strong>三顾茅庐</strong>：刘备三次请诸葛亮 → 表达的意思：诚心诚意地邀请 <em>（可在真心请人帮忙时说）</em>🔊</p>
-        <p class="click-speak" onclick="speakChinese('恍然大悟，突然一下子明白了。可在想通某件事时说')"><strong>恍然大悟</strong>：表达的意思：突然一下子明白了 <em>（可在想通某件事时说）</em>🔊</p>
-        <p class="click-speak" onclick="speakChinese('滴水穿石，水一直滴也能穿石头，坚持不懈。可在鼓励别人坚持到底时说')"><strong>滴水穿石</strong>：水一直滴也能穿石头 → 表达的意思：坚持不懈 <em>（可在鼓励别人坚持到底时说）</em>🔊</p>
-        <p class="click-speak" onclick="speakChinese('持之以恒，长久地坚持做一件事。可在夸奖别人做事有毅力时说')"><strong>持之以恒</strong>：表达的意思：长久地坚持做一件事 <em>（可在夸奖别人做事有毅力时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('走马观花，骑在马上看花，粗略地看，不仔细。可在走马观花式游览时说')"><strong>走马观花</strong>：骑在马上看花 → 表达的意思为：粗略地看，不仔细 <em>（可在走马观花式游览时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('三顾茅庐，刘备三次请诸葛亮，诚心诚意地邀请。可在真心请人帮忙时说')"><strong>三顾茅庐</strong>：刘备三次请诸葛亮 → 表达的意思为：诚心诚意地邀请 <em>（可在真心请人帮忙时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('恍然大悟，突然一下子明白了。可在想通某件事时说')"><strong>恍然大悟</strong>：表达的意思为：突然一下子明白了 <em>（可在想通某件事时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('滴水穿石，水一直滴也能穿石头，坚持不懈。可在鼓励别人坚持到底时说')"><strong>滴水穿石</strong>：水一直滴也能穿石头 → 表达的意思为：坚持不懈 <em>（可在鼓励别人坚持到底时说）</em>🔊</p>
+        <p class="click-speak" onclick="speakChinese('持之以恒，长久地坚持做一件事。可在夸奖别人做事有毅力时说')"><strong>持之以恒</strong>：表达的意思为：长久地坚持做一件事 <em>（可在夸奖别人做事有毅力时说）</em>🔊</p>
       </div>
       <div class="learn-tip">🎯 学成语要理解故事，死记硬背不如记住故事！</div>
     `
@@ -4302,14 +4313,20 @@ function submitInputAnswer() {
   if (!input || !feedback) return;
 
   const userAns = input.value.trim().replace(/\s/g, '')
-    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
+    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/')
+    .replace(/：/g, ':').replace(/，/g, ',').replace(/。/g, '.')
+    .replace(/（/g, '(').replace(/）/g, ')').replace(/＜/g, '<').replace(/＞/g, '>');
   if (!userAns) { feedback.innerHTML = '<span style="color:#e17055">✏️ 请先写出答案再提交</span>'; return; }
 
   const correctAns = String(q.answer).replace(/\s/g, '')
-    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/');
+    .replace(/＝/g, '=').replace(/－/g, '-').replace(/×/g, '*').replace(/÷/g, '/')
+    .replace(/：/g, ':').replace(/，/g, ',').replace(/。/g, '.')
+    .replace(/（/g, '(').replace(/）/g, ')').replace(/＜/g, '<').replace(/＞/g, '>');
   // 支持模糊匹配：忽略多余等号及等号右边内容，以及多种算式写法
-  const normalize = s => s.replace(/\s/g, '').replace(/＝/g, '=').replace(/－/g, '-')
-    .replace(/×/g, '*').replace(/÷/g, '/').replace(/ー/g, '-');
+  const normalize = s => s.replace(/\s/g, '').replace(/＝/g, '=').replace(/－/g, '-').replace(/ー/g, '-')
+    .replace(/×/g, '*').replace(/÷/g, '/').replace(/：/g, ':').replace(/，/g, ',').replace(/。/g, '.')
+    .replace(/（/g, '(').replace(/）/g, ')').replace(/＜/g, '<').replace(/＞/g, '>')
+    .replace(/["""]/g, '"').replace(/[''']/g, "'");
   const userNorm = normalize(input.value.trim());
   const correctNorm = normalize(String(q.answer));
   // 精确匹配
@@ -4326,6 +4343,28 @@ function submitInputAnswer() {
     const userNoEq = userNorm.replace(/=/g, '');
     const correctNoEq = correctNorm.replace(/=/g, '');
     if (userNoEq === correctNoEq) isCorrect = true;
+  }
+  // 分数等价匹配：正确答案含"（或X）"时，提取括号内数字分数也视为正确
+  if (!isCorrect) {
+    const altMatch = correctNorm.match(/[（(]或([^)）]+)[)）]/);
+    if (altMatch && altMatch[1]) {
+      const altAnswer = altMatch[1];
+      if (userNorm === altAnswer) isCorrect = true;
+      // 也支持中文分数写法匹配
+      const altNorm = normalize(altAnswer);
+      if (!isCorrect && userNorm === altNorm) isCorrect = true;
+    }
+  }
+  // 时间格式等价匹配：将中文时间写法统一为 HH:MM 格式后比较
+  if (!isCorrect) {
+    const normalizeTime = s => {
+      // 匹配 "9点30分" "9点" "9时30分" "9时" "9点00" 等
+      return s.replace(/(\d+)[点时](\d+)分?/g, '$1:$2')
+              .replace(/(\d+)[点时](?![\d:])/g, '$1:00');
+    };
+    const userTime = normalizeTime(userNorm);
+    const correctTime = normalizeTime(correctNorm);
+    if (userTime !== userNorm && userTime === correctTime) isCorrect = true;
   }
 
   input.disabled = true;
@@ -4358,9 +4397,7 @@ function submitInputAnswer() {
   quizState.answered[quizState.current] = true;
 
   explainBtn.classList.add('show');
-  if (!isCorrect) {
-    toggleExplain();
-  }
+  // 不再自动展开答案解析面板，让用户自己选择是否查看
   // 显示底部上/下一题按钮
   const bottomNav = document.getElementById('quizBottomNav');
   if (bottomNav) {
@@ -4966,7 +5003,7 @@ function speakPraise() {
     cnUtter.rate = 1.0;
     cnUtter.pitch = 1.3;
     const cnVoice = voices.find(v => v.lang === 'zh-CN') || voices.find(v => v.lang.startsWith('zh'));
-    if (cnVoice) cnVoice.voice = cnVoice;
+    if (cnVoice) cnUtter.voice = cnVoice;
     // 先英文后中文排队播放
     enUtter.onend = () => { window.speechSynthesis.speak(cnUtter); };
     window.speechSynthesis.speak(enUtter);
@@ -4975,6 +5012,7 @@ function speakPraise() {
 }
 
 function speakChinese(text) {
+  const isWechat = /MicroMessenger/i.test(navigator.userAgent);
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
@@ -4986,8 +5024,36 @@ function speakChinese(text) {
       || voices.find(v => v.lang.startsWith('zh'))
       || voices[0];
     if (cnVoice) utter.voice = cnVoice;
+
+    let spoken = false;
+    utter.onstart = () => { spoken = true; };
+    utter.onerror = () => {
+      tryChineseVoice(text);
+    };
+
     window.speechSynthesis.speak(utter);
+
+    // iOS/微信等环境可能静默失败，1秒后检测
+    setTimeout(() => {
+      if (!spoken && !window.speechSynthesis.speaking) {
+        tryChineseVoice(text);
+      }
+    }, 1000);
+
+    if (isWechat) {
+      showToast('💡 微信内可能听不了，请点右上角"…"→用浏览器打开', 3000);
+    }
+  } else {
+    tryChineseVoice(text);
   }
+}
+
+function tryChineseVoice(text) {
+  const audio = new Audio();
+  audio.src = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=1&le=zh`;
+  audio.play().catch(() => {
+    showToast('⚠️ 语音播放失败，请用Chrome或Safari打开本页', 3000);
+  });
 }
 
 function speakEnglish(text, slow) {
@@ -5566,6 +5632,46 @@ function clearAllData() {
   location.reload();
 }
 
+// ===== 版本更新提示 =====
+const APP_VERSION = '2.5.0';
+const APP_CHANGELOG = [
+  { ver: '2.5.0', date: '2026-08-20', items: [
+    '🔧 修复：填空题答错后不再自动展开答案解析，需手动点击查看',
+    '🔧 修复：分数题输入"1/4"不再被判错',
+    '🔧 修复：中文语音播放在微信内支持降级方案',
+    '🔧 修复：混合运算提示语无法显示的问题',
+    '🔧 修复：中文夸奖语音设置笔误',
+    '✨ 优化：成语描述格式统一为"表达的意思为"',
+    '✨ 优化：数学题目长文本不再截断',
+    '✨ 优化：国学诵读去除重复题目',
+    '✨ 优化：春游题拆分为两道独立题',
+  ]},
+];
+
+function checkUpdateNotice() {
+  const lastVer = localStorage.getItem('app_version');
+  if (lastVer === APP_VERSION) return;
+  // 找出上次版本之后的所有更新
+  const lastIdx = APP_CHANGELOG.findIndex(c => c.ver === lastVer);
+  const newLogs = lastIdx >= 0 ? APP_CHANGELOG.slice(0, lastIdx) : APP_CHANGELOG;
+  if (newLogs.length === 0) { localStorage.setItem('app_version', APP_VERSION); return; }
+  let html = '';
+  newLogs.forEach(log => {
+    html += `<div style="margin-bottom:10px;">`;
+    html += `<div style="font-weight:bold; color:#6c5ce7;">v${log.ver} <span style="font-weight:normal;color:#999;font-size:13px;">${log.date}</span></div>`;
+    log.items.forEach(item => { html += `<div style="margin:2px 0 2px 8px;">${item}</div>`; });
+    html += `</div>`;
+  });
+  document.getElementById('updateOverlayContent').innerHTML = html;
+  document.getElementById('updateOverlay').style.display = 'flex';
+  localStorage.setItem('app_version', APP_VERSION);
+}
+
+function closeUpdateOverlay(e) {
+  if (e && e.target !== document.getElementById('updateOverlay')) return;
+  document.getElementById('updateOverlay').style.display = 'none';
+}
+
 // ===== 初始化 =====
 let _initDone = false;
 function init() {
@@ -5587,6 +5693,9 @@ function init() {
   updateModuleStatus();
   renderAchievements();
   checkDailyPracticeOnLoad();
+
+  // 检查版本更新提示
+  checkUpdateNotice();
 
   // 防止重复注册 interval 和事件监听
   if (_initDone) return;
