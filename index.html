@@ -210,6 +210,13 @@ body.subject-active .module-list { gap: 8px; }
 }
 .card-learn-btn:active { background: rgba(91,76,175,0.25); }
 
+.score-view-btn {
+  background: rgba(0,184,148,0.1); border: none; font-size: 16px;
+  padding: 4px 8px; border-radius: 12px; cursor: pointer;
+  margin-left: 4px; flex-shrink: 0; line-height: 1;
+}
+.score-view-btn:active { background: rgba(0,184,148,0.25); }
+
 .module-card {
   background: #fff; border-radius: 16px; padding: 18px;
   box-shadow: var(--card-shadow); cursor: pointer;
@@ -2490,6 +2497,16 @@ const ids = ['math_add','math_sub','math_mul','math_word','math_pattern','math_m
     const totalStages = MODULE_STAGES[id] || 0;
     const currentStage = getStageProgress(id);
     if (totalStages > 0 && currentStage >= totalStages) {
+      // 已通关：显示✅ + 📊查看成绩小按钮
+      let scoreBtn = card ? card.querySelector('.score-view-btn') : null;
+      if (!scoreBtn && card) {
+        scoreBtn = document.createElement('button');
+        scoreBtn.className = 'score-view-btn';
+        scoreBtn.textContent = '📊';
+        scoreBtn.title = '查看成绩';
+        scoreBtn.onclick = function(e) { e.stopPropagation(); _pendingModuleId = id; showModuleScore(); };
+        card.appendChild(scoreBtn);
+      }
       el.textContent = '✅';
       if (card) card.classList.add('completed');
     } else if (totalStages > 0) {
@@ -4023,6 +4040,7 @@ function retryModuleQuiz() {
   _pendingModuleId = null;
   if (moduleId) {
     _currentLearnModule = moduleId;
+    resetStageForRetry(moduleId);
     startQuiz(moduleId);
   }
 }
@@ -4040,9 +4058,10 @@ function retryLearnModule() {
 
 function learnFirst(moduleId) {
   _currentLearnModule = moduleId;
-  // 已全通 → 弹出选择面板
+  // 已全通 → 直接重新开始练习（从第1节），不再每次弹成绩面板
   if (isModuleCleared(moduleId)) {
-    showModuleClearedOverlay(moduleId);
+    resetStageForRetry(moduleId);
+    startQuiz(moduleId);
     return;
   }
   const learn = LEARN_CONTENT[moduleId];
@@ -4112,17 +4131,22 @@ function backFromLearn() {
 }
 
 // ===== 练习系统 =====
+function resetStageForRetry(moduleId) {
+  // 重置节进度到0，使 startQuiz 从第1节重新出题
+  const totalStages = MODULE_STAGES[moduleId] || 0;
+  if (totalStages > 0) {
+    setStageProgress(moduleId, 0);
+    // 不清除完成标记，仍显示✅，但允许重做
+  }
+}
+
 function startQuiz(moduleId) {
   currentQuiz = moduleId;
   // 记录当前是第几节
   const stageNum = getStageProgress(moduleId) + 1;
   const totalStages = MODULE_STAGES[moduleId] || 0;
-  // 如果已全通，允许继续练习最后一节
-  if (totalStages > 0 && stageNum > totalStages) {
-    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: totalStages, answered: [] };
-  } else {
-    quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: stageNum, answered: [] };
-  }
+  // 正常从当前进度开始
+  quizState = { questions: [], current: 0, score: 0, total: STAGE_SIZE, stage: Math.min(stageNum, totalStages || stageNum), answered: [] };
   quizState._startTime = Date.now(); // 计时
 
   trackVisit(moduleId);
@@ -5645,8 +5669,13 @@ function clearAllData() {
 }
 
 // ===== 版本更新提示 =====
-const APP_VERSION = '2.6.0';
+const APP_VERSION = '2.7.0';
 const APP_CHANGELOG = [
+  { ver: '2.7.0', date: '2026-08-21', items: [
+    '✨ 优化：已通关模块点击直接重新开始练习，不再每次弹成绩面板',
+    '✨ 优化：已通关模块显示📊成绩按钮，点击即可查看历史成绩',
+    '🔧 修复：重新挑战时从第1节重新出题，不再重复最后一节',
+  ]},
   { ver: '2.6.0', date: '2026-08-21', items: [
     '🔧 修复：题目提示不再直接暴露，需点击"🤔 需要提示"才显示',
     '🔧 修复：迟到题答案修正为7:40',
