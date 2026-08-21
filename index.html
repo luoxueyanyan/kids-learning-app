@@ -302,6 +302,13 @@ body.subject-active .module-card .emoji { font-size: 28px; }
 }
 .quiz-question .q-text { font-size: 28px; margin-bottom: 8px; overflow-wrap: break-word; word-break: break-word; }
 .quiz-question .q-hint { font-size: 14px; opacity: 0.7; }
+.q-hint-wrap { margin-top: 4px; }
+.hint-toggle-btn {
+  font-size: 13px; padding: 4px 14px; border: 1.5px dashed #b2bec3; background: #f8f9fa;
+  border-radius: 16px; color: #636e72; cursor: pointer; font-family: var(--font-fun);
+  transition: all 0.2s;
+}
+.hint-toggle-btn:hover { border-color: #6c5ce7; color: #6c5ce7; background: #f0edff; }
 
 .explain-btn {
   display: none; margin: 0 auto 10px; padding: 8px 22px;
@@ -4199,7 +4206,7 @@ function renderQuestion() {
       ${questionHTML}
       <div class="quiz-question">
         <div class="q-text">${subjectTag}${q.q}</div>
-        ${q.hint ? `<div class="q-hint">💡 ${q.hint}</div>` : ''}
+        ${q.hint ? `<div class="q-hint-wrap"><button class="hint-toggle-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">🤔 需要提示</button><div class="q-hint" style="display:none">💡 ${q.hint}</div></div>` : ''}
       </div>
       <div class="quiz-input-wrap">
         <span style="font-size:24px;font-weight:bold;color:#6c5ce7;margin-right:8px;font-family:var(--font-fun);">=</span>
@@ -4260,7 +4267,7 @@ function renderQuestion() {
     ${questionHTML}
     <div class="quiz-question">
       <div class="q-text">${(quizState.isDaily && q._subject) ? '<span class="subject-tag">' + q._subject + '</span> ' : ''}${q.q}</div>
-      ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
+      ${q.hint ? `<div class="q-hint-wrap"><button class="hint-toggle-btn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">🤔 需要提示</button><div class="q-hint" style="display:none">${q.hint}</div></div>` : ''}
     </div>
     <div class="quiz-options">
       ${shuffled.map((item, i) => `
